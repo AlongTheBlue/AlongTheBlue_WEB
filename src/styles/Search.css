@@ -1,0 +1,31 @@
+@import url('https://webfontworld.github.io/NanumSquareRound/NanumSquareRound.css');
+
+.search{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-bar{
+    display: flex;
+    align-items: center;
+    margin: 3%;
+    border: 1px solid #DBDBDB;
+    border-radius: 10px;
+    width: 60%;
+    padding-left: 3%;
+}
+
+.search-bar input {
+    width: 80%;
+    padding: 10px;
+    padding-left: 1em;
+    font-family: 'NanumSquareRound';
+    font-size: 1em;
+    border: none;
+    outline: none;
+}
+  
+.search-bar img {
+    width: 1.6em;
+}

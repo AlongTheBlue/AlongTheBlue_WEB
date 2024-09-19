@@ -1,0 +1,9 @@
+.squareCardList {
+    width: 65%;
+    margin: 0 auto;
+}
+
+.squareCard-list {
+    display: flex;
+    justify-content: space-between;
+}

@@ -1,0 +1,17 @@
+.card-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: 'NanumSquareRound';
+    margin: 1.8em 0 1em 0;
+    color: #292929;
+}
+
+.card-title {
+    font-size: 1.3em;
+    font-weight: 800;
+}
+.card-all {
+    font-size: 0.8em;
+    cursor: pointer;
+}

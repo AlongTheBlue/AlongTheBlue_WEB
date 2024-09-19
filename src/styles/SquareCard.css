@@ -1,0 +1,31 @@
+.squareCard-item {
+    width: 50%;
+    margin: 0 0.5em;
+    position: relative;
+    cursor: pointer;
+}
+
+.squareCard-image {
+    border-radius: 5px;
+}
+
+.squareCard-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-left: 0.8em;
+    font-family: 'NanumSquareRound';
+    color: #F5F5F5;
+}
+
+.squareCard-name {
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.squareCard-address {
+    font-size: 0.6em;
+    font-weight: 300;
+    padding: 0.8em 0;
+}

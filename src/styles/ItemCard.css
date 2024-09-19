@@ -1,0 +1,74 @@
+.item-card {
+    width: 90%;
+    border-bottom: solid 1px #DBDBDB;
+  }
+
+  .item-images-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .item-image {
+    width: 48.5%;
+    height: 10em;
+    object-fit: cover;
+    border-radius: 0.5em;
+    cursor: pointer;
+  }
+  
+  .item-info {
+    padding: 1em 0 0 0;
+    font-family: 'NanumSquareRound';
+  }
+
+  .item-header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .item-header div,
+  .item-header img {
+    cursor: pointer;
+  }
+
+  .item-header div:hover{
+    color: #8F8F8F
+  }
+  
+  .item-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+  
+  .hashtags {
+    display: flex;
+    /* flex-wrap: wrap; */
+    gap: 0.8em;
+    overflow-x: auto; /* 수평 스크롤 활성화 */
+    white-space: nowrap; /* 줄바꿈 없이 한 줄로 표시 */
+    padding-bottom: 1em; /* 스크롤바와 해시태그 사이에 여백 추가 */
+    margin-top: 0.7em;
+  }
+  
+  .hashtag {
+    background-color: #f1f1f1;
+    border-radius: 1em;
+    padding: 0.5em 0.8em;
+    font-size: 0.8em;  
+  }
+
+  .item-address {
+    display: flex;
+    align-items: center;
+    margin: 1.5% 0 0 0;
+  }
+
+  .item-address img {
+    width: 1.3em;
+  }
+  .item-address div {
+    font-size: 0.8em;
+    color: #8F8F8F;
+  }
+  

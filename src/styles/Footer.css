@@ -1,0 +1,15 @@
+.footer {
+    padding: 3em 0 0.5em 0;
+    color: #292929;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    gap: 0.7em;
+}
+
+.footer-content div {
+    font-family: 'NanumSquareRound';
+    font-size: 0.7em;
+}

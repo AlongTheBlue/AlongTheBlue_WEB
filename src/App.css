@@ -1,42 +1,17 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+/* App.css */
+@media (max-width: 600px) {
+    .header {
+      flex-direction: column; /* 작은 화면에서는 로고와 검색창을 세로로 배치 */
+      align-items: flex-start;
+    }
+  
+    .category {
+      flex-direction: column; /* 작은 화면에서는 카테고리도 세로로 배치 */
+      align-items: center;
+    }
+  
+    .category-item {
+      flex-basis: 100%; /* 아이템을 화면 너비에 맞게 전체 너비로 변경 */
+    }
   }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
+  

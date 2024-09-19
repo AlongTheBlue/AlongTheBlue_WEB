@@ -1,0 +1,12 @@
+.circleCard {
+    width: 65%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.circleCard-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}

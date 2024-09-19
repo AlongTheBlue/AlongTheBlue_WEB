@@ -1,0 +1,32 @@
+.item-card-list-page {
+    width: 65%;
+    margin: 0 auto;
+}
+
+.item-card-list-header {
+    display: flex;
+    align-items: center;
+    border-bottom: solid 1px #DBDBDB;
+    padding-bottom: 1.5em;
+    margin: 5%;
+}
+
+.item-card-list-header img{
+    width: 1.2em;
+    cursor: pointer;
+}
+
+.item-card-list-title {
+    color: #1F75FE;
+    font-family: 'NanumSquareRound';
+    font-size: 1.7em;
+    font-weight: 800;
+    padding-left: 0.5em;
+}
+  
+.item-card-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
