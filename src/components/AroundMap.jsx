@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useRef } from 'react';
 import "../styles/AroundMap.css"; // 스타일은 여기에 추가합니다.
 
-function AroundMap() {
+function AroundMap({keyword, searchTrigger}) {
   const [position, setPosition] = useState(null); // 현재 위치 상태 관리
-  const [placeOverlay, setPlaceOverlay] = useState(null); // 커스텀 오버레이 상태 관리
-  const [contentNode, setContentNode] = useState(null); // 오버레이 콘텐츠 노드 관리
   const [currCategory, setCurrCategory] = useState(''); // 현재 선택된 카테고리
 
-  // Ref로 map, placesService, markers를 관리
+  // Ref로 map, placesService, markers, placeOverlay, contentNode를 관리
   const mapRef = useRef(null);
   const placesServiceRef = useRef(null);
   const markersRef = useRef([]); // 마커 배열을 Ref로 관리
+  const placeOverlayRef = useRef(null); // placeOverlay를 Ref로 관리
+  const contentNodeRef = useRef(null); // 오버레이 콘텐츠 노드를 Ref로 관리
   const currCategoryRef = useRef(currCategory);
 
   const categories = [
@@ -19,6 +19,48 @@ function AroundMap() {
     { id: 'FD6', name: '음식', iconClass: 'hospital' },
     { id: 'CE7', name: '카페', iconClass: 'pharmacy' }
   ]; // 카테고리 리스트
+
+  useEffect(() => {
+    const ps = placesServiceRef.current;
+    const map = mapRef.current;
+
+    if(ps && map){
+      clearUnusedMarkers();
+      if (currCategory !== '') {
+        setCurrCategory(''); // 카테고리를 초기화
+      }
+      searchKeyword(keyword, ps, map);
+    }
+  }, [searchTrigger])
+
+  const searchKeyword = (keyword, ps) => {
+    if (placeOverlayRef.current) {
+      placeOverlayRef.current.setMap(null);
+    }
+
+    ps.keywordSearch(
+      keyword, 
+      (data, status, pagination) => {
+        if (status === window.kakao.maps.services.Status.OK) {
+          console.log(data);
+          displayPlaces(data);
+
+          // displayPagination(pagination);
+        } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
+          alert('검색 결과가 존재하지 않습니다.');
+          return;
+        } else if (status === window.kakao.maps.services.Status.ERROR) {
+          alert('검색 결과 중 오류가 발생했습니다.');
+          return;
+        }
+      },
+      {
+        useMapCenter: true,
+        useMapBounds: true,
+        sort: window.kakao.maps.services.SortBy.ACCURACY
+      }
+    );
+  };
 
   // currCategory가 변경될 때마다 ref 업데이트
   useEffect(() => {
@@ -59,13 +101,14 @@ function AroundMap() {
       // 커스텀 오버레이 생성 및 설정
       const overlayNode = document.createElement('div');
       overlayNode.className = 'placeinfo_wrap';
-      setContentNode(overlayNode);
+      contentNodeRef.current = overlayNode; // Ref로 오버레이 콘텐츠 노드를 관리
 
+      // placeOverlay를 Ref로 관리
       const customOverlay = new window.kakao.maps.CustomOverlay({
         content: overlayNode,
         zIndex: 1,
       });
-      setPlaceOverlay(customOverlay);
+      placeOverlayRef.current = customOverlay;
 
       // 줌 컨트롤 추가
       const zoomControl = new window.kakao.maps.ZoomControl();
@@ -91,6 +134,7 @@ function AroundMap() {
 
   // 카테고리가 변경될 때마다 장소를 다시 검색
   useEffect(() => {
+    
     if (mapRef.current && currCategory) {
       console.log("Category changed, updating places...");
       clearUnusedMarkers(); // 기존 마커 중 중복되지 않는 마커를 유지
@@ -123,7 +167,7 @@ function AroundMap() {
 
         // 마커 클릭 이벤트 등록
         window.kakao.maps.event.addListener(marker, 'click', () => {
-          displayPlaceInfo(place);
+          displayPlaceInfo(place); // 클릭 시 오버레이를 표시
         });
 
         return marker;
@@ -148,8 +192,8 @@ function AroundMap() {
     if (!currCategoryRef.current || !mapRef.current || !placesServiceRef.current) return;
 
     // 커스텀 오버레이 숨기기
-    if (placeOverlay) {
-      placeOverlay.setMap(null);
+    if (placeOverlayRef.current) {
+      placeOverlayRef.current.setMap(null);
     }
 
     // 카테고리로 장소 검색
@@ -166,10 +210,18 @@ function AroundMap() {
 
   // 장소 상세 정보를 커스텀 오버레이로 표시하는 함수
   const displayPlaceInfo = (place) => {
-    if (placeOverlay) {
-      placeOverlay.setMap(null); // 오버레이 숨기기
+    // 오버레이가 정의되지 않은 상태에서는 작동하지 않도록 예외 처리
+    if (!contentNodeRef.current) {
+      console.error("contentNode is not initialized.");
+      return;
     }
 
+    // 기존 오버레이가 남아 있을 경우 닫기
+    if (placeOverlayRef.current) {
+      placeOverlayRef.current.setMap(null); // 기존 오버레이를 숨기기
+    }
+
+    // 오버레이 콘텐츠 설정
     let content = `<div class="placeinfo">
         <a class="title" href="${place.place_url}" target="_blank" title="${place.place_name}">
         ${place.place_name}
@@ -184,13 +236,16 @@ function AroundMap() {
 
     content += `<span class="tel">${place.phone}</span></div><div class="after"></div>`;
 
-    contentNode.innerHTML = content;
-    placeOverlay.setPosition(new window.kakao.maps.LatLng(place.y, place.x));
-    placeOverlay.setMap(mapRef.current);
+    // 오버레이 내용 업데이트 및 위치 설정
+    contentNodeRef.current.innerHTML = content; // Ref로 관리되는 contentNode에 콘텐츠 설정
+    placeOverlayRef.current.setContent(contentNodeRef.current); // 오버레이 콘텐츠 업데이트
+    placeOverlayRef.current.setPosition(new window.kakao.maps.LatLng(place.y, place.x));
+    placeOverlayRef.current.setMap(mapRef.current); // 오버레이를 지도에 표시
 
-    const closeBtn = contentNode.querySelector('.close');
+    // 오버레이 닫기 이벤트 등록
+    const closeBtn = contentNodeRef.current.querySelector('.close');
     closeBtn.addEventListener('click', () => {
-      placeOverlay.setMap(null); // 오버레이 닫기
+      placeOverlayRef.current.setMap(null); // 오버레이 닫기
     });
   };
 
@@ -206,7 +261,7 @@ function AroundMap() {
 
   return (
     <div className="map-container">
-      <div id="map" style={{ width: '100%', height: '450px' }}></div>
+      <div id="map"></div>
       <div className="map-category-container">
         <ul className="map-category-list">
           {categories.map((category) => (

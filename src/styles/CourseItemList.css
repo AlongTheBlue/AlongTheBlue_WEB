@@ -1,0 +1,10 @@
+.courses-item-list-page {
+    width: 65%;
+    margin: 0 auto;
+}
+
+.courses-item-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

@@ -6,14 +6,14 @@ import ItemCard from './ItemCard';
 function ItemCardList({title, items}) {
     const navigate = useNavigate();
 
-    const handleAllViewClick = () => {
+    const handleHomeClick = () => {
         navigate(`/`);
     };
 
     return (
         <div className="item-card-list-page">
             <div className='item-card-list-header'>
-                <img src='../src/images/icon/left_arrow.svg' onClick={handleAllViewClick}/>
+                <img src='../src/images/icon/left_arrow.svg' onClick={handleHomeClick}/>
                 <div className='item-card-list-title'>{title}</div>
             </div>
             <div className="item-card-list">
