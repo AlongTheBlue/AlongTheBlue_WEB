@@ -1,6 +1,6 @@
 import Header from '../components/Header';
 import Search from '../components/Search';
-import Category from '../components/Category';
+import HomeCategory from '../components/HomeCategory';
 import CircleCardList from '../components/CircleCardList';
 import SquareCardList from '../components/SquareCardList';
 import Footer from '../components/Footer';
@@ -35,7 +35,7 @@ function Home() {
     <div className="page-container">
       <Header />
       <Search />
-      <Category />
+      <HomeCategory />
       <CircleCardList title="관광" items={touristSpots}/>
       <SquareCardList title="숙소" items={accommodations}/>
       <SquareCardList title="음식" items={foods}/>

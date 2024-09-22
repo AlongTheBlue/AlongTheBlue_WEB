@@ -1,13 +1,13 @@
 @import url('https://webfontworld.github.io/NanumSquareRound/NanumSquareRound.css');
 
-.category {
+.home-category {
   width: 70%;
   display: flex;
   margin: auto;
   flex-wrap: wrap;
 }
 
-.category-item {
+.home-category-item {
   width: 20%;
   text-align: center;
   font-family: 'NanumSquareRound';
@@ -16,7 +16,7 @@
   cursor: pointer;
 }
 
-.category-icon {
+.home-category-icon {
   width: 30%;
 }
 

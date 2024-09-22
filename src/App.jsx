@@ -1,6 +1,7 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './pages/Home';
+import Around from './pages/Around.jsx';
 import ItemList from './pages/ItemList.jsx'
 import ItemDetail from './pages/ItemDetail.jsx';
 
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/list/:title" element={<ItemList />} />
           <Route path="/:title/detail/:id" element={<ItemDetail />} />
+          <Route path="/around" element={<Around />}/>
         </Routes>
       </div>
     </BrowserRouter>
