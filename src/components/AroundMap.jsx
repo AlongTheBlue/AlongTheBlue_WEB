@@ -261,7 +261,7 @@ function AroundMap({keyword, searchTrigger}) {
 
   return (
     <div className="map-container">
-      <div id="map"></div>
+      <div id="map" className='around-map'></div>
       <div className="map-category-container">
         <ul className="map-category-list">
           {categories.map((category) => (
