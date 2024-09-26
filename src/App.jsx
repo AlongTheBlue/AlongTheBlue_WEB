@@ -7,6 +7,7 @@ import ItemList from './pages/ItemList.jsx'
 import ItemDetail from './pages/ItemDetail.jsx';
 import AlongCourses from './pages/AlongCourses.jsx';
 import AlongBlues from './pages/AlongBlues.jsx';
+import AlongBluesPlan from './pages/AlongBluesPlan.jsx';
 
 function App() {
 
@@ -49,6 +50,7 @@ function App() {
           <Route path="/around" element={<Around />}/>
           <Route path="/along/courses" element={<AlongCourses />} />
           <Route path="/along/blues" element={<AlongBlues />} />
+          <Route path="/along/blues/:id" element={<AlongBluesPlan />} />
         </Routes>
       </div>
     </BrowserRouter>

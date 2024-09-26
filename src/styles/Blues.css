@@ -45,46 +45,21 @@
     font-weight: bold;
 }
 
-.beach-list-container {
-    width: 100%;
-    /* margin: 0 auto; */
-    font-family: 'NanumSquareRound';
+.blues-list {
+    width: 90%;
+    margin: 0 auto;
 }
 
 /* 드롭다운 컨테이너 */
 .dropdown-container {
-    position: relative;
-    margin-bottom: 20px;
-}
-
-/* 드롭다운 레이블 스타일 */
-.dropdown-label {
-    font-size: 18px;
-    font-weight: bold;
     display: flex;
     align-items: center;
-    cursor: pointer;
+    justify-content: space-between;
 }
 
-/* 화살표 아이콘 스타일 */
-.arrow-icon {
-    margin-right: 8px;
-    font-size: 16px;
-}
-
-/* 드롭다운 스타일 */
-.city-dropdown {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-}
 
 /* 그리드 형태의 리스트 */
-.grid-list {
+.blues-list-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 2개의 열을 가진 그리드 */
     /* gap: 10px; */
@@ -93,18 +68,82 @@
     width: 100%;
 }
 
-.grid-list li {
+.blues-list-grid li {
     /* background-color: #f9f9f9; */
     background-color: transparent;
-    padding: 10px;
+    padding: 0.5em;
     border-radius: 5px;
     border: 1px solid transparent;
     text-align: center;
     transition: background-color 0.3s;
+    font-size: 0.9em;
 }
 
-.grid-list li:hover {
+.blues-list-grid li:hover {
     /* background-color: #e6f7ff; */
     cursor: pointer;
     font-weight: 700;
+    
+}
+
+.selector-item {
+    /* white-space: nowrap; */
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    z-index: 2;
+    user-select: none;
+    transition: color 0.2s ease;
+    color: #292929;
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.selector-item--active {
+    color: white;
+    background-color: #1F75FE; /* 선택된 항목의 배경색 */
+    font-weight: bold; /* 선택된 항목의 글씨를 굵게 표시 */
+}
+
+.popular-blues-container {
+    padding: 1.5em 0 1.5em 1em;
+}
+.popular-blues-text {
+    display: flex;
+    font-size: 1.3em;
+    font-weight: 700;
+}
+
+.popular-blues-list {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 1.5em;
+    /* gap: 20px; */
+}
+.popular-blues {
+    text-align: center;
+}
+.popular-blues-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+.popular-blues-name {
+    padding: 1em 0;
+    cursor: pointer;
+}
+
+.city-container {
+    display: flex;
+}
+
+.select-blue {
+    color: #1F75FE;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    font-size: 1em;
+    padding: 0.5em;
+    border-radius: 0.8em;
 }
