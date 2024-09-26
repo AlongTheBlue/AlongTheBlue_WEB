@@ -21,7 +21,7 @@ const foods = [
   // {name: '명진전복', address: '제주시 구좌읍', image: 'src/images/food/명진전복.png'},
   // "https://postfiles.pstatic.net/MjAyMDA3MTNfODQg/MDAxNTk0NjEyMTgwMjIy.bm9T1NDR3d1zBAt7FvXQ5vhSXavmRUkx4QqUs_njZOMg.MLpr55RWqPHPpSJti_xMxOZ3W_-6mcE304wtV5D6kVsg.JPEG.frencblue/1.jpg?type=w773
   { id: 1, name: '명진전복', address: '제주시 구좌읍', image:'https://blog.kakaocdn.net/dn/b3fewH/btqWVSsjaEO/JcMi0zIGZg75AFXSYvDqGk/img.jpg'},
-  { id: 2, name: '올래국수', address: '제주시 귀아랑길', image: 'src/images/food/올래국수.jpeg'}
+  { id: 2, name: '올래국수', address: '제주시 귀아랑길', image: '/images/food/올래국수.jpeg'}
 ];
 const cafes = [
   { id: 1, name: '커피템플', address: '제주시 영평길', image: 'http://tong.visitkorea.or.kr/cms/resource/87/2783187_image2_1.jpg'},

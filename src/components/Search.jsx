@@ -34,7 +34,7 @@ function Search({onSearch, onTrigger}) {
           onKeyDown={(e) => activeEnter(e)}
         />
         <img 
-          src="src/images/search.svg" 
+          src="/images/search.svg" 
           alt="search icon"
           style={{ cursor: "pointer" }}
           onClick={handleSearch} // 검색 버튼 클릭
