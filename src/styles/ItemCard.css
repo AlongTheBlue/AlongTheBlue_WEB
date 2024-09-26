@@ -1,6 +1,7 @@
 .item-card {
     width: 90%;
     border-bottom: solid 1px #DBDBDB;
+    margin-top: 5%;
   }
 
   .item-images-container {

@@ -14,10 +14,10 @@ function AroundMap({keyword, searchTrigger}) {
   const currCategoryRef = useRef(currCategory);
 
   const categories = [
-    { id: 'AT4', name: '관광', url: '../src/images/icon/category_6.svg' },
-    { id: 'AD5', name: '숙박', url: '../src/images/icon/category_7.svg' },
-    { id: 'FD6', name: '음식', url: '../src/images/icon/category_8.svg' },
-    { id: 'CE7', name: '카페', url: '../src/images/icon/category_9.svg' }
+    { id: 'AT4', name: '관광', url: '/images/icon/category_6.svg' },
+    { id: 'AD5', name: '숙박', url: '/images/icon/category_7.svg' },
+    { id: 'FD6', name: '음식', url: '/images/icon/category_8.svg' },
+    { id: 'CE7', name: '카페', url: '/images/icon/category_9.svg' }
   ]; // 카테고리 리스트
 
   useEffect(() => {

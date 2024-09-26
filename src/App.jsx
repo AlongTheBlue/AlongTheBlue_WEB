@@ -19,7 +19,7 @@ function App() {
       return new Promise((resolve, reject) => {
         const kakaoAppKey = import.meta.env.VITE_KAKAO_APP_KEY;
         const script = document.createElement('script');
-        script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaoAppKey}&autoload=false`;  // autoload=false 옵션 사용
+        script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaoAppKey}&libraries=services&autoload=false`;  // autoload=false 옵션 사용
         script.onload = () => {
           window.kakao.maps.load(() => { // Kakao API가 완전히 로드된 후에 실행
             setIsKakaoLoaded(true);
