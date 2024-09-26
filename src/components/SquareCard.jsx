@@ -10,9 +10,9 @@ function SquareCard({item, title}) {
   };
 
   return (
-    <div className="squareCard-item" onClick={handleDetailViewClick}>
+    <div className="square-card-container" onClick={handleDetailViewClick}>
       <div
-        className="squareCard-image"
+        className="square-card-img"
         style={{
           backgroundImage: `linear-gradient(
             rgba(0, 0, 0, 0), 
@@ -20,12 +20,13 @@ function SquareCard({item, title}) {
           ), url(${item.image})`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
-          height: '12.5em',
+          height: '20vh',
+          borderRadius: '5px'
         }}
       />
-      <div className="squareCard-info">
-        <div className="squareCard-name">{item.name}</div>
-        <div className="squareCard-address">{item.address}</div>
+      <div className="square-card-info">
+        <div className="square-card-name">{item.name}</div>
+        <div className="square-card-address">{item.address}</div>
       </div>
     </div>
   );

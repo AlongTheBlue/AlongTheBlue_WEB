@@ -1,10 +1,11 @@
-.circleCard {
-    width: 65%;
+.circle-card-list-container {
+    /* width: 85%; */
+    padding: 0 5%;
     margin: 0 auto;
     text-align: center;
 }
 
-.circleCard-list {
+.circle-card-list {
     display: flex;
     justify-content: center;
     gap: 20px;

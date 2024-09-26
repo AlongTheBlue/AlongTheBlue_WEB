@@ -1,25 +1,18 @@
+@import url('https://webfontworld.github.io/NanumSquareRound/NanumSquareRound.css');
+
 .page-container {
-  width: 50%;
-  /* max-width: 800px; */
+  /* width: 50%; */
+  max-width: 600px;
   margin: 1em auto;
   /* min-height: 100vh; */
+   font-family: 'NanumSquareRound';
 }
 
 .detail-page-container {
-  width: 50%;
+  max-width: 600px;
   margin: 0 auto;
 }
 
 footer {
   margin-top: auto; /* Footer를 페이지 하단에 고정 */
 }
-  
-  
-  /* 모바일 환경에서도 잘 보이도록 미디어 쿼리 적용 */
-  @media (max-width: 600px) {
-    .home-container {
-      width: 100%;
-      padding: 0;
-    }
-  }
-  

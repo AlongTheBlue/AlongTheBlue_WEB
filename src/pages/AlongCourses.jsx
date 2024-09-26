@@ -2,6 +2,7 @@ import React from 'react';
 import '../styles/Page.css'; // 페이지 전체 스타일
 import CourseItemList from '../components/CourseItemList'; // 새로 만든 컴포넌트 가져오기
 import Footer from '../components/Footer';
+import PageHeader from '../components/PageHeader';
 
 const courseData = [
   {
@@ -42,6 +43,7 @@ const AlongCourses = () => {
 
   return (
     <div className='page-container'>
+      <PageHeader title={"여행따라"}/>
       <CourseItemList courseData={courseData} />
       <Footer/>
     </div>

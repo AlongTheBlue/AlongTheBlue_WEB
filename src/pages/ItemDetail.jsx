@@ -1,7 +1,6 @@
 import React from 'react';
 import "../styles/Page.css";
 import { useParams } from 'react-router-dom';
-import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ItemDetailCard from '../components/ItemDetailCard';
 

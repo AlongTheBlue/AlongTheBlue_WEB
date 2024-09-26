@@ -1,9 +1,9 @@
 import React from 'react';
 import "../styles/Page.css";
 import { useParams } from 'react-router-dom';
-import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ItemCardList from '../components/ItemCardList';
+import PageHeader from '../components/PageHeader';
 
 const foods = [
     {
@@ -39,8 +39,8 @@ function ItemList() {
 
     return (
         <div className="page-container">
-            {/* <Header /> */}
-            <ItemCardList title={title} items={foods}/>
+            <PageHeader title={title}/>
+            <ItemCardList items={foods}/>
             <Footer/>
         </div>
     );

@@ -10,10 +10,10 @@ function CircleCard({ item, title }) {
   };
 
   return (
-    <div className="circleCard-item">
-      <div className="circle-container" onClick={handleDetailViewClick}>
-        <img src={item.image} alt={item.name} className="circle-image" />
-        <div className="circle-text">{item.name}</div>
+    <div className="circle-card-container">
+      <div className="circle-card" onClick={handleDetailViewClick}>
+        <img src={item.image} alt={item.name} className="circle-card-image" />
+        <div className="circle-card-text">{item.name}</div>
       </div>
     </div>
   );

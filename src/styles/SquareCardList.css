@@ -1,9 +1,10 @@
-.squareCardList {
-    width: 65%;
+.square-card-list-container {
+    /* width: 65%; */
     margin: 0 auto;
+    padding: 0 5%;
 }
 
-.squareCard-list {
+.square-card-list {
     display: flex;
     justify-content: space-between;
 }

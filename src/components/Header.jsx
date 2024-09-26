@@ -8,15 +8,21 @@ function Header() {
   const handleHomeClick = () => {
     navigate(`/`);
   };
+  
+  const clickMyPage = () => {
+    navigate('/my')
+  }
 
   const url = 'https://noticemju.s3.ap-northeast-2.amazonaws.com/blue/logo.svg';
 
   return (
     <header className="header">
-      <div className="logo" onClick={handleHomeClick}>
+      <img className='header-btn' src='/src/images/icon/menu_1.svg'/>
+      <div className="header-logo" onClick={handleHomeClick}>
         <img src={url} alt='logo'/>
-        <div className='text'>바당따라</div>
+        <div className='header-text'>바당따라</div>
       </div>
+      <img className='header-btn' src='/src/images/icon/menu_profile.svg' onClick={clickMyPage}/>
     </header>
   );
 }

@@ -5,9 +5,9 @@ import CardHeader from './CardHeader';
 
 function SquareCardList({title, items}) {
   return (
-    <div className="squareCardList">
+    <div className="square-card-list-container">
       <CardHeader title={title} />
-      <div className="squareCard-list">
+      <div className="square-card-list">
         {items.map((item, index) => (
           <SquareCard key={index} item={item} title={title}/>
         ))}

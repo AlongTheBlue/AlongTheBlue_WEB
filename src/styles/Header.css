@@ -1,27 +1,37 @@
-@import url('https://webfontworld.github.io/NanumSquareRound/NanumSquareRound.css');
-
 .header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center; 
   padding: 0.8em;
+  margin: 0 auto;
+  flex-wrap: nowrap;
 }
-
-.logo {
-  display: flex;
-  align-items: center;
+.header {
   cursor: pointer;
 }
 
-.logo img {
+.header-logo {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo img {
   margin-right: 8%;
   width: 4em;
 }
 
-.text {
+.header-text {
   white-space: nowrap;
   color: #1F75FE;
-  font-family: 'NanumSquareRound';
   font-weight: 800;
   font-size: 2.3em;
+}
+
+@media screen and (max-width: 800px) {
+  .header-text {
+    font-size: 1.8em;
+  }
+  .header-logo img {
+    width: 2em;
+  }
 }

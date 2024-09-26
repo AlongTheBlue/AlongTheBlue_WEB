@@ -1,7 +1,7 @@
 import React from 'react';
 import "../styles/ItemCard.css";
 
-function ItemCard({ item, title }) {
+function ItemCard({ item }) {
 
     return (
         <div className="item-card">

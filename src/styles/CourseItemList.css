@@ -1,9 +1,8 @@
-.courses-item-list-page {
-    width: 65%;
+.courses-item-list-container {
     margin: 0 auto;
 }
 
-.courses-item-list-container {
+.courses-item-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

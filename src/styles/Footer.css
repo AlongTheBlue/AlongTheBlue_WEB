@@ -1,6 +1,8 @@
 .footer {
     padding: 3em 0 0.5em 0;
     color: #292929;
+    /* width: 80%; */
+    margin: 0 auto;
 }
 
 .footer-content {
@@ -10,6 +12,14 @@
 }
 
 .footer-content div {
+    display: flex;
     font-family: 'NanumSquareRound';
-    font-size: 0.7em;
+    font-size: 0.8em;
+    flex-wrap: nowrap;
+}
+
+@media screen and (max-width: 800px) {
+    .footer-content div {
+        font-size: 0.9vh;
+    }
 }

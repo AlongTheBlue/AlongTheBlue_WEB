@@ -5,9 +5,9 @@ import CircleCard from './CircleCard';
 
 function CircleCardList({ title, items }) {
   return (
-    <div className="circleCard">
+    <div className="circle-card-list-container">
       <CardHeader title={title} />
-      <div className="circleCard-list">
+      <div className="circle-card-list">
         {items.map((item, index) => (
           <CircleCard key={index} item={item} title={title}/>
         ))}

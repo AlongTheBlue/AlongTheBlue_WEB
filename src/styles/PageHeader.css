@@ -1,0 +1,30 @@
+.page-header {
+    display: flex;
+    align-items: center;
+    border-bottom: solid 1px #DBDBDB;
+    padding-bottom: 1.5em;
+    /* width: 65%; */
+    margin: 5% auto;
+    padding: 0 0 1.5em 1em;
+}
+
+.page-header img{
+    width: 1.2em;
+    cursor: pointer;
+}
+
+.page-title {
+    color: #1F75FE;
+    font-family: 'NanumSquareRound';
+    font-size: 1.7em;
+    font-weight: 800;
+    padding-left: 0.5em;
+}
+@media screen and (max-width: 800px) {
+    .page-title {
+        font-size: 1.3em;
+    }
+    .page-header img {
+        width: 0.8em;
+    }
+}
