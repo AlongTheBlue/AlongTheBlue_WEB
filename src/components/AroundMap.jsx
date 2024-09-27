@@ -4,6 +4,11 @@ import "../styles/AroundMap.css"; // 스타일은 여기에 추가합니다.
 function AroundMap({keyword, searchTrigger, selectedBlue}) {
   const [position, setPosition] = useState(null); // 현재 위치 상태 관리
   const [currCategory, setCurrCategory] = useState(''); // 현재 선택된 카테고리
+  const [travelCourses, setTravelCourses] = useState([]); // 동적으로 추가될 여행 코스
+  const [place, setPlace] = useState(null);
+  const [paths, setPaths] = useState([
+    new window.kakao.maps.LatLng(selectedBlue.yMap, selectedBlue.xMap)
+  ]);
 
   // Ref로 map, placesService, markers, placeOverlay, contentNode를 관리
   const mapRef = useRef(null);
@@ -73,8 +78,15 @@ function AroundMap({keyword, searchTrigger, selectedBlue}) {
   // 현재 위치 가져오기
   useEffect(() => {
     if(selectedBlue){
+      setTravelCourses([{
+        id: selectedBlue.id,
+        lat: selectedBlue.yMap, 
+        lng: selectedBlue.xMap,
+        name: selectedBlue.name, 
+        address: selectedBlue.address,
+        category: selectedBlue.category
+      }]);
       setPosition({lat: selectedBlue.yMap, lng: selectedBlue.xMap})
-
     } else if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => {
         const { latitude, longitude } = pos.coords;
@@ -83,7 +95,7 @@ function AroundMap({keyword, searchTrigger, selectedBlue}) {
     } else {
       alert("현재 위치를 가져올 수 없습니다.");
     }
-  }, []);
+  }, [selectedBlue]);
 
   // 지도 초기화 및 idle 이벤트 등록 (map은 한 번만 초기화)
   useEffect(() => {
@@ -150,6 +162,44 @@ function AroundMap({keyword, searchTrigger, selectedBlue}) {
     }
   }, [position]); // map은 한 번만 생성되므로 의존성 배열에서 map을 제거
 
+  // 여행 코스가 변경될 때마다 마커를 순차적으로 표시
+  useEffect(() => {
+    if (mapRef.current) {
+      displayCourseMarkers(travelCourses, mapRef.current); // 새로운 마커 추가
+      console.log(travelCourses)
+    }
+  }, [travelCourses]);
+
+  // 여행 코스를 기반으로 마커 생성 함수
+  const displayCourseMarkers = (courses, map) => {
+    courses.forEach((course, index) => {
+      const markerPosition = new window.kakao.maps.LatLng(course.lat, course.lng);
+      // const markerImage = new window.kakao.maps.MarkerImage(
+      //   `/images/icon/marker/${course.category}_${index+1}.svg`, 
+      //   new window.kakao.maps.Size(40, 56)
+      // );
+      const markerImageSrc = `/images/icon/marker/${course.category}_${index+1}.svg`;
+      const imageSize = new window.kakao.maps.Size(30, 45);
+      const markerImage = new window.kakao.maps.MarkerImage(markerImageSrc, imageSize, 
+        { spriteSize: new window.kakao.maps.Size(25, 50)});
+
+      const marker = new window.kakao.maps.Marker({
+        position: markerPosition,
+        image: markerImage,
+      });
+
+      marker.setMap(map);
+
+      // 마커 클릭 시 여행지 정보를 오버레이로 표시
+      window.kakao.maps.event.addListener(marker, 'click', () => {
+
+        setTravelCourses((prevCourses) => [...prevCourses, 
+          { id: 16, name: "함덕해수욕장", lng: "126.6683567720", lat: "33.5439000013", address: '제주특별자치도 제주시 이호일동 1665-13', category:'cafe' }
+        ]);
+      });
+    });
+  };
+
   // 카테고리가 변경될 때마다 장소를 다시 검색
   useEffect(() => {
     
@@ -185,8 +235,8 @@ function AroundMap({keyword, searchTrigger, selectedBlue}) {
 
         // 마커 클릭 이벤트 등록
         window.kakao.maps.event.addListener(marker, 'click', () => {
-          displayPlaceInfo(place); // 클릭 시 오버레이를 표시
           closeOverInfo();
+          displayPlaceInfo(place); // 클릭 시 오버레이를 표시
         });
 
         window.kakao.maps.event.addListener(marker, 'mouseover', function() {
@@ -249,21 +299,31 @@ function AroundMap({keyword, searchTrigger, selectedBlue}) {
     }
 
     // 오버레이 콘텐츠 설정
-    let content = `<div class="placeinfo">
-        <a class="title" href="${place.place_url}" target="_blank" title="${place.place_name}">
-        ${place.place_name}
-        </a><span class="close" title="닫기">X</span>`;
+    let content = `
+    <div class="placeinfo-container">
+        <div class="placeinfo-header">
+          <a class="placeinfo-title" href="${place.place_url}" target="_blank" title="${place.place_name}">
+            ${place.place_name}
+          </a>
+          <div class="placeinfo-close" title="닫기">X</div>
+        </div>
+        <div class="placeinfo-main">
+          <div class="placeinfo-text">`;
 
     if (place.road_address_name) {
-      content += `<span class="overlay-address" title="${place.road_address_name}">${place.road_address_name}</span>
-                  <span class="jibun" title="${place.address_name}">(지번 : ${place.address_name})</span>`;
+      content += `<div class="placeinfo-address" title="${place.road_address_name}">${place.road_address_name}</div>
+                  <div class="placeinfo-jibun" title="${place.address_name}">(지번 : ${place.address_name})</div>`;
     } else {
-      content += `<span title="${place.address_name}">${place.address_name}</span>`;
+      content += `<div class="placeinfo-address" title="${place.address_name}">${place.address_name}</div>`;
     }
 
-    content += `<span class="tel">${place.phone}</span></div>
-              <span>추가</span>
-              <div class="after"></div>`;
+    content += `<div class="placeinfo-detail">
+                  <div class="placeinfo-tel">${place.phone}</div>
+                  <a class="placeinfo-link" href="${place.place_url}" target="_blank" title="${place.place_name}">상세보기</a>
+                </div>                
+                </div>
+              </div>
+              </div><div class="after"></div>`;
 
     // 오버레이 내용 업데이트 및 위치 설정
     contentNodeRef.current.innerHTML = content; // Ref로 관리되는 contentNode에 콘텐츠 설정
@@ -272,11 +332,16 @@ function AroundMap({keyword, searchTrigger, selectedBlue}) {
     placeOverlayRef.current.setMap(mapRef.current); // 오버레이를 지도에 표시
 
     // 오버레이 닫기 이벤트 등록
-    const closeBtn = contentNodeRef.current.querySelector('.close');
+    const closeBtn = contentNodeRef.current.querySelector('.placeinfo-close');
     closeBtn.addEventListener('click', () => {
       placeOverlayRef.current.setMap(null); // 오버레이 닫기
     });
+    setPlace(place);
   };
+
+                  /* <div class="add-box">
+                  <div class="add" title="add">코스 추가</div>
+                </div> */
 
   // 카테고리 클릭 시 호출되는 함수
   const onClickCategory = (id) => {
@@ -314,6 +379,51 @@ function AroundMap({keyword, searchTrigger, selectedBlue}) {
     if(!infoOverlayRef) return;
     infoOverlayRef.current.setMap(null); // 오버레이 닫기
   }
+  const addCourse = () => {
+    console.log(place);
+    const selectedPlace = place;
+    let place_address = (selectedPlace.address_name) ? selectedPlace.address_name : selectedPlace.road_address_name;
+    
+    let place_category = selectedPlace.category_group_name;
+    if(place_category === "관광"){
+      place_category = "tour";
+    } else if(place_category === "숙박"){
+      place_category = "hotel";
+    } else if(place_category === "음식점"){
+      place_category = "food";
+    } else {
+      place_category = "cafe"
+    }
+
+    const course = {
+        lat: selectedPlace.y, 
+        lng: selectedPlace.x,
+        name: selectedPlace.place_name,
+        address: place_address,
+        category: place_category
+    }
+
+    setTravelCourses((prevCourses) => [...prevCourses, course]);
+    setPaths((prevPaths) => [...prevPaths, new window.kakao.maps.LatLng(course.lat, course.lng)])
+    if(placeOverlayRef)
+      placeOverlayRef.current.setMap(null);
+    clearUnusedMarkers();
+    setCurrCategory('')
+  }
+
+  useEffect(() => {
+    let polyline = new window.kakao.maps.Polyline({
+      path: paths, // 선을 구성하는 좌표배열 입니다
+      strokeWeight: 3, // 선의 두께 입니다
+      strokeColor: '#5C5C5C', // 선의 색깔입니다
+      strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+      strokeStyle: 'dashed' // 선의 스타일입니다
+    });
+  
+    // 지도에 선을 표시합니다 
+    polyline.setMap(mapRef.current);
+    console.log(paths)
+  },[paths]);
 
   return (
     <div className="map-container">
@@ -333,7 +443,11 @@ function AroundMap({keyword, searchTrigger, selectedBlue}) {
           ))}
         </ul>
       </div>
+      <div className="add-box">
+        <img className="add-btn" src="/images/icon/add_btn3.svg" onClick={addCourse}></img>
+      </div>
     </div>
+    
   );
 }
 
