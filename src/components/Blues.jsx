@@ -4,10 +4,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const popularBlues = [
-    { name: '함덕해수욕장', url: '/src/images/course/jeju.jpg' },
-    { name: '협재해수욕장', url:'/src/images/course/jeju2.jpg'},
-    { name: '용머리해안', url: '/src/images/course/jeju3.jpg' },
-    { name: '중문색달해수욕장', url: '/src/images/course/jeju4.jpg' }
+    { name: '함덕해수욕장', url: '/images/course/jeju.jpg' },
+    { name: '협재해수욕장', url:'/images/course/jeju2.jpg'},
+    { name: '용머리해안', url: '/images/course/jeju3.jpg' },
+    { name: '중문색달해수욕장', url: '/images/course/jeju4.jpg' }
 ];
 
 const Blues = ({ jejuBlues, seogwipoBlues }) => {

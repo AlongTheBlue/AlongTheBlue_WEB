@@ -156,29 +156,3 @@
   height: 12px;
   background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png');
 }
-
-/* .marker-over {
-  display: flex;
-  justify-content: center;
-  align-items: center;    
-  z-index: 3;
-  text-align: center;
-} */
-
-.over-info-wrap {
-  display: flex;
-  align-items: center;
-  background-color: white;
-  border: 1px solid #292929;
-  border-radius: 0.5em;
-  margin-top: 1.2em;
-}
-
-.over-info-text {
-  display: flex;
-  justify-content: center;
-  color: #292929;
-  padding: 0.5em;
-  white-space: nowrap;
-  font-size: 0.8em;
-}

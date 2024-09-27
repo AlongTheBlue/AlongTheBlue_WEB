@@ -13,13 +13,11 @@ function Header() {
     navigate('/my')
   }
 
-  const url = 'https://noticemju.s3.ap-northeast-2.amazonaws.com/blue/logo.svg';
-
   return (
     <header className="header">
       <img className='header-btn' src='/images/icon/menu_1.svg'/>
       <div className="header-logo" onClick={handleHomeClick}>
-        <img src={url} alt='logo'/>
+        <img src='/images/icon/logo.svg' alt='logo'/>
         <div className='header-text'>바당따라</div>
       </div>
       <img className='header-btn' src='/images/icon/menu_profile.svg' onClick={clickMyPage}/>

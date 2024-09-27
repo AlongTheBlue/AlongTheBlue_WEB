@@ -12,11 +12,11 @@ function ItemCard({ item }) {
             <div className="item-info">
                 <div className='item-header'>
                     <div className='item-title'>{item.title}</div>
-                    <img src="../src/images/icon/unliked.svg"/>
+                    <img src="/images/icon/unliked.svg"/>
                 </div>
                 
                 <div className='item-address'>
-                    <img src='../src/images/icon/location.svg'/>
+                    <img src='/images/icon/location.svg'/>
                     <div>{item.address}</div>
                 </div>
                 <div className="hashtags">
