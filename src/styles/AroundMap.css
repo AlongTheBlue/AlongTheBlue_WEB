@@ -84,67 +84,84 @@
   position: absolute;
   bottom: 2em;
   left: -9em;
-  width: 18em;
+  /* width: 18em; */
 }
 
-.placeinfo {
-  position: relative;
-  width: 70%;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+.placeinfo-container{
+  /* position: relative; */
+  /* width: 70%; */
+  border-radius: 1em;
+  /* border: 1px solid #ccc; */
   border-bottom: 2px solid #ddd;
-  padding-bottom: 10px;
   background: #fff;
-  font-family: 'NanumSquareRound';
   z-index: 2;
 }
 
-.placeinfo a,
-.placeinfo a:hover,
-.placeinfo a:active {
-  color: #fff;
+.placeinfo-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #1F75FE;
+  color: white;
+  padding: 0.4em 0.5em;
+}
+.placeinfo-title {
+  text-decoration: none;
+  color: white;
+  font-size: 0.9em;
+}
+
+.add-box{
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 1em;
+  bottom: 3.7em;
+  z-index: 1;
+  cursor: pointer;
+  justify-content: center;
+}
+
+.add-btn {
+  width: 6%;
+}
+
+/* .add {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  border: 1px solid #292929;
+  border-radius: 1em;
+  padding: 0.5em 1em;
+  font-size: 0.8em;
+} */
+
+.placeinfo-main {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3em 0.5em;
+}
+
+.placeinfo-address {
+  font-size: 0.9em;
+}
+.placeinfo-jibun {
+  font-size: 0.8em;
+  color: #8f8f8f
+}
+.placeinfo-detail {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 0.3em;
+}
+.placeinfo-tel, .placeinfo-link{
+  font-size: 0.8em;
+  color: #0f7833;
+}
+.placeinfo-link{
   text-decoration: none;
 }
-
-.placeinfo a,
-.placeinfo span {
-  display: block;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.placeinfo .title {
-  font-weight: bold;
-  font-size: 0.8em;
-  border-radius: 6px 6px 0 0;
-  margin: -1px -1px 0 -1px;
-  padding: 10px;
-  color: #fff;
-  background: #1F75FE;
-  /* background: #d95050 url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png') no-repeat right 14px center; */
-}
-
-.placeinfo .close {
-  position: absolute;
-  top: 0.5em;
-  right: 0.5em;
-  color: white;
-  font-size: 1.2em;
-}
-.overlay-address {
-  font-size: 0.8em;
-}
-
-.placeinfo .tel {
-  color: #0f7833;
-  font-size: 0.8em;
-}
-
-.placeinfo .jibun {
-  color: #999;
-  font-size: 11px;
-  margin-top: 0;
+.placeinfo-address, .placeinfo-jibun, .placeinfo-tel {
+  padding-bottom: 0.3em;
 }
 
 .after {
