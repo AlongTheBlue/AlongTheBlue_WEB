@@ -6,7 +6,7 @@ import PageHeader from '../components/PageHeader';
 
 const courseData = [
   {
-    profileImg: '/src/images/user/user1.jpg',
+    profileImg: '/images/user/user1.jpg',
     userName: '치즈버거',
     userComment: '우와아아아아아아',
     courseTitle: '제주의 해안가를 따라',
@@ -26,7 +26,7 @@ const courseData = [
     tags: ['일출', '일출', '일출']
   },
   {
-    profileImg: '/src/images/user/user2.jpg',
+    profileImg: '/images/user/user2.jpg',
     userName: '호랑나비',
     userComment: '한 마리 가야아',
     courseTitle: '제주도 가성비 코스',

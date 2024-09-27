@@ -10,8 +10,18 @@ function ItemDetailCard({item}) {
     navigate(`/`);
   };
 
-  const handleBeforeClick = () => {
-    navigate(-1);
+  const handleBeforeClick = () => {  
+    const referrer = document.referrer; // 이전 페이지의 URL
+
+    // 이전 페이지가 우리 사이트 내부 URL인지 확인
+    if (referrer && referrer.includes(window.location.origin)) {
+      // history 스택에 두 개 이상의 항목이 있을 때만 뒤로 이동 (-1)
+      if (window.history.length > 1) {
+        navigate(-1);
+      }
+    } else {
+      navigate('/'); // 외부에서 접속했거나, 이전 페이지가 없으면 홈으로 이동
+    }
   };
 
   useEffect(() => {
@@ -51,8 +61,8 @@ function ItemDetailCard({item}) {
     <div className="item-detail-card">
       <div className="item-detail-header">
         <div className='item-detail-btn'>
-          <img src="/src/images/icon/left_arrow_white.svg" onClick={handleBeforeClick}/>
-          <img src="/src/images/icon/home.svg" onClick={handleHomeClick}/>
+          <img src="/images/icon/left_arrow_white.svg" onClick={handleBeforeClick}/>
+          <img src="/images/icon/home.svg" onClick={handleHomeClick}/>
         </div>
         <div>
           <img src={item.image} alt={item.name} className="item-detail-image" />
@@ -61,23 +71,23 @@ function ItemDetailCard({item}) {
       <div className="item-detail-info">
         <div className="detail-info-header">
           <div className='item-detail-name'>{item.name}</div>
-          <img src='/src/images/icon/liked.svg'/>
+          <img src='/images/icon/liked.svg'/>
         </div>
         <div className="item-detail-address">
           <div className='item-detail-img'>
-            <img src='/src/images/icon/detail_address.svg'/>
+            <img src='/images/icon/detail_address.svg'/>
           </div>
           <div className='item-detail-text'>{item.address}</div>
         </div>
         <div className="item-detail-holiday">
           <div className='item-detail-img'>
-            <img src='/src/images/icon/detail_holiday.svg'/>
+            <img src='/images/icon/detail_holiday.svg'/>
           </div>
           <div className='item-detail-text'>{item.holiday}</div>
         </div>
         <div className="item-detail-weather">
           <div className='item-detail-img'>
-            <img src='/src/images/icon/weather_sunny.svg'/>
+            <img src='/images/icon/weather_sunny.svg'/>
           </div>
           <div className='item-detail-text'>{item.weather}</div>
         </div>

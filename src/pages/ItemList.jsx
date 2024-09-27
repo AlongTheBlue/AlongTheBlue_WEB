@@ -16,7 +16,7 @@ const foods = [
             "#고등어구이",
             "#제주맛집"
         ], 
-        image1: '../src/images/food/명진전복.png',
+        image1: '/images/food/명진전복.png',
         image2: 'https://blog.kakaocdn.net/dn/b3fewH/btqWVSsjaEO/JcMi0zIGZg75AFXSYvDqGk/img.jpg'
     },
     { 
@@ -29,7 +29,7 @@ const foods = [
             "#제주고기국수맛집",
             "#수요미식회맛집"
         ], 
-        image1: '../src/images/food/올래국수.jpeg',
+        image1: '/images/food/올래국수.jpeg',
         image2: 'https://api.cdn.visitjeju.net/photomng/imgpath/201910/23/cfb35a88-5beb-4434-96b6-c878a6073d49.jpg'},
 ];
 
