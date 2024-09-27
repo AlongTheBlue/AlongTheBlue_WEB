@@ -15,7 +15,9 @@ const AlongBluesPlan = () => {
       id: 11,
       name: "이호테우해수욕장", 
       xMap: "126.4531570913", 
-      yMap: "33.4974183784"
+      yMap: "33.4974183784",
+      address: "제주특별자치도 제주시 이호일동 1665-13",
+      category: "tour"
     };
 
     return (
