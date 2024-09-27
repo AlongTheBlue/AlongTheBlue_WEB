@@ -8,6 +8,7 @@ import ItemDetail from './pages/ItemDetail.jsx';
 import AlongCourses from './pages/AlongCourses.jsx';
 import AlongBlues from './pages/AlongBlues.jsx';
 import AlongBluesPlan from './pages/AlongBluesPlan.jsx';
+import Courses from './pages/Courses.jsx';
 
 function App() {
 
@@ -51,6 +52,7 @@ function App() {
           <Route path="/along/courses" element={<AlongCourses />} />
           <Route path="/along/blues" element={<AlongBlues />} />
           <Route path="/along/blues/:id" element={<AlongBluesPlan />} />
+          <Route path="/courses" element={<Courses />} />
         </Routes>
       </div>
     </BrowserRouter>

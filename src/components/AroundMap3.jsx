@@ -12,9 +12,6 @@ function AroundMap({keyword, searchTrigger, selectedBlue}) {
   const placeOverlayRef = useRef(null); // placeOverlay를 Ref로 관리
   const contentNodeRef = useRef(null); // 오버레이 콘텐츠 노드를 Ref로 관리
   const currCategoryRef = useRef(currCategory);
-  
-  const overNodeRef = useRef(null);
-  const infoOverlayRef = useRef(null);
 
   const categories = [
     { id: 'AT4', name: '관광', url: '/images/icon/category_6.svg' },
@@ -116,18 +113,6 @@ function AroundMap({keyword, searchTrigger, selectedBlue}) {
       });
       placeOverlayRef.current = customOverlay;
 
-      // 커스텀 오버레이 생성 및 설정
-      const infolayNode = document.createElement('div');
-      infolayNode.className = 'over-info-wrap';
-      overNodeRef.current = infolayNode; // Ref로 오버레이 콘텐츠 노드를 관리
-
-      // placeOverlay를 Ref로 관리
-      const infoOverlay = new window.kakao.maps.CustomOverlay({
-        content: infolayNode,
-        zIndex: 1,
-      });
-      infoOverlayRef.current = infoOverlay;
-
       // 줌 컨트롤 추가
       const zoomControl = new window.kakao.maps.ZoomControl();
       kakaoMap.addControl(zoomControl, window.kakao.maps.ControlPosition.RIGHT); // 줌 컨트롤러 추가
@@ -186,15 +171,6 @@ function AroundMap({keyword, searchTrigger, selectedBlue}) {
         // 마커 클릭 이벤트 등록
         window.kakao.maps.event.addListener(marker, 'click', () => {
           displayPlaceInfo(place); // 클릭 시 오버레이를 표시
-          closeOverInfo();
-        });
-
-        window.kakao.maps.event.addListener(marker, 'mouseover', function() {
-            displayOverInfo(place);
-        });
-
-        window.kakao.maps.event.addListener(marker, 'mouseout', function() {
-            closeOverInfo();
         });
 
         return marker;
@@ -287,33 +263,6 @@ function AroundMap({keyword, searchTrigger, selectedBlue}) {
       setCurrCategory(id); // 새로운 카테고리 선택
     }
   };
-
-  // 마우스 올리면 오버레이 표시
-  const displayOverInfo = (place) => {
-    // 오버레이가 정의되지 않은 상태에서는 작동하지 않도록 예외 처리
-    if (!overNodeRef.current) {
-      return;
-    }
-
-    // 기존 오버레이가 남아 있을 경우 닫기
-    if (infoOverlayRef.current) {
-      infoOverlayRef.current.setMap(null); // 기존 오버레이를 숨기기
-    }
-
-    // 오버레이 콘텐츠 설정
-    let content = `<div class="over-info-text">${place.place_name}</div>`;
-
-    // 오버레이 내용 업데이트 및 위치 설정
-    overNodeRef.current.innerHTML = content; // Ref로 관리되는 contentNode에 콘텐츠 설정
-    infoOverlayRef.current.setContent(overNodeRef.current); // 오버레이 콘텐츠 업데이트
-    infoOverlayRef.current.setPosition(new window.kakao.maps.LatLng(place.y, place.x));
-    infoOverlayRef.current.setMap(mapRef.current); // 오버레이를 지도에 표시
-  };
-
-  const closeOverInfo = () => {
-    if(!infoOverlayRef) return;
-    infoOverlayRef.current.setMap(null); // 오버레이 닫기
-  }
 
   return (
     <div className="map-container">

@@ -2,8 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../styles/PageHeader.css"
 
-const url = 'https://noticemju.s3.ap-northeast-2.amazonaws.com/blue/left_arrow.svg';
-
 function PageHeader({title}) {
   const navigate = useNavigate();
 
@@ -23,7 +21,7 @@ function PageHeader({title}) {
 
   return (
     <div className='page-header'>
-        <img className='page-header-before' src={url} onClick={handleBeforeClick} alt="before"/>
+        <img className='page-header-before' src='/images/icon/left_arrow.svg' onClick={handleBeforeClick} alt="before"/>
         <div className='page-title'>{title}</div>
     </div>
   );
