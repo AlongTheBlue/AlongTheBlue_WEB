@@ -1,0 +1,60 @@
+.travel-course-container{
+    margin:0 0 4% 4%;
+}
+
+.travel-course-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.travel-course-title {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+}
+
+.travel-course-title-img {
+    width: 1.4em;
+    padding-right: 0.7em;
+}
+
+.travel-course-category{
+    font-size: 0.9em;
+}
+
+.travel-course-info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.7em;
+    font-size: 0.9em;
+}
+.travel-course-text {
+    display: flex;
+    align-items: center;
+    color: #1F75FE;
+}
+
+.travel-course-address-img {
+    width: 1.7em;
+    padding-right: 0.6em;
+}
+
+.travel-course-delete {
+    display: flex;
+    justify-content: end;
+}
+
+.travel-course-delete-btn {
+    border: none;
+    background-color: #5C5C5C;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 1.6em;
+    height: 1.6em;
+    text-align: center;
+}
+
+

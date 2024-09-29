@@ -1,14 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import "../styles/AroundMap.css"; // 스타일은 여기에 추가합니다.
 
-function AroundMap({keyword, searchTrigger, selectedBlue}) {
+function AroundMap({keyword, searchTrigger, selectedBlue, travelCourses, setTravelCourses}) {
   const [position, setPosition] = useState(null); // 현재 위치 상태 관리
   const [currCategory, setCurrCategory] = useState(''); // 현재 선택된 카테고리
-  const [travelCourses, setTravelCourses] = useState([]); // 동적으로 추가될 여행 코스
   const [place, setPlace] = useState(null);
-  const [paths, setPaths] = useState([
-    new window.kakao.maps.LatLng(selectedBlue.yMap, selectedBlue.xMap)
-  ]);
+  const [paths, setPaths] = useState([]);
+  const [travelMarkers, setTravelMarkers] = useState([]);
 
   // Ref로 map, placesService, markers, placeOverlay, contentNode를 관리
   const mapRef = useRef(null);
@@ -20,6 +18,12 @@ function AroundMap({keyword, searchTrigger, selectedBlue}) {
   
   const overNodeRef = useRef(null);
   const infoOverlayRef = useRef(null);
+
+  useEffect(() => {
+    if (selectedBlue) {
+        setPaths([new window.kakao.maps.LatLng(selectedBlue.yMap, selectedBlue.xMap)]);
+    }
+  }, []);
 
   const categories = [
     { id: 'AT4', name: '관광', url: '/images/icon/category_6.svg' },
@@ -48,12 +52,11 @@ function AroundMap({keyword, searchTrigger, selectedBlue}) {
 
     ps.keywordSearch(
       keyword, 
-      (data, status, pagination) => {
+      (data, status) => {
         if (status === window.kakao.maps.services.Status.OK) {
           console.log(data);
           displayPlaces(data);
 
-          // displayPagination(pagination);
         } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
           alert('검색 결과가 존재하지 않습니다.');
           return;
@@ -79,14 +82,16 @@ function AroundMap({keyword, searchTrigger, selectedBlue}) {
   useEffect(() => {
     if(selectedBlue){
       setTravelCourses([{
-        id: selectedBlue.id,
-        lat: selectedBlue.yMap, 
-        lng: selectedBlue.xMap,
         name: selectedBlue.name, 
         address: selectedBlue.address,
-        category: selectedBlue.category
+        lat: selectedBlue.yMap, 
+        lng: selectedBlue.xMap,
+        category: selectedBlue.category,
+        iconCategory: selectedBlue.iconCategory
       }]);
+
       setPosition({lat: selectedBlue.yMap, lng: selectedBlue.xMap})
+
     } else if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => {
         const { latitude, longitude } = pos.coords;
@@ -95,7 +100,7 @@ function AroundMap({keyword, searchTrigger, selectedBlue}) {
     } else {
       alert("현재 위치를 가져올 수 없습니다.");
     }
-  }, [selectedBlue]);
+  }, []);
 
   // 지도 초기화 및 idle 이벤트 등록 (map은 한 번만 초기화)
   useEffect(() => {
@@ -165,44 +170,42 @@ function AroundMap({keyword, searchTrigger, selectedBlue}) {
   // 여행 코스가 변경될 때마다 마커를 순차적으로 표시
   useEffect(() => {
     if (mapRef.current) {
-      displayCourseMarkers(travelCourses, mapRef.current); // 새로운 마커 추가
-      console.log(travelCourses)
+      // travelCourses가 채워져있을 때 실행
+      displayCourseMarkers(travelCourses, mapRef.current);
+      setPaths(
+        travelCourses.map(course => new window.kakao.maps.LatLng(course.lat, course.lng))
+      );
     }
   }, [travelCourses]);
+  
 
   // 여행 코스를 기반으로 마커 생성 함수
   const displayCourseMarkers = (courses, map) => {
-    courses.forEach((course, index) => {
+    // 기존 마커들을 모두 제거
+    travelMarkers.forEach(marker => marker.setMap(null));
+
+    // 새 마커를 생성하고 배열에 저장
+    const newMarkers = courses.map((course, index) => {
       const markerPosition = new window.kakao.maps.LatLng(course.lat, course.lng);
-      // const markerImage = new window.kakao.maps.MarkerImage(
-      //   `/images/icon/marker/${course.category}_${index+1}.svg`, 
-      //   new window.kakao.maps.Size(40, 56)
-      // );
-      const markerImageSrc = `/images/icon/marker/${course.category}_${index+1}.svg`;
+      const markerImageSrc = `/images/icon/marker/${course.iconCategory}_${index+1}.svg`;
       const imageSize = new window.kakao.maps.Size(30, 45);
       const markerImage = new window.kakao.maps.MarkerImage(markerImageSrc, imageSize, 
-        { spriteSize: new window.kakao.maps.Size(25, 50)});
+          { spriteSize: new window.kakao.maps.Size(25, 50) });
 
       const marker = new window.kakao.maps.Marker({
-        position: markerPosition,
-        image: markerImage,
+          position: markerPosition,
+          image: markerImage,
       });
 
-      marker.setMap(map);
-
-      // 마커 클릭 시 여행지 정보를 오버레이로 표시
-      window.kakao.maps.event.addListener(marker, 'click', () => {
-
-        setTravelCourses((prevCourses) => [...prevCourses, 
-          { id: 16, name: "함덕해수욕장", lng: "126.6683567720", lat: "33.5439000013", address: '제주특별자치도 제주시 이호일동 1665-13', category:'cafe' }
-        ]);
+      marker.setMap(map); // 마커를 지도에 표시
+      return marker; // 생성된 마커 반환
       });
-    });
-  };
+
+      setTravelMarkers(newMarkers);
+    };
 
   // 카테고리가 변경될 때마다 장소를 다시 검색
   useEffect(() => {
-    
     if (mapRef.current && currCategory) {
       console.log("Category changed, updating places...");
       clearUnusedMarkers(); // 기존 마커 중 중복되지 않는 마커를 유지
@@ -339,10 +342,6 @@ function AroundMap({keyword, searchTrigger, selectedBlue}) {
     setPlace(place);
   };
 
-                  /* <div class="add-box">
-                  <div class="add" title="add">코스 추가</div>
-                </div> */
-
   // 카테고리 클릭 시 호출되는 함수
   const onClickCategory = (id) => {
     if (currCategory === id) {
@@ -379,39 +378,62 @@ function AroundMap({keyword, searchTrigger, selectedBlue}) {
     if(!infoOverlayRef) return;
     infoOverlayRef.current.setMap(null); // 오버레이 닫기
   }
+
   const addCourse = () => {
-    console.log(place);
     const selectedPlace = place;
-    let place_address = (selectedPlace.address_name) ? selectedPlace.address_name : selectedPlace.road_address_name;
-    
+  
+    // 이미 존재하는 코스인지 확인하여 중복 방지
+    const isDuplicate = travelCourses.some(
+      (course) => course.lat === selectedPlace.y && course.lng === selectedPlace.x
+    );
+    if(isDuplicate){
+      alert("이미 추가한 장소입니다.");
+      return;
+    } 
     let place_category = selectedPlace.category_group_name;
-    if(place_category === "관광"){
-      place_category = "tour";
-    } else if(place_category === "숙박"){
-      place_category = "hotel";
-    } else if(place_category === "음식점"){
-      place_category = "food";
+    let icon_category = null;
+    if(place_category == "관광명소"){
+      place_category = "관광";
+      icon_category = "tour";
+    } else if(place_category == "숙박"){
+      icon_category = "hotel";
+    } else if(place_category == "음식점"){
+      place_category = "음식";
+      icon_category = "food";
     } else {
-      place_category = "cafe"
+      icon_category = "cafe"
     }
+    console.log(place_category)
 
     const course = {
-        lat: selectedPlace.y, 
-        lng: selectedPlace.x,
-        name: selectedPlace.place_name,
-        address: place_address,
-        category: place_category
-    }
-
+      lat: selectedPlace.y,
+      lng: selectedPlace.x,
+      name: selectedPlace.place_name,
+      address: selectedPlace.road_address_name || selectedPlace.address_name,
+      category: place_category,
+      iconCategory: icon_category
+    };
+  
+    // 상태를 업데이트하는 부분은 중복되지 않을 때만 수행
     setTravelCourses((prevCourses) => [...prevCourses, course]);
-    setPaths((prevPaths) => [...prevPaths, new window.kakao.maps.LatLng(course.lat, course.lng)])
-    if(placeOverlayRef)
-      placeOverlayRef.current.setMap(null);
-    clearUnusedMarkers();
-    setCurrCategory('')
-  }
+
+    // setTravelCourses((prevCourses) => [...prevCourses, course]);
+    // setPaths((prevPaths) => [
+    //   ...prevPaths,
+    //   new window.kakao.maps.LatLng(course.lat, course.lng)
+    // ]);
+  
+    if (placeOverlayRef.current) {
+      placeOverlayRef.current.setMap(null); // 오버레이 닫기
+    }
+    clearUnusedMarkers(); // 기존 마커 정리
+    setCurrCategory(''); // 카테고리 초기화
+  };  
 
   useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    
     let polyline = new window.kakao.maps.Polyline({
       path: paths, // 선을 구성하는 좌표배열 입니다
       strokeWeight: 3, // 선의 두께 입니다
@@ -423,6 +445,11 @@ function AroundMap({keyword, searchTrigger, selectedBlue}) {
     // 지도에 선을 표시합니다 
     polyline.setMap(mapRef.current);
     console.log(paths)
+
+    // 메모리 누수를 방지하기 위해 polyline을 정리
+    return () => {
+      polyline.setMap(null);
+    };
   },[paths]);
 
   return (
@@ -443,9 +470,11 @@ function AroundMap({keyword, searchTrigger, selectedBlue}) {
           ))}
         </ul>
       </div>
-      <div className="add-box">
-        <img className="add-btn" src="/images/icon/add_btn3.svg" onClick={addCourse}></img>
-      </div>
+      {selectedBlue && (
+        <div className="add-box">
+          <img className="add-btn" src="/images/icon/add_btn3.svg" onClick={addCourse}></img>
+        </div>
+      )}
     </div>
     
   );

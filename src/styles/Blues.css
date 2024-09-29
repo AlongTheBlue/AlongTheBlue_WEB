@@ -147,3 +147,7 @@
     padding: 0.5em;
     border-radius: 0.8em;
 }
+
+.select-blue:hover {
+    font-weight: 800;
+}

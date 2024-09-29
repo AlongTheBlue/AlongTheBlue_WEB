@@ -1,8 +1,6 @@
 import Footer from '../components/Footer';
 import AroundMap from '../components/AroundMap';
-import AroundRecommend from '../components/AroundRecommend'
 import Search from '../components/Search';
-import Header from '../components/Header';
 import { useState } from 'react';
 import "../styles/Page.css";
 import PageHeader from '../components/PageHeader';
@@ -14,9 +12,8 @@ function Around() {
   return (
     <div className="page-container">
         <PageHeader title={"내주변"}/>
-        <Search onSearch={setKeyword} onTrigger={setSearchTrigger}/>  {/* 검색어를 입력받음 */}
-        <AroundMap keyword={keyword} searchTrigger={searchTrigger}/> {/* 검색어에 따라 지도 업데이트 */}
-        {/* <AroundRecommend /> */}
+        <Search onSearch={setKeyword} onTrigger={setSearchTrigger}/>
+        <AroundMap keyword={keyword} searchTrigger={searchTrigger}/>
         <Footer />
     </div>
   );
