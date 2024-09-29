@@ -2,11 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../styles/CardHeader.css"
 
-function CardHeader({title}) {
+function CardHeader({title, category}) {
   const navigate = useNavigate();
 
   const handleAllViewClick = () => {
-    navigate(`/list/${title}`);
+    navigate(`/${category}/list`);
   };
 
   return (

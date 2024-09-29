@@ -47,7 +47,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/list/:title" element={<ItemList />} />
+          <Route path="/:category/list" element={<ItemList />} />
           <Route path="/:title/detail/:id" element={<ItemDetail />} />
           <Route path="/around" element={<Around />}/>
           <Route path="/along/courses" element={<AlongCourses />} />

@@ -2,11 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../styles/SquareCard.css";
 
-function SquareCard({item, title}) {
+function SquareCard({item, category}) {
   const navigate = useNavigate();
 
   const handleDetailViewClick = () => {
-    navigate(`/${title}/detail/${item.id}`);
+    navigate(`/${category}/detail/${item.id}`);
   };
 
   return (

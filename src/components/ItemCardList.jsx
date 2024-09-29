@@ -7,8 +7,8 @@ function ItemCardList({items}) {
     return (
         <div className="item-card-list-container">
             <div className="item-card-list">
-                {items.map(item => (
-                    <ItemCard key={item.id} item={item} />
+                {items.map((item, index)=> (
+                    <ItemCard key={index} item={item} />
                 ))}
             </div>
         </div>
