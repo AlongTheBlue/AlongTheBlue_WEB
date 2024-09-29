@@ -1,9 +1,16 @@
 import React from 'react';
 import "../styles/CoursesCard.css"
+import { useNavigate } from 'react-router-dom';
 
 const CoursesCard = ({course}) => {
+    const navigate = useNavigate();
+
+    const handleCourseDetail = (id) => {
+        navigate(`/courses/${id}`)
+    }
+    
     return (
-        <div className='courses-card-container'>
+        <div className='courses-card-container' onClick={() => handleCourseDetail(course.id)}>
             <div className='courses-card-img' style={{
                 backgroundImage: `linear-gradient(
                     rgba(0, 0, 0, 0), 

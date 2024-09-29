@@ -6,6 +6,7 @@ import PageHeader from '../components/PageHeader';
 
 const courseData = [
   {
+    id: 1,
     profileImg: '/images/user/user1.jpg',
     userName: '치즈버거',
     userComment: '우와아아아아아아',
@@ -26,6 +27,7 @@ const courseData = [
     tags: ['일출', '일출', '일출']
   },
   {
+    id: 2,
     profileImg: '/images/user/user2.jpg',
     userName: '호랑나비',
     userComment: '한 마리 가야아',

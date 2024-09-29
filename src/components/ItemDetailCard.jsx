@@ -30,10 +30,14 @@ function ItemDetailCard({item}) {
     const mapContainer = document.getElementById('map'); // 지도를 표시할 div
     const mapOption = {
       center: new kakao.maps.LatLng(37.5665, 126.9780), // 초기 위치: 서울 시청
-      level: 4 // 지도 확대 레벨
+      level: 3 // 지도 확대 레벨
     };
-
+   
     const map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
+ 
+    // 줌 컨트롤 추가
+    const zoomControl = new window.kakao.maps.ZoomControl();
+    map.addControl(zoomControl, window.kakao.maps.ControlPosition.RIGHT); // 줌 컨트롤러 추가
 
     // 장소 검색 객체를 생성합니다
     const ps = new kakao.maps.services.Places();
@@ -42,7 +46,6 @@ function ItemDetailCard({item}) {
     ps.keywordSearch(item.name, function(result, status) {
       if (status === kakao.maps.services.Status.OK) {
         const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
         // 결과값으로 받은 위치를 지도에 표시합니다
         const marker = new kakao.maps.Marker({
           map: map,
@@ -55,7 +58,7 @@ function ItemDetailCard({item}) {
         console.error('키워드 검색 결과가 없습니다.');
       }
     });
-  }, [item.name]);
+  }, []);
 
   return (
     <div className="item-detail-card">

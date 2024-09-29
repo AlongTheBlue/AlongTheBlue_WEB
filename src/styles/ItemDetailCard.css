@@ -79,25 +79,6 @@
     width: 5%;
 }
 
-/* 해시태그 */
-.item-detail-hashtags {
-    margin-top: 10px;
-}
-
-.item-detail-hashtags .item-detail-hashtag {
-    display: inline-block;
-    background-color: #f1f1f1;
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 0.8rem;
-    margin-right: 5px;
-}
-
-/* .item-detail-introduction {
-    padding: 1.3em 0;
-    border-bottom: solid 1px #DBDBDB;
-} */
-
 .introduction-header {
     margin-bottom: 0.5em;
     font-size: 1.4em;
