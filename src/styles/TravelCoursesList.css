@@ -1,0 +1,27 @@
+.travel-courses-header {
+    font-weight: 700;
+    font-size: 1.3em;
+    margin-bottom: 1em;
+}
+
+.travel-courses-list {
+    padding-bottom: 1.5em;
+}
+
+.travel-courses-save{
+    display: flex;
+    justify-content: center;
+}
+.travel-courses-save-btn {
+    margin: 3%;
+    border: none;
+    background-color: transparent;
+    font-size: 0.9em;
+    padding: 0.3em 0.7em;
+    color: #1F75FE;
+}
+
+.travel-courses-save-btn:hover{
+    cursor: pointer;
+    font-weight: 700;
+}

@@ -16,9 +16,10 @@ const Blues = ({ jejuBlues, seogwipoBlues }) => {
     const mapRef = useRef(null); // 지도 객체를 참조할 ref
     const overlayRefsJeju = useRef([]); // 제주 해변의 오버레이 관리
     const overlayRefsSeogwipo = useRef([]); // 서귀포 해변의 오버레이 관리
+    const selectedOverlayRef = useRef(null);
     const [selectedCity, setSelectedCity] = useState('jeju'); // 현재 선택된 도시
     const [selectedBlue, setSelectedBlue] = useState(null); // 선택된 해변을 저장하는 state 추가
-    
+
     useEffect(() => {
         const { kakao } = window;
 
@@ -78,7 +79,24 @@ const Blues = ({ jejuBlues, seogwipoBlues }) => {
                 // 클릭한 마커의 오버레이를 열기
                 overlay.setMap(mapRef.current);
 
+                selectedOverlayRef.current = overlay;
                 setSelectedBlue(location);
+            });
+
+            kakao.maps.event.addListener(marker, 'mouseover', () =>
+                overlay.setMap(mapRef.current)
+            );
+
+            kakao.maps.event.addListener(marker, 'mouseout', () => {
+                // 모든 오버레이를 닫기
+                overlayRefsJeju.current.forEach((ov) => {
+                    if(ov!=selectedOverlayRef.current)
+                        ov.setMap(null)
+                });
+                overlayRefsSeogwipo.current.forEach((ov) => {
+                    if(ov!=selectedOverlayRef.current)
+                        ov.setMap(null)
+                });
             });
         });
 
@@ -124,6 +142,24 @@ const Blues = ({ jejuBlues, seogwipoBlues }) => {
                 // 클릭한 마커의 오버레이를 열기
                 overlay.setMap(mapRef.current);
                 setSelectedBlue(location);
+                selectedOverlayRef.current = overlay;
+            });
+
+            kakao.maps.event.addListener(marker, 'mouseover', () => {
+                // 클릭한 마커의 오버레이를 열기
+                overlay.setMap(mapRef.current);
+            });
+
+            kakao.maps.event.addListener(marker, 'mouseout', () => {
+                // 모든 오버레이를 닫기
+                overlayRefsJeju.current.forEach((ov) => {
+                    if(ov!=selectedOverlayRef.current)
+                        ov.setMap(null)
+                });
+                overlayRefsSeogwipo.current.forEach((ov) => {
+                    if(ov!=selectedOverlayRef.current)
+                        ov.setMap(null)
+                });
             });
         });
     }, [jejuBlues, seogwipoBlues]);
@@ -150,6 +186,7 @@ const Blues = ({ jejuBlues, seogwipoBlues }) => {
     };
 
     const handleBluesPlan = () => {
+        console.log(selectedBlue)
         if (selectedBlue) {
             navigate(`/along/blues/${selectedBlue.id}`);
         } else {
