@@ -1,0 +1,42 @@
+.courses-card-container {
+    display: flex;
+    margin: 2% 0 5% 0;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.courses-card-img {
+    display: flex;
+    align-items: flex-end;
+}
+
+.courses-card-info{
+    width: 100%;
+    color: white;
+    margin: 0 3% 3% 5%;
+}
+.courses-card-header{
+    font-size: 0.9em;
+    margin-bottom: 0.5em;
+    font-weight: 100;
+}
+.courses-card-main{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+}
+.courses-card-title{
+    font-size: 1.5em;
+}
+.courses-card-hashtag{
+    display: flex;
+    border: 1px white solid;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4em 0.6em;
+    border-radius: 1em;
+    font-size: 0.9em;
+    color: black;
+    background-color: white;
+}

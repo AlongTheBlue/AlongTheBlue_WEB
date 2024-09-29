@@ -1,14 +1,14 @@
-.home-category {
+/* .home-category {
   width: 85%;
   display: flex;
   margin: 2% auto;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .home-category-item {
-  width: 20%;
+  width: 22%;
   text-align: center;
-  font-family: 'NanumSquareRound';
   font-size: 0.8em;
   padding-bottom: 3%;
   cursor: pointer;
@@ -16,4 +16,22 @@
 
 .home-category-icon {
   width: 30%;
+} */
+
+.home-category {
+  width: 80%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4열로 설정 */
+  margin: 2% auto 0;
+}
+
+.home-category-item {
+  text-align: center;
+  font-size: 0.8em;
+  cursor: pointer;
+  padding-bottom: 1em;
+}
+
+.home-category-icon {
+  width: 30%; /* 아이콘 크기 조정 */
 }
