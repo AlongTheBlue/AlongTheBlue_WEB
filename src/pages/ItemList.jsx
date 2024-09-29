@@ -41,7 +41,8 @@ function ItemList() {
     if(category == "tour") title = "관광";
     else if(category == "restaurant") title = "음식";
     else if(category == "accommodation") title = "숙소";
-    else title = "카페";
+    else if(category == "cafe") title = "카페";
+    else title = "여행코스"
 
     return (
         <div className="page-container">
