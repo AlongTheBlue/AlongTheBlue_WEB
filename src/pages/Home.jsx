@@ -28,7 +28,10 @@ const cafes = [
   { id: 2, name: '가는곶 세화', address: '제주시 세화14길', image: 'http://tong.visitkorea.or.kr/cms/resource/08/2850908_image2_1.jpg'}
 ];
 
-// const tourCourses = [];
+const tourCourses = [
+  {id:1, name: "제주 맛집 리스트", hashtag: "#맛집", image: '/images/course/jeju.jpg'},
+  {id:2, name: "제주 바다 여행지", hashtag: "#바다", image: '/images/course/jeju3.jpg'}
+];
 
 function Home() {
   return (
@@ -40,7 +43,7 @@ function Home() {
       <SquareCardList category="accommodation" title="숙소" items={accommodations}/>
       <SquareCardList category="restaurant" title="음식" items={foods}/>
       <SquareCardList category="cafe" title="카페" items={cafes}/>
-      <SquareCardList category="courses" title="여행코스" items={accommodations}/>
+      <SquareCardList category="courses" title="여행코스" items={tourCourses}/>
       <Footer/>
     </div>
   );

@@ -47,15 +47,15 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/:category/list" element={<ItemList />} />
-          <Route path="/:title/detail/:id" element={<ItemDetail />} />
-          <Route path="/around" element={<Around />}/>
-          <Route path="/along/courses" element={<AlongCourses />} />
-          <Route path="/along/courses/:id" element={<CoursesDetail alongCoursesMode={true}/>} />
-          <Route path="/along/blues" element={<AlongBlues />} />
-          <Route path="/along/blues/:id" element={<AlongBluesPlan />} />
-          <Route path="/courses" element={<Courses />} />
-          <Route path="/courses/:id" element={<CoursesDetail />} />
+          <Route path="/:category/list" element={<ItemList />} />         {/* 전체보기 */}
+          <Route path="/:title/detail/:id" element={<ItemDetail />} />    {/* 상세보기 */}
+          <Route path="/around" element={<Around />}/>                    {/* 내주변 */}
+          <Route path="/along/courses" element={<AlongCourses />} />      {/* 여행따라 */}
+          <Route path="/along/courses/:id" element={<CoursesDetail alongCoursesMode={true}/>} /> {/* 여행따라 상세 */}
+          <Route path="/along/blues" element={<AlongBlues />} />          {/* 바당따라 */}
+          <Route path="/along/blues/:id" element={<AlongBluesPlan />} />  {/* 바당따라 여행코스 */}
+          <Route path="/courses/list" element={<Courses />} />            {/* 여행코스 */}
+          <Route path="/courses/detail/:id" element={<CoursesDetail />} />{/* 여행코스 상세 */}
         </Routes>
       </div>
     </BrowserRouter>

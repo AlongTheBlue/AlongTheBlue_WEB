@@ -6,7 +6,7 @@ function SquareCard({item, category}) {
   const navigate = useNavigate();
 
   const handleDetailViewClick = () => {
-    navigate(`/${category}/detail/${item.id}`);
+      navigate(`/${category}/detail/${item.id}`)
   };
 
   return (
@@ -25,8 +25,15 @@ function SquareCard({item, category}) {
         }}
       />
       <div className="square-card-info">
-        <div className="square-card-name">{item.name}</div>
-        <div className="square-card-address">{item.address}</div>
+        <div>
+          <div className="square-card-name">{item.name}</div>
+        </div>
+        <div>
+          {item.address ? 
+            <div className="square-card-address">{item.address}</div> : 
+            <div className="square-card-hashtag">{item.hashtag}</div>
+          } 
+        </div>
       </div>
     </div>
   );
