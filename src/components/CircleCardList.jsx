@@ -3,13 +3,13 @@ import "../styles/CircleCardList.css";
 import CardHeader from './CardHeader';
 import CircleCard from './CircleCard';
 
-function CircleCardList({ title, items }) {
+function CircleCardList({ category, title, items}) {
   return (
     <div className="circle-card-list-container">
-      <CardHeader title={title} />
+      <CardHeader title={title} category={category}/>
       <div className="circle-card-list">
         {items.map((item, index) => (
-          <CircleCard key={index} item={item} title={title}/>
+          <CircleCard key={index} item={item} category={category}/>
         ))}
       </div>
     </div>

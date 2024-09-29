@@ -36,11 +36,11 @@ function Home() {
       <Header />
       <Search />
       <HomeCategory />
-      <CircleCardList title="관광" items={touristSpots}/>
-      <SquareCardList title="숙소" items={accommodations}/>
-      <SquareCardList title="음식" items={foods}/>
-      <SquareCardList title="카페" items={cafes}/>
-      <SquareCardList title="여행코스" items={accommodations}/>
+      <CircleCardList category="tour" title="관광" items={touristSpots}/>
+      <SquareCardList category="accommodation" title="숙소" items={accommodations}/>
+      <SquareCardList category="restaurant" title="음식" items={foods}/>
+      <SquareCardList category="cafe" title="카페" items={cafes}/>
+      <SquareCardList category="courses" title="여행코스" items={accommodations}/>
       <Footer/>
     </div>
   );

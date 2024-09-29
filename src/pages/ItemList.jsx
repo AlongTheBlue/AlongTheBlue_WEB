@@ -35,7 +35,13 @@ const foods = [
 
 function ItemList() {
 
-    const { title } = useParams();
+    const { category } = useParams();
+    
+    let title = '';
+    if(category == "tour") title = "관광";
+    else if(category == "restaurant") title = "음식";
+    else if(category == "accommodation") title = "숙소";
+    else title = "카페";
 
     return (
         <div className="page-container">
