@@ -1,0 +1,26 @@
+.courses-detail-map {
+    display: flex;
+    justify-content: center;
+    margin: 1em 0;
+}
+
+.courses-detail-info {
+    margin: 5% 3% 2%;
+    padding-bottom: 1em;
+    border-bottom: solid 1px #DBDBDB;
+}
+
+.courses-detail-subtitle {
+    color: #8F8F8F;
+    font-weight: 600;
+}
+.courses-detail-title {
+    font-weight: 700;
+    font-size: 1.5em;
+    padding: 0.3em 0;
+}
+.courses-detail-introduction {
+    margin-top: 1em;
+    line-height: 1.5em;
+    color: #292929;
+}
