@@ -19,8 +19,15 @@
     font-weight: 700;
 }
 
+.square-card-address, .square-card-hashtag {
+    font-weight: 300;
+}
 .square-card-address {
     font-size: 0.6em;
-    font-weight: 300;
     padding: 0.8em 0;
+}
+
+.square-card-hashtag {
+    font-size: 0.8em;
+    padding: 0.6em 0;
 }

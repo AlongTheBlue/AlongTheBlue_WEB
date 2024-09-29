@@ -19,10 +19,10 @@
 } */
 
 .home-category {
-  width: 80%;
+  width: 90%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4열로 설정 */
-  margin: 2% auto 0;
+  grid-template-columns: repeat(5, 1fr);
+  margin: 3% auto 0;
 }
 
 .home-category-item {
@@ -33,5 +33,5 @@
 }
 
 .home-category-icon {
-  width: 30%; /* 아이콘 크기 조정 */
+  width: 30%;
 }
