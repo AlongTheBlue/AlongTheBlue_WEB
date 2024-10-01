@@ -12,10 +12,42 @@ import Courses from './pages/Courses.jsx';
 import CoursesDetail from './pages/CoursesDetail.jsx';
 import AlongCoursesForm from './pages/AlongCoursesForm.jsx';
 import SearchPage from './pages/SearchPage.jsx';
+import MyPage from './pages/MyPage.jsx';
+import Auth from './components/Login/Auth.jsx';
+import axios from 'axios';
 
 function App() {
 
   const [isKakaoLoaded, setIsKakaoLoaded] = useState(false);  // Kakao 지도 API 로드 상태
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
+
+  const requestUser = async (id) => {
+    const endpoint = import.meta.env.VITE_BE_ENDPOINT;
+    const userResponse = await axios.get(`${endpoint}/api/user`, {
+      headers: { Authorization: `${id}` },
+    });
+    return userResponse; // userResponse를 반환
+  };
+  
+  useEffect(() => {
+    const fetchUser = async () => {
+      const id = localStorage.getItem('id');
+
+      if (id) {
+        try {
+          const userResponse = await requestUser(id);
+          const user = userResponse.data.data; // 데이터를 올바르게 추출
+          setUser(user);
+          setIsAuthenticated(true)
+        } catch (error) {
+          console.error('Failed to fetch user:', error);
+        }
+      }
+    };
+  
+    fetchUser(); // 비동기 함수를 호출
+  }, []);
 
   useEffect(() => {
     // Kakao 지도 API 스크립트를 비동기로 로드
@@ -61,6 +93,8 @@ function App() {
           <Route path="/courses/detail/:id" element={<CoursesDetail />} />{/* 여행코스 상세 */}
           <Route path="/search" element={<SearchPage/>} />                {/* 검색페이지 */}
           <Route path="/search/place" element={<SearchPage searchPlaceMode={true}/>} />          {/* 장소 검색페이지 */}
+          <Route path="/my" element={<MyPage isAuthenticated={isAuthenticated} user={user} setUser={setUser} setIsAuthenticated={setIsAuthenticated}/>}/>
+          <Route path="/auth" element={<Auth setUser={setUser} setIsAuthenticated={setIsAuthenticated}/>} />
         </Routes>
       </div>
     </BrowserRouter>

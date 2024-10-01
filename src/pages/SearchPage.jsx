@@ -1,110 +1,91 @@
-import Footer from '../components/Footer';
-import Search from '../components/Search';
-import { useState } from 'react';
+import Footer from "../components/Footer";
+import Search from "../components/Search";
+import { useState } from "react";
 import "../styles/Page.css";
-import PageHeader from '../components/PageHeader';
+import PageHeader from "../components/PageHeader";
 import "../styles/SearchPage.css";
-import ItemCardList from '../components/ItemCardList';
-import { useLocation } from 'react-router-dom'; // useLocation import
-import { useEffect } from 'react';
+import ItemCardList from "../components/ItemCardList";
+import { useLocation } from "react-router-dom"; // useLocation import
+import { useNavigate, useEffect } from "react";
+import { getPlacesByCategory } from "../utils/data.js";
 
-function SearchPage({searchPlaceMode}) {
-    const location = useLocation();  // location으로 전달받은 state 가져오기
+function SearchPage({ searchPlaceMode }) {
+  const location = useLocation(); // location으로 전달받은 state 가져오기
+  // travelCourses를 location.state에서 받아오기
+  const [travelCourses, setTravelCourses] = useState(() => {
+    return location.state?.travelCourses || [];
+  });
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [searchResult, setSearchResult] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-    // travelCourses를 location.state에서 받아오기
-    const [travelCourses, setTravelCourses] = useState(() => {
-        return location.state?.travelCourses || [];
-    });
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const data = await getPlacesByCategory(selectedCategory);
+        setSearchResult(data);
+      } catch (error) {
+        console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    useEffect(() => {
-        console.log("하이 ", travelCourses)
-    }, [location])
+    fetchData();
+  }, [selectedCategory]);
 
-    const popularPlaces = [
-        "한라산", "성산일출봉", "섭지코지", "만장굴", "우도", "추자도", 
-        "국립제주박물관", "성읍민속마을", "휴애리 자연생활공원", "제주 올레"
-    ];
+  const handleHashtagClick = (category) => {
+    setSelectedCategory(category === "전체" ? "all" : category);
+  };
 
-    const popularBlues = [
-        { name: "함덕 서우봉 해변", url: "/images/course/jeju.jpg" },
-        { name: "협재 해수욕장", url: "/images/course/jeju2.jpg" },
-        { name: "용머리 해안", url: "/images/course/jeju3.jpg" }
-    ];
+  return (
+    <div className="page-container">
+      <PageHeader title={"검색"} />
+      <Search />
 
-    const searchResult = [
-        {
-            title: '명진전복', 
-            address: '제주특별자치도 제주시 구좌읍 해맞이해안로 1282', 
-            hashtags: [
-                "#전복요리",
-                "#전복돌솥밥",
-                "#바다뷰맛집",
-                "#고등어구이",
-                "#제주맛집"
-            ], 
-            image1: '/images/food/명진전복.png',
-            image2: 'https://blog.kakaocdn.net/dn/b3fewH/btqWVSsjaEO/JcMi0zIGZg75AFXSYvDqGk/img.jpg'
-        },
-        { 
-            title: '올래국수', 
-            address: '제주특별자치도 제주시 귀아랑길 24', 
-            hashtags: [
-                "#제주고기국수",
-                "#올래국수",
-                "#진한사골국물",
-                "#제주고기국수맛집",
-                "#수요미식회맛집"
-            ], 
-            image1: '/images/food/올래국수.jpeg',
-            image2: 'https://api.cdn.visitjeju.net/photomng/imgpath/201910/23/cfb35a88-5beb-4434-96b6-c878a6073d49.jpg'},
-    ];
+      {!searchPlaceMode ? (
+        <div>{/* 추천 장소 및 해변은 여전히 고정된 콘텐츠로 제공 */}</div>
+      ) : (
+        <div className="search-result-container">
+          {/* 해시태그 필터 */}
+          <div className="hashtags">
+            {["전체", "관광", "숙박", "음식", "카페", "바다"].map(
+              (category) => (
+                <span
+                  key={category}
+                  className={`hashtag ${
+                    selectedCategory ===
+                    (category === "전체" ? "all" : category)
+                      ? "active"
+                      : ""
+                  }`}
+                  onClick={() => handleHashtagClick(category)}
+                >
+                  {category}
+                </span>
+              )
+            )}
+          </div>
 
-    return (
-         <div className="page-container">
-            <PageHeader title={"검색"}/>
-            <Search/>
-        
-            {!searchPlaceMode ?
-            <div>
-                <div className="recommend-place-container">
-                    <div className='recommend-place'>추천 장소</div>
-                    <ul>
-                        {popularPlaces.map((place, index) => (
-                            <li key={index}>
-                                <span className='recommend-place-index'>{index + 1}</span> 
-                                <span className='recommend-place-name'>{place}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                <div className='popular-blues-container'>
-                    <div className='popular-blues-text'>추천 해변</div>
-                    <div className="popular-blues-list">
-                        {popularBlues.map((popularBlue, index) => (
-                        <div key={index} className="popular-blues">
-                            <img src={popularBlue.url} alt={popularBlue.name} className="popular-blues-image" />
-                            <div className='popular-blues-name'>{popularBlue.name}</div>
-                        </div>
-                        ))}
-                    </div>
-                </div>
-            </div> 
-            :
-            <div className='search-result-container'>
-                <div className='hashtags'>
-                    <span className='hashtag'>전체</span>
-                    <span className='hashtag'>관광</span>
-                    <span className='hashtag'>숙박</span>
-                    <span className='hashtag'>음식</span>
-                    <span className='hashtag'>카페</span>
-                </div>
-                <div>{searchResult.length}개의 검색결과</div>
-                <ItemCardList items={searchResult} selectMode={true} travelCourses={travelCourses} />
-            </div>
-        }
-        <Footer />
+          {loading ? (
+            <div>로딩 중...</div>
+          ) : (
+            <>
+              <div>{searchResult.length}개의 검색결과</div>
+
+              {/* 검색 결과 리스트 */}
+              <ItemCardList
+                items={searchResult}
+                selectMode={true}
+                travelCourses={travelCourses}
+              />
+            </>
+          )}
+        </div>
+      )}
+      <Footer />
     </div>
   );
 }
-
 export default SearchPage;

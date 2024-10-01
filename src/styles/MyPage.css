@@ -1,0 +1,36 @@
+.my-along-container {
+    margin-top: 5%;
+}
+
+.my-along-container {
+    border-top: 1px solid  #DBDBDB;;
+    margin: 5% 5%;
+    padding-top: 3%;
+}
+.my-along-header {
+    color: #5C5C5C;    
+}
+.my-along-blues, .my-along-courses {
+    display: flex;
+    justify-content: space-between;
+    padding: 5% 10% 2% 5%;
+    font-weight: 700;
+    align-items: center;
+    cursor: pointer;
+}
+
+.my-along-blues img, .my-along-courses img{
+    width: 0.7em;
+}
+
+.logout-container {
+    display: flex;
+    justify-content: end;
+    color: #1F75FE;
+    font-weight: 700;
+    margin: 7% 5% 2%;
+    cursor: pointer;
+}
+.logout-container:hover{
+    font-weight: 800;
+}
