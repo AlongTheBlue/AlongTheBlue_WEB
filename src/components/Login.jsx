@@ -1,10 +1,10 @@
-import "../../styles/KakaoLogin.css"
-import Footer from "../Footer"
-import Header from "../Header"
-import PageHeader from "../PageHeader"
+import Footer from "./Footer"
+import Header from "./Header"
+import PageHeader from "./PageHeader"
 import axios from 'axios';
+import "../styles/Login.css"
 
-const KakaoLogin = ()=>
+const Login = ()=>
     {   
         const endpoint = import.meta.env.VITE_BE_ENDPOINT;
         const baseUrl = `${endpoint}/oauth`;
@@ -29,7 +29,7 @@ const KakaoLogin = ()=>
             <div className="kakao-login-main">
                 <Header/>
                 <div className="kakao-login-img-container" onClick={handleLogin}>
-                    <img src="../images/login/kakao_login.png"/>
+                    <img src="/images/login/kakao_login.png"/>
                 </div>  
             </div>
             {/* <button onClick={handleLogin}>카카오 로그인</button> */}
@@ -37,4 +37,4 @@ const KakaoLogin = ()=>
         </div>
         )
     }
-    export default KakaoLogin
+    export default Login

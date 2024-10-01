@@ -1,9 +1,15 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from "react";
 import "../styles/AroundMap.css"; // 스타일은 여기에 추가합니다.
 
-function AroundMap({keyword, searchTrigger, selectedBlue, travelCourses, setTravelCourses}) {
+function AroundMap({
+  keyword,
+  searchTrigger,
+  selectedBlue,
+  travelCourses,
+  setTravelCourses,
+}) {
   const [position, setPosition] = useState(null); // 현재 위치 상태 관리
-  const [currCategory, setCurrCategory] = useState(''); // 현재 선택된 카테고리
+  const [currCategory, setCurrCategory] = useState(""); // 현재 선택된 카테고리
   const [place, setPlace] = useState(null);
   const [paths, setPaths] = useState([]);
   const [travelMarkers, setTravelMarkers] = useState([]);
@@ -15,35 +21,37 @@ function AroundMap({keyword, searchTrigger, selectedBlue, travelCourses, setTrav
   const placeOverlayRef = useRef(null); // placeOverlay를 Ref로 관리
   const contentNodeRef = useRef(null); // 오버레이 콘텐츠 노드를 Ref로 관리
   const currCategoryRef = useRef(currCategory);
-  
+
   const overNodeRef = useRef(null);
   const infoOverlayRef = useRef(null);
 
   useEffect(() => {
     if (selectedBlue) {
-        setPaths([new window.kakao.maps.LatLng(selectedBlue.yMap, selectedBlue.xMap)]);
+      setPaths([
+        new window.kakao.maps.LatLng(selectedBlue.yMap, selectedBlue.xMap),
+      ]);
     }
   }, []);
 
   const categories = [
-    { id: 'AT4', name: '관광', url: '/images/icon/category_6.svg' },
-    { id: 'AD5', name: '숙박', url: '/images/icon/category_7.svg' },
-    { id: 'FD6', name: '음식', url: '/images/icon/category_8.svg' },
-    { id: 'CE7', name: '카페', url: '/images/icon/category_9.svg' }
+    { id: "AT4", name: "관광", url: "/images/icon/category_6.svg" },
+    { id: "AD5", name: "숙박", url: "/images/icon/category_7.svg" },
+    { id: "FD6", name: "음식", url: "/images/icon/category_8.svg" },
+    { id: "CE7", name: "카페", url: "/images/icon/category_9.svg" },
   ]; // 카테고리 리스트
 
   useEffect(() => {
     const ps = placesServiceRef.current;
     const map = mapRef.current;
 
-    if(ps && map){
+    if (ps && map) {
       clearUnusedMarkers();
-      if (currCategory !== '') {
-        setCurrCategory(''); // 카테고리를 초기화
+      if (currCategory !== "") {
+        setCurrCategory(""); // 카테고리를 초기화
       }
       searchKeyword(keyword, ps, map);
     }
-  }, [searchTrigger])
+  }, [searchTrigger]);
 
   const searchKeyword = (keyword, ps) => {
     if (placeOverlayRef.current) {
@@ -51,24 +59,23 @@ function AroundMap({keyword, searchTrigger, selectedBlue, travelCourses, setTrav
     }
 
     ps.keywordSearch(
-      keyword, 
+      keyword,
       (data, status) => {
         if (status === window.kakao.maps.services.Status.OK) {
           console.log(data);
           displayPlaces(data);
-
         } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
-          alert('검색 결과가 존재하지 않습니다.');
+          alert("검색 결과가 존재하지 않습니다.");
           return;
         } else if (status === window.kakao.maps.services.Status.ERROR) {
-          alert('검색 결과 중 오류가 발생했습니다.');
+          alert("검색 결과 중 오류가 발생했습니다.");
           return;
         }
       },
       {
         useMapCenter: true,
         useMapBounds: true,
-        sort: window.kakao.maps.services.SortBy.ACCURACY
+        sort: window.kakao.maps.services.SortBy.ACCURACY,
       }
     );
   };
@@ -80,18 +87,19 @@ function AroundMap({keyword, searchTrigger, selectedBlue, travelCourses, setTrav
 
   // 현재 위치 가져오기
   useEffect(() => {
-    if(selectedBlue){
-      setTravelCourses([{
-        name: selectedBlue.name, 
-        address: selectedBlue.address,
-        lat: selectedBlue.yMap, 
-        lng: selectedBlue.xMap,
-        category: selectedBlue.category,
-        iconCategory: selectedBlue.iconCategory
-      }]);
+    if (selectedBlue) {
+      setTravelCourses([
+        {
+          title: selectedBlue.name,
+          address: selectedBlue.address,
+          lat: selectedBlue.yMap,
+          lng: selectedBlue.xMap,
+          category: selectedBlue.category,
+          iconCategory: selectedBlue.iconCategory,
+        },
+      ]);
 
-      setPosition({lat: selectedBlue.yMap, lng: selectedBlue.xMap})
-
+      setPosition({ lat: selectedBlue.yMap, lng: selectedBlue.xMap });
     } else if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => {
         const { latitude, longitude } = pos.coords;
@@ -107,7 +115,7 @@ function AroundMap({keyword, searchTrigger, selectedBlue, travelCourses, setTrav
     if (position && !mapRef.current) {
       console.log("Initializing map...");
 
-      const container = document.getElementById('map');
+      const container = document.getElementById("map");
       const options = {
         center: new window.kakao.maps.LatLng(position.lat, position.lng),
         level: 4, // 지도 확대 레벨
@@ -122,8 +130,8 @@ function AroundMap({keyword, searchTrigger, selectedBlue, travelCourses, setTrav
       placesServiceRef.current = ps;
 
       // 커스텀 오버레이 생성 및 설정
-      const overlayNode = document.createElement('div');
-      overlayNode.className = 'placeinfo_wrap';
+      const overlayNode = document.createElement("div");
+      overlayNode.className = "placeinfo_wrap";
       contentNodeRef.current = overlayNode; // Ref로 오버레이 콘텐츠 노드를 관리
 
       // placeOverlay를 Ref로 관리
@@ -134,8 +142,8 @@ function AroundMap({keyword, searchTrigger, selectedBlue, travelCourses, setTrav
       placeOverlayRef.current = customOverlay;
 
       // 커스텀 오버레이 생성 및 설정
-      const infolayNode = document.createElement('div');
-      infolayNode.className = 'over-info-wrap';
+      const infolayNode = document.createElement("div");
+      infolayNode.className = "over-info-wrap";
       overNodeRef.current = infolayNode; // Ref로 오버레이 콘텐츠 노드를 관리
 
       // placeOverlay를 Ref로 관리
@@ -150,7 +158,7 @@ function AroundMap({keyword, searchTrigger, selectedBlue, travelCourses, setTrav
       kakaoMap.addControl(zoomControl, window.kakao.maps.ControlPosition.RIGHT); // 줌 컨트롤러 추가
 
       // idle 이벤트 등록 (지도의 중심 좌표가 변경될 때)
-      window.kakao.maps.event.addListener(kakaoMap, 'idle', () => {
+      window.kakao.maps.event.addListener(kakaoMap, "idle", () => {
         const center = kakaoMap.getCenter(); // 지도의 중심 좌표
         console.log("Map idle, updating center position:", center);
         setPosition({
@@ -173,36 +181,45 @@ function AroundMap({keyword, searchTrigger, selectedBlue, travelCourses, setTrav
       // travelCourses가 채워져있을 때 실행
       displayCourseMarkers(travelCourses, mapRef.current);
       setPaths(
-        travelCourses.map(course => new window.kakao.maps.LatLng(course.lat, course.lng))
+        travelCourses.map(
+          (course) => new window.kakao.maps.LatLng(course.lat, course.lng)
+        )
       );
     }
   }, [travelCourses]);
-  
 
   // 여행 코스를 기반으로 마커 생성 함수
   const displayCourseMarkers = (courses, map) => {
     // 기존 마커들을 모두 제거
-    travelMarkers.forEach(marker => marker.setMap(null));
+    travelMarkers.forEach((marker) => marker.setMap(null));
 
     // 새 마커를 생성하고 배열에 저장
     const newMarkers = courses.map((course, index) => {
-      const markerPosition = new window.kakao.maps.LatLng(course.lat, course.lng);
-      const markerImageSrc = `/images/icon/marker/${course.iconCategory}_${index+1}.svg`;
+      const markerPosition = new window.kakao.maps.LatLng(
+        course.lat,
+        course.lng
+      );
+      const markerImageSrc = `/images/icon/marker/${course.iconCategory}_${
+        index + 1
+      }.svg`;
       const imageSize = new window.kakao.maps.Size(30, 45);
-      const markerImage = new window.kakao.maps.MarkerImage(markerImageSrc, imageSize, 
-          { spriteSize: new window.kakao.maps.Size(25, 50) });
+      const markerImage = new window.kakao.maps.MarkerImage(
+        markerImageSrc,
+        imageSize,
+        { spriteSize: new window.kakao.maps.Size(25, 50) }
+      );
 
       const marker = new window.kakao.maps.Marker({
-          position: markerPosition,
-          image: markerImage,
+        position: markerPosition,
+        image: markerImage,
       });
 
       marker.setMap(map); // 마커를 지도에 표시
       return marker; // 생성된 마커 반환
-      });
+    });
 
-      setTravelMarkers(newMarkers);
-    };
+    setTravelMarkers(newMarkers);
+  };
 
   // 카테고리가 변경될 때마다 장소를 다시 검색
   useEffect(() => {
@@ -224,7 +241,10 @@ function AroundMap({keyword, searchTrigger, selectedBlue, travelCourses, setTrav
   // 장소를 지도에 마커로 표시하는 함수 (중복 마커 제거)
   const displayPlaces = (places) => {
     const existingMarkerPositions = new Set(
-      markersRef.current.map((marker) => `${marker.getPosition().getLat()},${marker.getPosition().getLng()}`)
+      markersRef.current.map(
+        (marker) =>
+          `${marker.getPosition().getLat()},${marker.getPosition().getLng()}`
+      )
     );
 
     const newMarkers = places
@@ -237,18 +257,20 @@ function AroundMap({keyword, searchTrigger, selectedBlue, travelCourses, setTrav
         const marker = addMarker(markerPosition);
 
         // 마커 클릭 이벤트 등록
-        window.kakao.maps.event.addListener(marker, 'click', () => {
+        window.kakao.maps.event.addListener(marker, "click", () => {
           closeOverInfo();
           displayPlaceInfo(place); // 클릭 시 오버레이를 표시
-          console.log("name: "+place.place_name+ " x: "+place.x + " y: "+place.y);
+          console.log(
+            "name: " + place.place_name + " x: " + place.x + " y: " + place.y
+          );
         });
 
-        window.kakao.maps.event.addListener(marker, 'mouseover', function() {
-            displayOverInfo(place);
+        window.kakao.maps.event.addListener(marker, "mouseover", function () {
+          displayOverInfo(place);
         });
 
-        window.kakao.maps.event.addListener(marker, 'mouseout', function() {
-            closeOverInfo();
+        window.kakao.maps.event.addListener(marker, "mouseout", function () {
+          closeOverInfo();
         });
 
         return marker;
@@ -270,7 +292,12 @@ function AroundMap({keyword, searchTrigger, selectedBlue, travelCourses, setTrav
   // 카테고리 검색 함수
   const searchPlaces = (center) => {
     console.log(center);
-    if (!currCategoryRef.current || !mapRef.current || !placesServiceRef.current) return;
+    if (
+      !currCategoryRef.current ||
+      !mapRef.current ||
+      !placesServiceRef.current
+    )
+      return;
 
     // 커스텀 오버레이 숨기기
     if (placeOverlayRef.current) {
@@ -332,12 +359,14 @@ function AroundMap({keyword, searchTrigger, selectedBlue, travelCourses, setTrav
     // 오버레이 내용 업데이트 및 위치 설정
     contentNodeRef.current.innerHTML = content; // Ref로 관리되는 contentNode에 콘텐츠 설정
     placeOverlayRef.current.setContent(contentNodeRef.current); // 오버레이 콘텐츠 업데이트
-    placeOverlayRef.current.setPosition(new window.kakao.maps.LatLng(place.y, place.x));
+    placeOverlayRef.current.setPosition(
+      new window.kakao.maps.LatLng(place.y, place.x)
+    );
     placeOverlayRef.current.setMap(mapRef.current); // 오버레이를 지도에 표시
 
     // 오버레이 닫기 이벤트 등록
-    const closeBtn = contentNodeRef.current.querySelector('.placeinfo-close');
-    closeBtn.addEventListener('click', () => {
+    const closeBtn = contentNodeRef.current.querySelector(".placeinfo-close");
+    closeBtn.addEventListener("click", () => {
       placeOverlayRef.current.setMap(null); // 오버레이 닫기
     });
     setPlace(place);
@@ -347,7 +376,7 @@ function AroundMap({keyword, searchTrigger, selectedBlue, travelCourses, setTrav
   const onClickCategory = (id) => {
     if (currCategory === id) {
       clearUnusedMarkers(); // 동일 카테고리 클릭 시 기존 마커 제거
-      setCurrCategory(''); // 카테고리 해제
+      setCurrCategory(""); // 카테고리 해제
     } else {
       setCurrCategory(id); // 새로운 카테고리 선택
     }
@@ -371,40 +400,43 @@ function AroundMap({keyword, searchTrigger, selectedBlue, travelCourses, setTrav
     // 오버레이 내용 업데이트 및 위치 설정
     overNodeRef.current.innerHTML = content; // Ref로 관리되는 contentNode에 콘텐츠 설정
     infoOverlayRef.current.setContent(overNodeRef.current); // 오버레이 콘텐츠 업데이트
-    infoOverlayRef.current.setPosition(new window.kakao.maps.LatLng(place.y, place.x));
+    infoOverlayRef.current.setPosition(
+      new window.kakao.maps.LatLng(place.y, place.x)
+    );
     infoOverlayRef.current.setMap(mapRef.current); // 오버레이를 지도에 표시
   };
 
   const closeOverInfo = () => {
-    if(!infoOverlayRef) return;
+    if (!infoOverlayRef) return;
     infoOverlayRef.current.setMap(null); // 오버레이 닫기
-  }
+  };
 
   const addCourse = () => {
     const selectedPlace = place;
-  
+
     // 이미 존재하는 코스인지 확인하여 중복 방지
     const isDuplicate = travelCourses.some(
-      (course) => course.lat === selectedPlace.y && course.lng === selectedPlace.x
+      (course) =>
+        course.lat === selectedPlace.y && course.lng === selectedPlace.x
     );
-    if(isDuplicate){
+    if (isDuplicate) {
       alert("이미 추가한 장소입니다.");
       return;
-    } 
+    }
     let place_category = selectedPlace.category_group_name;
     let icon_category = null;
-    if(place_category == "관광명소"){
+    if (place_category == "관광명소") {
       place_category = "관광";
       icon_category = "tour";
-    } else if(place_category == "숙박"){
+    } else if (place_category == "숙박") {
       icon_category = "hotel";
-    } else if(place_category == "음식점"){
+    } else if (place_category == "음식점") {
       place_category = "음식";
       icon_category = "food";
     } else {
-      icon_category = "cafe"
+      icon_category = "cafe";
     }
-    console.log(place_category)
+    console.log(place_category);
 
     const course = {
       lat: selectedPlace.y,
@@ -412,9 +444,9 @@ function AroundMap({keyword, searchTrigger, selectedBlue, travelCourses, setTrav
       name: selectedPlace.place_name,
       address: selectedPlace.road_address_name || selectedPlace.address_name,
       category: place_category,
-      iconCategory: icon_category
+      iconCategory: icon_category,
     };
-  
+
     // 상태를 업데이트하는 부분은 중복되지 않을 때만 수행
     setTravelCourses((prevCourses) => [...prevCourses, course]);
 
@@ -423,49 +455,51 @@ function AroundMap({keyword, searchTrigger, selectedBlue, travelCourses, setTrav
     //   ...prevPaths,
     //   new window.kakao.maps.LatLng(course.lat, course.lng)
     // ]);
-  
+
     if (placeOverlayRef.current) {
       placeOverlayRef.current.setMap(null); // 오버레이 닫기
     }
     clearUnusedMarkers(); // 기존 마커 정리
-    setCurrCategory(''); // 카테고리 초기화
-  };  
+    setCurrCategory(""); // 카테고리 초기화
+  };
 
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
-    
+
     let polyline = new window.kakao.maps.Polyline({
       path: paths, // 선을 구성하는 좌표배열 입니다
       strokeWeight: 3, // 선의 두께 입니다
-      strokeColor: '#5C5C5C', // 선의 색깔입니다
+      strokeColor: "#5C5C5C", // 선의 색깔입니다
       strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-      strokeStyle: 'dashed' // 선의 스타일입니다
+      strokeStyle: "dashed", // 선의 스타일입니다
     });
-  
-    // 지도에 선을 표시합니다 
+
+    // 지도에 선을 표시합니다
     polyline.setMap(mapRef.current);
-    console.log(paths)
+    console.log(paths);
 
     // 메모리 누수를 방지하기 위해 polyline을 정리
     return () => {
       polyline.setMap(null);
     };
-  },[paths]);
+  }, [paths]);
 
   return (
     <div className="map-container">
-      <div id="map" className='around-map'></div>
+      <div id="map" className="around-map"></div>
       <div className="map-category-container">
         <ul className="map-category-list">
           {categories.map((category) => (
             <li
               key={category.id}
               id={category.id}
-              className={`map-category-item ${currCategory === category.id ? 'on' : ''}`}
+              className={`map-category-item ${
+                currCategory === category.id ? "on" : ""
+              }`}
               onClick={() => onClickCategory(category.id)}
             >
-              <img className='map-category_bg' src={category.url}></img>
+              <img className="map-category_bg" src={category.url}></img>
               <span>{category.name}</span>
             </li>
           ))}
@@ -473,11 +507,14 @@ function AroundMap({keyword, searchTrigger, selectedBlue, travelCourses, setTrav
       </div>
       {selectedBlue && (
         <div className="add-box">
-          <img className="add-btn" src="/images/icon/add_btn3.svg" onClick={addCourse}></img>
+          <img
+            className="add-btn"
+            src="/images/icon/add_btn3.svg"
+            onClick={addCourse}
+          ></img>
         </div>
       )}
     </div>
-    
   );
 }
 
