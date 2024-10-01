@@ -4,7 +4,8 @@ import PageHeader from "../components/PageHeader";
 import Footer from "../components/Footer";
 import UserCard from "../components/UserCard";
 import "../styles/MyPage.css"
-import KakaoLogin from "../components/Login/KakaoLogin";
+import KakaoLogin from "../components/KakaoLogin";
+
 
 function MyPage({isAuthenticated, user, setUser, setIsAuthenticated}) {
     const navigate = useNavigate();
