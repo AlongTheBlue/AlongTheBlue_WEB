@@ -1,10 +1,10 @@
-import "../styles/KakaoLogin.css"
 import Footer from "./Footer"
 import Header from "./Header"
 import PageHeader from "./PageHeader"
 import axios from 'axios';
+import "../styles/Login.css"
 
-const KakaoLogin = ()=>
+const Login = ()=>
     {   
         const endpoint = import.meta.env.VITE_BE_ENDPOINT;
         const baseUrl = `${endpoint}/oauth`;
@@ -37,4 +37,4 @@ const KakaoLogin = ()=>
         </div>
         )
     }
-    export default KakaoLogin
+    export default Login

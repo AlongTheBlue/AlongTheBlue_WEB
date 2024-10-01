@@ -4,7 +4,7 @@ import PageHeader from "../components/PageHeader";
 import Footer from "../components/Footer";
 import UserCard from "../components/UserCard";
 import "../styles/MyPage.css"
-import KakaoLogin from "../components/KakaoLogin";
+import Login from "../components/Login";
 
 
 function MyPage({isAuthenticated, user, setUser, setIsAuthenticated}) {
@@ -20,7 +20,7 @@ function MyPage({isAuthenticated, user, setUser, setIsAuthenticated}) {
     return(
         <div className="page-container">
             {!isAuthenticated ?
-            <KakaoLogin/>
+            <Login/>
             :
             <>
                 <PageHeader title={"마이"}/>
