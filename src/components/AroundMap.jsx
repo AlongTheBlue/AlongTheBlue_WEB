@@ -90,7 +90,7 @@ function AroundMap({
     if (selectedBlue) {
       setTravelCourses([
         {
-          name: selectedBlue.name,
+          title: selectedBlue.name,
           address: selectedBlue.address,
           lat: selectedBlue.yMap,
           lng: selectedBlue.xMap,

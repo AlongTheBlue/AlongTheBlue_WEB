@@ -31,11 +31,11 @@ const AlongBluesPlan = () => {
   const saveTravelCourses = async () => {
     try {
       const postData = {
-        id, // 해당 블루 코스 id
-        title: blue.title, // 선택된 바다 이름을 제목으로 사용
+        id,
+        title: selectedBlue.title,
         blueItems: travelCourses.map((course, index) => ({
           id: index,
-          name: course.name,
+          title: index === 0 ? selectedBlue.title : course.name,
           address: course.address,
           x: course.lat,
           y: course.lng,
@@ -44,7 +44,7 @@ const AlongBluesPlan = () => {
       };
 
       console.log("전송할 데이터:", postData);
-
+      console.log("blueItems:", postData.blueItems);
       const response = await axios.post(
         `${API_BASE_URL}/blueCourse/create`,
         postData
