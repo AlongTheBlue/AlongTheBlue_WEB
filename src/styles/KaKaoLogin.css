@@ -1,0 +1,10 @@
+.kakao-login-main {
+    margin: 10% 25% 0;
+}
+
+.kakao-login-img-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+    margin-bottom: 60vh;
+}
