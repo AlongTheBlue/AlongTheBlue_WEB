@@ -240,6 +240,7 @@ function AroundMap({keyword, searchTrigger, selectedBlue, travelCourses, setTrav
         window.kakao.maps.event.addListener(marker, 'click', () => {
           closeOverInfo();
           displayPlaceInfo(place); // 클릭 시 오버레이를 표시
+          console.log("name: "+place.place_name+ " x: "+place.x + " y: "+place.y);
         });
 
         window.kakao.maps.event.addListener(marker, 'mouseover', function() {
@@ -284,7 +285,7 @@ function AroundMap({keyword, searchTrigger, selectedBlue, travelCourses, setTrav
           displayPlaces(data); // 중복 마커를 필터링한 후 마커를 추가
         }
       },
-      { location: center, radius: 5000 }
+      { location: center, radius: 20000 }
     );
   };
 

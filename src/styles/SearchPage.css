@@ -1,0 +1,35 @@
+  .recommend-place-container {
+    padding: 2em 0 2em 1em;
+  }
+  
+  .recommend-place-container ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, auto);
+    gap: 0.5em;
+    padding: 0;
+    list-style: none;
+    grid-auto-flow: column;
+  }
+  
+  .recommend-place-container li {
+    font-size: 1rem;
+    padding: 10px;;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .recommend-place-container li:hover{
+    font-weight: 700;
+  }
+
+  .recommend-place {
+    font-size: 1.3em;
+    font-weight: 700;
+  }
+
+  .recommend-place-index {
+    font-weight: 700;
+    margin-right: 1em;
+  }
+
+  

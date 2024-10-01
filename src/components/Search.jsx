@@ -1,14 +1,21 @@
 import React from 'react';
 import "../styles/Search.css"
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function Search({onSearch, onTrigger}) {
+function Search({onSearch, onTrigger, searchMode}) {
   const [keyword, setKeyword] = useState(''); // 입력한 검색어 상태
+  const navigate = useNavigate();
+
+  const handleSearchPage = () => {
+    if(searchMode)
+      navigate('/search')
+  }
 
   // 검색 버튼 클릭 시 호출되는 함수
   const handleSearch = () => {  
     if (!keyword.trim()) {
-      alert("검색어를 입력해주세요!");
+      alert("검색어를 입력해주세요");
       return;
     }
     console.log(keyword);
@@ -25,10 +32,10 @@ function Search({onSearch, onTrigger}) {
 
   return (
     <div className="search">
-      <div className="search-bar">
+      <div className="search-bar" onClick={handleSearchPage}>
         <input 
           type="text" 
-          placeholder="장소 검색" 
+          placeholder="장소 검색"
           value={keyword} 
           onChange={(e) => setKeyword(e.target.value)}
           onKeyDown={(e) => activeEnter(e)}

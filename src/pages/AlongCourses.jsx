@@ -7,9 +7,10 @@ import PageHeader from '../components/PageHeader';
 const courseData = [
   {
     id: 1,
-    profileImg: '/images/user/user1.jpg',
-    userName: '치즈버거',
-    userComment: '우와아아아아아아',
+    userId: 1,
+    // profileImg: '/images/user/user1.jpg',
+    // userName: '치즈버거',
+    // userComment: '우와아아아아아아',
     courseTitle: '제주의 해안가를 따라',
     description: '요즘 제주 여행을 많이 가는 것 같아서 3월에 다녀온 제주일정표 \n 별거 아니지만 혹시 계획 세우기 귀찮은 분들을 위해',
     images: [
@@ -28,9 +29,10 @@ const courseData = [
   },
   {
     id: 2,
-    profileImg: '/images/user/user2.jpg',
-    userName: '호랑나비',
-    userComment: '한 마리 가야아',
+    userId: 2,
+    // profileImg: '/images/user/user2.jpg',
+    // userName: '호랑나비',
+    // userComment: '한 마리 가야아',
     courseTitle: '제주도 가성비 코스',
     description: '요즘 제주 여행을 많이 가는 것 같아서 3월에 다녀온 제주일정표 \n 별거 아니지만 혹시 계획 세우기 귀찮은 분들을 위해',
     images: [

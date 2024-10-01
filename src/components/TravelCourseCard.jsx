@@ -2,7 +2,7 @@ import React from 'react';
 import "../styles/TravelCourseCard.css";
 import { useNavigate } from 'react-router-dom';
 
-function TravelCourse({index, course, setTravelCourses}) {
+function TravelCourseCard({index, course, setTravelCourses}) {
     const navigate = useNavigate();
     const titleUrl = `/images/icon/marker/${course.iconCategory}_${index+1}.svg`;
     
@@ -40,4 +40,4 @@ function TravelCourse({index, course, setTravelCourses}) {
     );
 }
 
-export default TravelCourse;
+export default TravelCourseCard;

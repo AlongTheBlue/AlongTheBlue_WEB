@@ -37,7 +37,7 @@ function Home() {
   return (
     <div className="page-container">
       <Header />
-      <Search />
+      <Search searchMode={true}/>
       <HomeCategory />
       <CircleCardList category="tour" title="관광" items={touristSpots}/>
       <SquareCardList category="accommodation" title="숙소" items={accommodations}/>

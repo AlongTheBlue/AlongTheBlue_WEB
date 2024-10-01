@@ -1,9 +1,25 @@
 .courses-item-list-container {
-    margin: 0 auto;
+    margin: 2% auto;
 }
 
 .courses-item-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+.courses-item-card {
+    margin: 0% 5% 5%;
+}
+
+.courses-item-add {
+    display: flex;
+    justify-content: end;
+    margin-right: 2%;
+    color: #1F75FE;
+    cursor: pointer;
+    font-weight: 700;
+}
+.courses-item-add:hover {
+    font-weight: 800;
 }

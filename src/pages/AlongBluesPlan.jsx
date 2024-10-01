@@ -22,12 +22,23 @@ const AlongBluesPlan = () => {
       iconCategory: "tour"
     };
 
+    const saveTravelCourses =() => {
+      let courses = '';
+      travelCourses.map((course) => {
+          courses += ' '+course.name;
+      })
+      alert(courses);
+  }
+
     return (
       <div className='page-container'>
         <PageHeader title={"바당따라"}/>
         <Search onSearch={setKeyword} onTrigger={setSearchTrigger}/>
         <AroundMap keyword={keyword} searchTrigger={searchTrigger} selectedBlue={blue} travelCourses={travelCourses} setTravelCourses={setTravelCourses}/>
         <TravelCoursesList travelCourses={travelCourses} setTravelCourses={setTravelCourses}/>
+        <div className='travel-courses-save'>
+            <button className='travel-courses-save-btn' onClick={saveTravelCourses}>저장하기</button>
+        </div>
         <Footer />
       </div>
     );

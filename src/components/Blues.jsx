@@ -22,147 +22,77 @@ const Blues = ({ jejuBlues, seogwipoBlues }) => {
 
     useEffect(() => {
         const { kakao } = window;
-
-        // 지도를 표시할 div를 가져옵니다.
-        const mapContainer = document.getElementById('map'); 
+    
+        const mapContainer = document.getElementById('map');
         const mapOption = {
-            center: new kakao.maps.LatLng(33.386666, 126.55667), // 제주도 중심 좌표
-            level: 10 // 지도 확대 레벨
+            center: new kakao.maps.LatLng(33.386666, 126.55667),
+            level: 10
         };
-
-        // 지도 객체를 생성합니다.
+    
         mapRef.current = new kakao.maps.Map(mapContainer, mapOption);
-
-        // 줌 컨트롤 추가
-        const zoomControl = new window.kakao.maps.ZoomControl();
-        mapRef.current.addControl(zoomControl, window.kakao.maps.ControlPosition.RIGHT); // 줌 컨트롤러 추가
-
-        // 제주 해변 마커 및 오버레이 생성
-        jejuBlues.forEach((location, index) => {
-            const markerPosition = new kakao.maps.LatLng(location.yMap, location.xMap); // 각 위치의 좌표 설정
-
-            // 마커 이미지 설정
-            const markerImageSrc = "https://t1.daumcdn.net/mapjsapi/images/2x/marker.png"; // 마커 이미지 URL
-            const imageSize = new kakao.maps.Size(20, 28); // 마커 크기 설정
-            const markerImage = new kakao.maps.MarkerImage(markerImageSrc, imageSize); // 마커 이미지 객체 생성
-
+    
+        const zoomControl = new kakao.maps.ZoomControl();
+        mapRef.current.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+    
+        const createMarkerAndOverlay = (location, index, overlayRefs) => {
+            const markerPosition = new kakao.maps.LatLng(location.yMap, location.xMap);
+            const markerImageSrc = "https://t1.daumcdn.net/mapjsapi/images/2x/marker.png";
+            const imageSize = new kakao.maps.Size(20, 28);
+            const markerImage = new kakao.maps.MarkerImage(markerImageSrc, imageSize);
+    
             const marker = new kakao.maps.Marker({
                 map: mapRef.current,
-                position: markerPosition, // 마커를 표시할 위치
-                image: markerImage // 마커 이미지 설정
+                position: markerPosition,
+                image: markerImage
             });
-
-            // 커스텀 오버레이 내용 정의
-            const content = 
-                `<div class="blue-overlay">
+    
+            const content = `
+                <div class="blue-overlay">
                     <span class="blue-name">${location.name}</span>
                 </div>
-                <div class="triangle"></div>`
-            ;
-
-            // 커스텀 오버레이 생성
+                <div class="triangle"></div>
+            `;
+    
             const overlay = new kakao.maps.CustomOverlay({
                 content: content,
                 position: markerPosition,
-                yAnchor: 1.5, // 오버레이의 위치 조정을 위한 값
+                yAnchor: 1.5,
                 xAnchor: 0.5
             });
-
-            overlayRefsJeju.current[index] = overlay; // 제주 해변 오버레이를 배열로 관리
-
-            // 마커에 클릭 이벤트를 추가하여 커스텀 오버레이를 표시
+    
+            overlayRefs.current[index] = overlay;
+    
             kakao.maps.event.addListener(marker, 'click', () => {
-                // 모든 오버레이를 닫기
                 overlayRefsJeju.current.forEach((ov) => ov.setMap(null));
                 overlayRefsSeogwipo.current.forEach((ov) => ov.setMap(null));
-
-                // 클릭한 마커의 오버레이를 열기
-                overlay.setMap(mapRef.current);
-
-                selectedOverlayRef.current = overlay;
-                setSelectedBlue(location);
-            });
-
-            kakao.maps.event.addListener(marker, 'mouseover', () =>
-                overlay.setMap(mapRef.current)
-            );
-
-            kakao.maps.event.addListener(marker, 'mouseout', () => {
-                // 모든 오버레이를 닫기
-                overlayRefsJeju.current.forEach((ov) => {
-                    if(ov!=selectedOverlayRef.current)
-                        ov.setMap(null)
-                });
-                overlayRefsSeogwipo.current.forEach((ov) => {
-                    if(ov!=selectedOverlayRef.current)
-                        ov.setMap(null)
-                });
-            });
-        });
-
-        // 서귀포 해변 마커 및 오버레이 생성
-        seogwipoBlues.forEach((location, index) => {
-            const markerPosition = new kakao.maps.LatLng(location.yMap, location.xMap); // 각 위치의 좌표 설정
-
-            // 마커 이미지 설정
-            const markerImageSrc = "https://t1.daumcdn.net/mapjsapi/images/2x/marker.png"; // 마커 이미지 URL
-            const imageSize = new kakao.maps.Size(20, 28); // 마커 크기 설정
-            const markerImage = new kakao.maps.MarkerImage(markerImageSrc, imageSize); // 마커 이미지 객체 생성
-
-            const marker = new kakao.maps.Marker({
-                map: mapRef.current,
-                position: markerPosition, // 마커를 표시할 위치
-                image: markerImage // 마커 이미지 설정
-            });
-
-            // 커스텀 오버레이 내용 정의
-            const content = 
-                `<div class="blue-overlay">
-                    <span class="blue-name">${location.name}</span>
-                </div>
-                <div class="triangle"></div>`
-            ;
-
-            // 커스텀 오버레이 생성
-            const overlay = new kakao.maps.CustomOverlay({
-                content: content,
-                position: markerPosition,
-                yAnchor: 1.5, // 오버레이의 위치 조정을 위한 값
-                xAnchor: 0.5
-            });
-
-            overlayRefsSeogwipo.current[index] = overlay; // 서귀포 해변 오버레이를 배열로 관리
-
-            // 마커에 클릭 이벤트를 추가하여 커스텀 오버레이를 표시
-            kakao.maps.event.addListener(marker, 'click', () => {
-                // 모든 오버레이를 닫기
-                overlayRefsJeju.current.forEach((ov) => ov.setMap(null));
-                overlayRefsSeogwipo.current.forEach((ov) => ov.setMap(null));
-
-                // 클릭한 마커의 오버레이를 열기
+    
                 overlay.setMap(mapRef.current);
                 setSelectedBlue(location);
                 selectedOverlayRef.current = overlay;
             });
-
+    
             kakao.maps.event.addListener(marker, 'mouseover', () => {
-                // 클릭한 마커의 오버레이를 열기
                 overlay.setMap(mapRef.current);
             });
-
+    
             kakao.maps.event.addListener(marker, 'mouseout', () => {
-                // 모든 오버레이를 닫기
                 overlayRefsJeju.current.forEach((ov) => {
-                    if(ov!=selectedOverlayRef.current)
-                        ov.setMap(null)
+                    if (ov !== selectedOverlayRef.current) ov.setMap(null);
                 });
                 overlayRefsSeogwipo.current.forEach((ov) => {
-                    if(ov!=selectedOverlayRef.current)
-                        ov.setMap(null)
+                    if (ov !== selectedOverlayRef.current) ov.setMap(null);
                 });
             });
-        });
+        };
+    
+        // 제주 해변 마커 및 오버레이 생성
+        jejuBlues.forEach((location, index) => createMarkerAndOverlay(location, index, overlayRefsJeju));
+    
+        // 서귀포 해변 마커 및 오버레이 생성
+        seogwipoBlues.forEach((location, index) => createMarkerAndOverlay(location, index, overlayRefsSeogwipo));
+    
     }, [jejuBlues, seogwipoBlues]);
+    
 
     // 특정 해변 클릭 시 지도를 이동시키고 확대하며 오버레이를 띄우는 함수
     const handleBeachClick = (beach, index, city) => {
@@ -188,7 +118,7 @@ const Blues = ({ jejuBlues, seogwipoBlues }) => {
     const handleBluesPlan = () => {
         console.log(selectedBlue)
         if (selectedBlue) {
-            navigate(`/along/blues/${selectedBlue.id}`);
+            navigate(`/along/blues/plan/${selectedBlue.id}`);
         } else {
             alert('해변을 선택해주세요.');
         }

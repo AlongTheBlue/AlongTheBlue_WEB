@@ -1,0 +1,76 @@
+.along-courses-form-container2 {
+    margin: 2% auto;
+}
+
+.along-courses-form-container{
+    margin: 0 3% 5%;
+}
+
+.along-courses-form-save {
+    display: flex;
+    justify-content: end;
+    color: #1F75FE;
+    cursor: pointer;
+    font-weight: 700;
+    margin-right: 2%;
+}
+
+.along-courses-form-save:hover{
+    font-weight: 800;
+}
+
+.along-courses-form-info {
+    /* background-color: #f9f9f9; */
+    padding: 1.5em 0 1em;
+    /* border-bottom: 1px solid #ccc; */
+    /* margin-bottom: 1.5em; */
+    /* border-radius: 10px; */
+}
+
+.along-courses-form-title,
+.along-courses-form-content {
+    margin-bottom: 0.5em;
+}
+
+.along-courses-form-title input,
+.along-courses-form-content textarea,
+.along-courses-form-hashtags input {
+    width: 100%;
+    padding: 0.7em 0;
+    /* border-radius: 5px; */
+    font-size: 16px;
+    border: none;
+    outline: none;
+}
+
+.along-courses-form-title input {
+    border-bottom: 1px solid #ccc;;
+}
+
+.along-courses-form-content textarea {
+    height: 4.5em;
+    resize: none;
+}
+
+.along-courses-form-add {
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+}
+
+.along-courses-form-add div {
+    padding: 0.5em 3em;
+    border: 1px solid #D8D8D8;
+    border-radius: 0.9em;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.along-courses-list {
+    font-size: 0.9em;
+}
+
+.along-travel-courses-header {
+    font-size: 1.5em;
+    font-weight: 700;
+}
