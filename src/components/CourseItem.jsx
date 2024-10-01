@@ -7,7 +7,7 @@ const CourseItem = ({ id, profileImg, userName, userComment, courseTitle, descri
   const navigate = useNavigate();
 
   const handleCourseDetail = () => {
-    navigate(`/along/courses/${id}`)
+    navigate(`/along/courses/detail/${id}`)
   }
 
   const handleNextImage = () => {
