@@ -1,6 +1,7 @@
 .profile {
   display: flex;
   align-items: center;
+  margin: 5%;
 }
 
 .profile-img {
