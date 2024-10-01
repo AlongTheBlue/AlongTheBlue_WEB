@@ -13,8 +13,8 @@ import CoursesDetail from './pages/CoursesDetail.jsx';
 import AlongCoursesForm from './pages/AlongCoursesForm.jsx';
 import SearchPage from './pages/SearchPage.jsx';
 import MyPage from './pages/MyPage.jsx';
-import Auth from './components/Login/Auth.jsx';
 import axios from 'axios';
+import Auth from './components/Auth.jsx';
 
 function App() {
 

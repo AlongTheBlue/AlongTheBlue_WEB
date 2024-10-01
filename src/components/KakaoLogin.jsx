@@ -1,7 +1,7 @@
-import "../../styles/KakaoLogin.css"
-import Footer from "../Footer"
-import Header from "../Header"
-import PageHeader from "../PageHeader"
+import "../styles/KakaoLogin.css"
+import Footer from "./Footer"
+import Header from "./Header"
+import PageHeader from "./PageHeader"
 import axios from 'axios';
 
 const KakaoLogin = ()=>
@@ -29,7 +29,7 @@ const KakaoLogin = ()=>
             <div className="kakao-login-main">
                 <Header/>
                 <div className="kakao-login-img-container" onClick={handleLogin}>
-                    <img src="../images/login/kakao_login.png"/>
+                    <img src="/images/login/kakao_login.png"/>
                 </div>  
             </div>
             {/* <button onClick={handleLogin}>카카오 로그인</button> */}
