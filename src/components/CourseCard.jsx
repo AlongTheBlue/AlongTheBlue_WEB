@@ -11,10 +11,6 @@ function CourseCard({ course, index, setTravelCourses, writingMode }) {
   );
 
   const deleteCourse = (idx) => {
-    if (idx === 0) {
-      alert("해변을 다시 선택해주세요");
-      navigate(-1);
-    }
     setTravelCourses(
       (prevCourses) => prevCourses.filter((_, i) => i !== idx) // 선택된 코스 제거
     );

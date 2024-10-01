@@ -5,99 +5,82 @@ import PageHeader from "../components/PageHeader";
 import UserCard from "../components/UserCard";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import CourseCard from "../components/CourseCard";
-import axios from "axios"; // axios import
 import "../styles/AlongCoursesForm.css";
-
-const API_BASE_URL = "https://alongtheblue.site/api";
+import axios from "axios";
 
 const AlongCoursesForm = () => {
+  //변수
   const { userId } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
+  const location = useLocation(); // location으로 전달된 state 받기
 
-  // 기본 초기 상태
-  const defaultCourses = [
-    {
-      name: "이호테우해수욕장",
-      address: "제주특별자치도 제주시 이호일동 1665-13",
-      category: "관광",
-      iconCategory: "tour",
-      introduction: "제주 핫플 해변",
-      images: [
-        {
-          id: 1,
-          url: "/images/course/jeju.jpg",
-        },
-      ],
-    },
-  ];
-
-  // location.state에서 travelCourses와 selectedPlace 받아오기
   const [travelCourses, setTravelCourses] = useState(() => {
-    return location.state?.travelCourses || defaultCourses;
+    return location.state?.travelCourses || [];
   });
   const [selectedPlace, setSelectedPlace] = useState(
     location.state?.selectedPlace || null
-  ); // 선택된 장소
-
-  const [hashtags, setHashtags] = useState(() => [
-    "#바다",
-    "#이호테우",
-    "#해변",
-  ]);
+  );
+  const [hashtags, setHashtags] = useState(() => [""]);
   const [title, setTitle] = useState(localStorage.getItem("title") || "");
   const [content, setContent] = useState(localStorage.getItem("content") || "");
 
-  // 검색 페이지로 이동하는 함수 (handleSearchPage)
+  const API_BASE_URL = "https://alongtheblue.site/api";
+
   const handleSearchPage = () => {
+    // title과 content를 저장하고, travelCourses 상태를 함께 전달
     localStorage.setItem("title", title);
     localStorage.setItem("content", content);
-
+    // travelCourses와 함께 검색 페이지로 이동
     navigate("/search/place", { state: { travelCourses } });
   };
-
-  // 여행코스 전송
-  const handleSave = async () => {
-    try {
-      const response = await axios.post(`${API_BASE_URL}/tourpost`, {
-        title: title,
-        content: content,
-        hashtags: hashtags,
-        travelCourses: travelCourses, // 코스 정보 포함
-      });
-      if (response.status === 200) {
-        alert("여행 코스가 성공적으로 저장되었습니다.");
-        navigate("/courses"); // 저장 후 이동할 페이지 경로 설정
-      }
-    } catch (error) {
-      console.error("저장 중 문제가 발생했습니다.", error);
-      alert("여행 코스 저장에 실패했습니다.");
-    }
-  };
-
   // 컴포넌트가 마운트되었을 때 location.state에서 값을 확인
   useEffect(() => {
     console.log("Location State:", location.state); // location.state 확인
     console.log("Selected Place:", location.state?.selectedPlace); // selectedPlace 확인
   }, [location]);
 
-  // selectedPlace가 업데이트되면 travelCourses에 새 코스를 추가
-  useEffect(() => {
-    if (selectedPlace == null) return;
-    const newCourse = {
-      name: selectedPlace.title,
-      address: selectedPlace.address,
-      category: "음식",
-      iconCategory: "food",
-      introduction: "선택한 장소",
-    };
-    setTravelCourses((prevCourses) => [...prevCourses, newCourse]);
-  }, [selectedPlace]);
+  const handleSave = async () => {
+    try {
+      const formData = new FormData();
 
-  // travelCourses가 변경될 때마다 콘솔에 출력
-  useEffect(() => {
-    console.log("Updated travelCourses:", travelCourses);
-  }, [travelCourses]);
+      // TourCourseRequestDto에 해당하는 데이터 추가
+      formData.append(
+        "request",
+        new Blob(
+          [
+            JSON.stringify({
+              name: title,
+              content: content,
+              hashtags: hashtags,
+              tourPostItem: travelCourses.map((course) => ({
+                name: course.title,
+                category: course.category || "",
+                address: course.address,
+                comment: course.comment || "",
+                xMap: course.xMap,
+                yMap: course.yMap,
+              })),
+            }),
+          ],
+          { type: "application/json" }
+        )
+      );
+
+      const response = await axios.post(`${API_BASE_URL}/tourpost`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.status === 200) {
+        alert("여행 코스가 성공적으로 저장되었습니다.");
+        navigate("/courses");
+      }
+    } catch (error) {
+      console.error("저장 중 문제가 발생했습니다.", error);
+      alert("여행 코스 저장에 실패했습니다.");
+    }
+  };
 
   return (
     <div className="page-container">
@@ -156,5 +139,4 @@ const AlongCoursesForm = () => {
     </div>
   );
 };
-
 export default AlongCoursesForm;
