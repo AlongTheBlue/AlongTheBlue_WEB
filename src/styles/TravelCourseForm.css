@@ -1,0 +1,9 @@
+.travel-course-form-introduction {
+    margin: 2em 2em;
+}
+
+.travel-course-form-img-add {
+    display: flex;
+    justify-content: center;
+    margin: 1em;
+}

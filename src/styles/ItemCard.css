@@ -33,7 +33,7 @@
     cursor: pointer;
   }
 
-  .item-header div:hover{
+  .item-title:hover{
     color: #8F8F8F
   }
   
@@ -73,3 +73,17 @@
     color: #8F8F8F;
   }
   
+  .item-select {
+    display: flex;
+    color: #1F75FE;
+    justify-content: end;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0 0.2em 1em;
+    z-index: 1;
+  }
+
+  .item-select:hover{
+    font-weight: 800;
+    color: #1F75FE;
+  }
