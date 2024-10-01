@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../styles/Blues.css";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const popularBlues = [
@@ -10,9 +9,8 @@ const popularBlues = [
   { name: "중문색달해수욕장", url: "/images/course/jeju4.jpg" },
 ];
 
-const Blues = ({ jejuBlues, seogwipoBlues }) => {
+const Blues = ({ jejuBlues, seogwipoBlues, onSelect }) => {
   const navigate = useNavigate();
-
   const mapRef = useRef(null); // 지도 객체를 참조할 ref
   const overlayRefsJeju = useRef([]); // 제주 해변의 오버레이 관리
   const overlayRefsSeogwipo = useRef([]); // 서귀포 해변의 오버레이 관리
@@ -120,11 +118,19 @@ const Blues = ({ jejuBlues, seogwipoBlues }) => {
       overlayRefsSeogwipo.current[index].setMap(mapRef.current);
     }
   };
-
   const handleBluesPlan = () => {
-    console.log(selectedBlue);
     if (selectedBlue) {
-      navigate(`/along/blues/plan/${selectedBlue.id}`);
+      const updatedBlue = {
+        ...selectedBlue,
+        category: "관광",
+        iconCategory: "tour",
+      };
+
+      // 선택된 해변 정보 전달 및 페이지 이동
+      onSelect(updatedBlue);
+      navigate(`/along/blues/plan/${updatedBlue.id}`, {
+        state: { selectedBlue: updatedBlue },
+      });
     } else {
       alert("해변을 선택해주세요.");
     }
