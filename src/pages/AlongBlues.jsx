@@ -2,19 +2,9 @@ import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Blues from "../components/Blues";
 import PageHeader from "../components/PageHeader";
-import axios from "axios";
-const API_BASE_URL = "https://alongtheblue.site/api";
-const getBlueData = async () => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/blue/list`);
-    return response.data;
-  } catch (error) {
-    console.error("API 요청 중 오류가 발생했습니다:", error);
-    throw error;
-  }
-};
+import { getPlacesByCategory } from "../utils/data.js";
 
-const BlueList = () => {
+const AlongBlues = () => {
   const [blueList, setBlueList] = useState([]);
   const [jejuBlues, setJejuBlues] = useState([]);
   const [seogwipoBlues, setSeogwipoBlues] = useState([]);
@@ -23,18 +13,26 @@ const BlueList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getBlueData();
-        setBlueList(data.data); // 전체 데이터 설정
+        // getPlacesByCategory 함수에 "바다" 카테고리를 전달하여 blue 데이터를 가져옴
+        const data = await getPlacesByCategory("바다");
+
+        // 콘솔에 받은 전체 데이터를 출력
+        console.log("전체 데이터:", data);
+
+        setBlueList(data.data); // 전체 데이터를 설정
 
         // jeju와 seogwipo로 데이터 필터링
-        const jejuData = data.data.filter((blue) => blue.city === "jeju");
-        const seogwipoData = data.data.filter(
-          (blue) => blue.city === "seogwipo"
-        );
+        const jejuData = data.filter((blue) => blue.city === "jeju");
+        const seogwipoData = data.filter((blue) => blue.city === "seogwipo");
+
+        // 필터링된 데이터 콘솔에 출력
+        console.log("제주 데이터:", jejuData);
+        console.log("서귀포 데이터:", seogwipoData);
 
         setJejuBlues(jejuData);
         setSeogwipoBlues(seogwipoData);
       } catch (error) {
+        console.error("에러 발생:", error);
         setError("데이터를 불러오는 중 문제가 발생했습니다.");
       }
     };
@@ -56,4 +54,4 @@ const BlueList = () => {
   );
 };
 
-export default BlueList;
+export default AlongBlues;
