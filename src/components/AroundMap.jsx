@@ -427,12 +427,12 @@ function AroundMap({
     let icon_category = null;
     if (place_category == "관광명소") {
       place_category = "관광";
-      icon_category = "tour";
+      icon_category = "tourData";
     } else if (place_category == "숙박") {
-      icon_category = "hotel";
+      icon_category = "accommodation";
     } else if (place_category == "음식점") {
       place_category = "음식";
-      icon_category = "food";
+      icon_category = "restaurant";
     } else {
       icon_category = "cafe";
     }
