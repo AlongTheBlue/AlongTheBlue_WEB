@@ -31,13 +31,9 @@ const AlongCoursesForm = () => {
     localStorage.setItem("title", title);
     localStorage.setItem("content", content);
     // travelCourses와 함께 검색 페이지로 이동
+    console.log(travelCourses)
     navigate("/search/place", { state: { travelCourses } });
   };
-  // 컴포넌트가 마운트되었을 때 location.state에서 값을 확인
-  useEffect(() => {
-    console.log("Location State:", location.state); // location.state 확인
-    console.log("Selected Place:", location.state?.selectedPlace); // selectedPlace 확인
-  }, [location]);
 
   const handleSave = async () => {
     try {
@@ -73,6 +69,7 @@ const AlongCoursesForm = () => {
       });
 
       if (response.status === 200) {
+        console.log(formData)
         alert("여행 코스가 성공적으로 저장되었습니다.");
         navigate("/courses");
       }
@@ -81,6 +78,13 @@ const AlongCoursesForm = () => {
       alert("여행 코스 저장에 실패했습니다.");
     }
   };
+
+  useEffect(() => {
+    navigate(location.pathname, {
+      state: { travelCourses: travelCourses },
+      replace: false
+    });
+  }, [travelCourses])
 
   return (
     <div className="page-container">
