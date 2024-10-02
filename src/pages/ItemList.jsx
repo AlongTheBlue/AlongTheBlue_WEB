@@ -50,7 +50,7 @@ function ItemList() {
   return (
     <div className="page-container">
       <PageHeader title={title} />
-      <ItemCardList items={foods} />
+      <ItemCardList items={foods} category = {category}/>
       <Footer />
     </div>
   );

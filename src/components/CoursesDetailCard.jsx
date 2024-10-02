@@ -12,11 +12,11 @@ function CoursesDetailCard() {
       hashtags: ["#맛집", "#흑돼지", "#고기국수"],
       travelCourses: [
         {
-          name: "이호테우해수욕장",
+          title: "이호테우해수욕장",
           address: "제주특별자치도 제주시 도리로",
           introduction: "맑은 바다와 멋진 섬 풍경을 즐기며 여유롭게 쉴 수 있는 제주도의 핫플",
           category: "관광",
-          iconCategory: "tour",
+          iconCategory: "tourData",
           lat:"33.4974183784",
           lng: "126.4531570913",
           images: [
@@ -31,11 +31,11 @@ function CoursesDetailCard() {
           ]
         },
         {
-          name: "그랜드하얏트 제주",
+          title: "그랜드하얏트 제주",
           address: "제주특별자치도 제주시 노연로 12",
           introduction: "제주 시내 중심에서 럭셔리한 숙박과 멋진 전망을 한 번에 즐길 수 있는 최고급 호텔",
           category: "숙박",
-          iconCategory: "hotel",
+          iconCategory: "accommodation",
           lat: "33.485242300144556",
           lng: "126.48141147321883",
           images: [

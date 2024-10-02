@@ -50,7 +50,7 @@ const Blues = ({ jejuBlues, seogwipoBlues, onSelect }) => {
 
       const content = `
                 <div class="blue-overlay">
-                    <span class="blue-name">${location.name}</span>
+                    <span class="blue-name">${location.title}</span>
                 </div>
                 <div class="triangle"></div>
             `;
@@ -118,12 +118,13 @@ const Blues = ({ jejuBlues, seogwipoBlues, onSelect }) => {
       overlayRefsSeogwipo.current[index].setMap(mapRef.current);
     }
   };
+
   const handleBluesPlan = () => {
     if (selectedBlue) {
       const updatedBlue = {
         ...selectedBlue,
         category: "관광",
-        iconCategory: "tour",
+        iconCategory: "tourData",
       };
 
       // 선택된 해변 정보 전달 및 페이지 이동

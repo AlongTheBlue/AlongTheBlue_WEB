@@ -35,7 +35,7 @@ function SearchPage({ searchPlaceMode }) {
     fetchData();
   }, [selectedCategory]);
 
-  const handleHashtagClick = (category) => {
+  const  handleHashtagClick = (category) => {
     setSelectedCategory(category === "전체" ? "all" : category);
   };
 

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function CourseCard({ course, index, setTravelCourses, writingMode }) {
   const navigate = useNavigate();
-  const url = `/images/icon/marker/food_${index + 1}.svg`;
+  const url = `/images/icon/marker/${course.iconCategory}_${index + 1}.svg`;
 
   const [imagePreview, setImagePreview] = useState(
     course.images ? course.images[0]?.url : ""
@@ -42,7 +42,7 @@ function CourseCard({ course, index, setTravelCourses, writingMode }) {
       <div className="course-card-header">
         <div className="course-card-name">
           <img className="course-card-icon" src={url} alt="marker icon" />
-          <div className="course-card-name-text">{course.name}</div>
+          <div className="course-card-name-text">{course.title}</div>
         </div>
         <div className="course-card-category">{course.category}</div>
       </div>

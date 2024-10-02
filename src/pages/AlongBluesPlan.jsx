@@ -23,7 +23,7 @@ const AlongBluesPlan = () => {
     yMap: "33.4974183784",
     address: "기본 주소",
     category: "관광",
-    iconCategory: "tour",
+    iconCategory: "tourData",
   };
 
   const API_BASE_URL = "https://alongtheblue.site/api";

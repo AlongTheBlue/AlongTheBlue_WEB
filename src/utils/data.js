@@ -1,5 +1,19 @@
 import axios from "axios";
 
+export const getCategory = (category) => {
+  console.log(category)
+
+  const categoryMapping = {
+    전체: "all",
+    관광: "tourData",
+    숙박: "accommodation",
+    음식: "restaurant",
+    카페: "cafe",
+    바다: "blue",
+  };
+  return categoryMapping[category] ?? "all";
+}
+
 export const getPlacesByCategory = async (category) => {
   try {
     // 카테고리 맵핑
