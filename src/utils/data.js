@@ -14,6 +14,20 @@ export const getCategory = (category) => {
   return categoryMapping[category] ?? "all";
 }
 
+export const getKrCategory = (category) => {
+  console.log(category)
+
+  const categoryMapping = {
+    all: "전체",
+    tourData: "관광",
+    accommodation: "숙박",
+    restaurant: "음식",
+    cafe: "카페",
+    tour: "바다",
+  };
+  return categoryMapping[category] ?? "전체";
+}
+
 export const getPlacesByCategory = async (category) => {
   try {
     // 카테고리 맵핑
