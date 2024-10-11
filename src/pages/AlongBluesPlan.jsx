@@ -35,7 +35,7 @@ const AlongBluesPlan = () => {
         title: selectedBlue.title,
         blueItems: travelCourses.map((course, index) => ({
           id: index,
-          title: index === 0 ? selectedBlue.title : course.name,
+          title: index === 0 ? selectedBlue.title : course.title,
           address: course.address,
           x: course.lat,
           y: course.lng,

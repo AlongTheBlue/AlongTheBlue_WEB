@@ -15,7 +15,7 @@
 }
 
 .square-card-name {
-    font-size: 1em;
+    font-size: 1.1em;
     font-weight: 700;
 }
 
@@ -23,7 +23,7 @@
     font-weight: 300;
 }
 .square-card-address {
-    font-size: 0.6em;
+    font-size: 0.7em;
     padding: 0.8em 0;
 }
 

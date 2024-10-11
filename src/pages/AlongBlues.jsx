@@ -45,7 +45,8 @@ const AlongBlues = () => {
   }
   // 바다 선택 후 이동
   const handleBlueSelect = (selectedBlue) => {
-    navigate(`/alongBluesPlan/${selectedBlue  .id}`, { state: { selectedBlue: selectedBlue } });
+    console.log(selectedBlue)
+    navigate(`/along/blues/plan/${selectedBlue.id}`, { state: { selectedBlue: selectedBlue } });
   };
 
   if (error) {

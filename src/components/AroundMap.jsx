@@ -90,7 +90,7 @@ function AroundMap({
     if (selectedBlue) {
       setTravelCourses([
         {
-          title: selectedBlue.name,
+          title: selectedBlue.title,
           address: selectedBlue.address,
           lat: selectedBlue.yMap,
           lng: selectedBlue.xMap,
@@ -339,16 +339,16 @@ function AroundMap({
           <div class="placeinfo-close" title="닫기">X</div>
         </div>
         <div class="placeinfo-main">
-          <div class="placeinfo-text">;
+          <div class="placeinfo-text">`;
 
     if (place.road_address_name) {
-      content += <div class="placeinfo-address" title="${place.road_address_name}">${place.road_address_name}</div>
-                  <div class="placeinfo-jibun" title="${place.address_name}">(지번 : ${place.address_name})</div>;
+      content += `<div class="placeinfo-address" title="${place.road_address_name}">${place.road_address_name}</div>
+                  <div class="placeinfo-jibun" title="${place.address_name}">(지번 : ${place.address_name})</div>`;
     } else {
-      content += <div class="placeinfo-address" title="${place.address_name}">${place.address_name}</div>;
+      content += `<div class="placeinfo-address" title="${place.address_name}">${place.address_name}</div>`;
     }
 
-    content += <div class="placeinfo-detail">
+    content += `<div class="placeinfo-detail">
                   <div class="placeinfo-tel">${place.phone}</div>
                   <a class="placeinfo-link" href="${place.place_url}" target="_blank" title="${place.place_name}">상세보기</a>
                 </div>                
@@ -395,7 +395,7 @@ function AroundMap({
     }
 
     // 오버레이 콘텐츠 설정
-    let content = <div class="over-info-text">${place.place_name}</div>;
+    let content = `<div class="over-info-text">${place.place_name}</div>`;
 
     // 오버레이 내용 업데이트 및 위치 설정
     overNodeRef.current.innerHTML = content; // Ref로 관리되는 contentNode에 콘텐츠 설정
@@ -441,7 +441,7 @@ function AroundMap({
     const course = {
       lat: selectedPlace.y,
       lng: selectedPlace.x,
-      name: selectedPlace.place_name,
+      title: selectedPlace.place_name,
       address: selectedPlace.road_address_name || selectedPlace.address_name,
       category: place_category,
       iconCategory: icon_category,

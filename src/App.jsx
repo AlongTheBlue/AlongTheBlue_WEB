@@ -82,7 +82,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/:category/list" element={<ItemList />} />         {/* 전체보기 */}
-          <Route path="/:title/detail/:id" element={<ItemDetail />} />    {/* 상세보기 */}
+          <Route path="/:category/detail/:id" element={<ItemDetail />} />    {/* 상세보기 */}
           <Route path="/around" element={<Around />}/>                    {/* 내주변 */}
           <Route path="/along/courses" element={<AlongCourses />} />      {/* 여행따라 */}
           <Route path="/along/courses/detail/:id" element={<CoursesDetail alongCoursesMode={true}/>} /> {/* 여행따라 상세 */}

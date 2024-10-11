@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function TravelCourseCard({ index, course, setTravelCourses }) {
   const navigate = useNavigate();
+  
   const titleUrl = `/images/icon/marker/${course.iconCategory}_${
     index + 1
   }.svg`;
@@ -19,7 +20,7 @@ function TravelCourseCard({ index, course, setTravelCourses }) {
       <div className="travel-course-header">
         <div className="travel-course-title">
           <img className="travel-course-title-img" src={titleUrl} />
-          <div>{course.name}</div>
+          <div>{course.title}</div>
         </div>
         <div>
           <div className="travel-course-category">{course.category}</div>
