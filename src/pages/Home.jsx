@@ -33,13 +33,14 @@ const tourCourses = [
   {id:2, name: "제주 바다 여행지", hashtag: "#바다", image: '/images/course/jeju3.jpg'}
 ];
 
+
 function Home() {
   return (
     <div className="page-container">
       <Header />
       <Search searchMode={true}/>
       <HomeCategory />
-      <CircleCardList category="tour" title="관광" items={touristSpots}/>
+      <CircleCardList category="tourData" title="관광" items={touristSpots}/>
       <SquareCardList category="accommodation" title="숙소" items={accommodations}/>
       <SquareCardList category="restaurant" title="음식" items={foods}/>
       <SquareCardList category="cafe" title="카페" items={cafes}/>

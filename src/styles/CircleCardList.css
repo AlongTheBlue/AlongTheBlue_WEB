@@ -8,6 +8,6 @@
 .circle-card-list {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    /* gap: 1em; */
     flex-wrap: wrap;
 }

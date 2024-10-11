@@ -1,10 +1,32 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../styles/ItemDetailCard.css";
+import { getImgByWeatherCondition, getPlaceDetailByCategoryAndId } from '../utils/data';
 
-function ItemDetailCard({item}) {
+function ItemDetailCard({category, id}) {
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
+  const [item, setItem] = useState([]);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+          console.log(category, id)
+        const data = await getPlaceDetailByCategoryAndId(category, id);
+        setItem(data);
+      } catch (error) {
+        console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    console.log(item)
+
+    fetchData();
+  }, [category, id]);
 
   const handleHomeClick = () => {
     navigate(`/`);
@@ -24,6 +46,8 @@ function ItemDetailCard({item}) {
     }
   };
 
+  const weatherImg = getImgByWeatherCondition(item.weatherCondition);
+
   useEffect(() => {
     const { kakao } = window;
 
@@ -40,25 +64,37 @@ function ItemDetailCard({item}) {
     map.addControl(zoomControl, window.kakao.maps.ControlPosition.RIGHT); // 줌 컨트롤러 추가
 
     // 장소 검색 객체를 생성합니다
-    const ps = new kakao.maps.services.Places();
+    // const ps = new kakao.maps.services.Places();
 
     // 키워드로 장소를 검색합니다
-    ps.keywordSearch(item.name, function(result, status) {
-      if (status === kakao.maps.services.Status.OK) {
-        const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-        // 결과값으로 받은 위치를 지도에 표시합니다
-        const marker = new kakao.maps.Marker({
-          map: map,
-          position: coords
-        });
+    // ps.keywordSearch(item.address, function(result, status) {
+    //   if (status === kakao.maps.services.Status.OK) {
+    //     const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+    //     // 결과값으로 받은 위치를 지도에 표시합니다
+    //     const marker = new kakao.maps.Marker({
+    //       map: map,
+    //       position: coords
+    //     });
 
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-      } else {
-        console.error('키워드 검색 결과가 없습니다.');
-      }
+    //     // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+    //     map.setCenter(coords);
+    //   } else {
+    //     console.error('키워드 검색 결과가 없습니다.');
+    //   }
+    // });
+    
+    // 결과값으로 받은 위치를 지도에 표시합니다
+    console.log(item)
+    const coords = new kakao.maps.LatLng(item.yMap, item.xMap);
+    const marker = new kakao.maps.Marker({
+      map: map,
+      position: coords
     });
-  }, []);
+
+    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+    map.setCenter(coords);
+
+  }, [item]);
 
   return (
     <div className="item-detail-card">
@@ -68,12 +104,12 @@ function ItemDetailCard({item}) {
           <img src="/images/icon/home.svg" onClick={handleHomeClick}/>
         </div>
         <div>
-          <img src={item.image} alt={item.name} className="item-detail-image" />
+          <img src={item.img} alt={item.title} className="item-detail-image" />
         </div>
       </div>
       <div className="item-detail-info">
         <div className="detail-info-header">
-          <div className='item-detail-name'>{item.name}</div>
+          <div className='item-detail-name'>{item.title}</div>
           <img src='/images/icon/liked.svg'/>
         </div>
         <div className="item-detail-address">
@@ -86,18 +122,20 @@ function ItemDetailCard({item}) {
           <div className='item-detail-img'>
             <img src='/images/icon/detail_holiday.svg'/>
           </div>
-          <div className='item-detail-text'>{item.holiday}</div>
+            <div className='item-detail-text'>
+              {item.time && item.time.length > 0 ? item.time : '없음'}
+            </div>
         </div>
         <div className="item-detail-weather">
           <div className='item-detail-img'>
-            <img src='/images/icon/weather_sunny.svg'/>
+            <img src={weatherImg}/>
           </div>
-          <div className='item-detail-text'>{item.weather}</div>
+          <div className='item-detail-text'>{item.temperature}°C</div>
         </div>
         <div className="hashtags">
-          {item.hashtags.map((tag, index) => (
-            <span key={index} className="hashtag">{tag}</span>
-          ))}
+          {/* {item.hashtags.map((tag, index) => ( */}
+            {/* <span key={index} className="hashtag">{tag}</span> */}
+          {/* ))} */}
         </div>
       </div>
       <div className="item-detail-introduction">

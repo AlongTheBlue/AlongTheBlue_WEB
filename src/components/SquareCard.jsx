@@ -6,7 +6,7 @@ function SquareCard({item, category}) {
   const navigate = useNavigate();
 
   const handleDetailViewClick = () => {
-      navigate(`/${category}/detail/${item.id}`)
+      navigate(`/${category}/detail/${item.contentid}`)
   };
 
   return (
@@ -17,7 +17,7 @@ function SquareCard({item, category}) {
           backgroundImage: `linear-gradient(
             rgba(0, 0, 0, 0), 
             rgba(0, 0, 0, 0.5)
-          ), url(${item.image})`,
+          ), url(${item.img})`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
           height: '20vh',
@@ -26,7 +26,7 @@ function SquareCard({item, category}) {
       />
       <div className="square-card-info">
         <div>
-          <div className="square-card-name">{item.name}</div>
+          <div className="square-card-name">{item.title}</div>
         </div>
         <div>
           {item.address ? 

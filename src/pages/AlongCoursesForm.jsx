@@ -7,6 +7,7 @@ import { useNavigate, useParams, useLocation } from "react-router-dom";
 import CourseCard from "../components/CourseCard";
 import "../styles/AlongCoursesForm.css";
 import axios from "axios";
+import DetailMap from "../components/DetailMap";
 
 const AlongCoursesForm = () => {
   //변수
@@ -23,8 +24,11 @@ const AlongCoursesForm = () => {
   const [hashtags, setHashtags] = useState(() => [""]);
   const [title, setTitle] = useState(localStorage.getItem("title") || "");
   const [content, setContent] = useState(localStorage.getItem("content") || "");
+  const [courseMarkers, setCourseMarkers] = useState([]);
 
-  const API_BASE_URL = "https://alongtheblue.site/api";
+  // const API_BASE_URL = "https://alongtheblue.site/api";
+  const BASE_URL = import.meta.env.VITE_BE_ENDPOINT
+  const API_BASE_URL = BASE_URL+"/api"
 
   const handleSearchPage = () => {
     // title과 content를 저장하고, travelCourses 상태를 함께 전달
@@ -36,6 +40,11 @@ const AlongCoursesForm = () => {
   };
 
   const handleSave = async () => {
+    if(travelCourses.length == 0){
+      alert("장소가 추가되지 않았습니다.");
+      return;
+    }
+
     try {
       const formData = new FormData();
 
@@ -45,11 +54,11 @@ const AlongCoursesForm = () => {
         new Blob(
           [
             JSON.stringify({
-              name: title,
+              title: title,
               content: content,
               hashtags: hashtags,
-              tourPostItem: travelCourses.map((course) => ({
-                name: course.title,
+              tourPostItems: travelCourses.map((course) => ({
+                title: course.title,
                 category: course.category || "",
                 address: course.address,
                 comment: course.comment || "",
@@ -71,7 +80,7 @@ const AlongCoursesForm = () => {
       if (response.status === 200) {
         console.log(formData)
         alert("여행 코스가 성공적으로 저장되었습니다.");
-        navigate("/courses");
+        navigate("/along/courses");
       }
     } catch (error) {
       console.error("저장 중 문제가 발생했습니다.", error);
@@ -86,6 +95,19 @@ const AlongCoursesForm = () => {
     });
   }, [travelCourses])
 
+  useEffect(() => {
+    if (travelCourses.length > 0) {
+      const updatedMarkers = travelCourses.map(course => ({
+        name: course.title,
+        lat: course.yMap,
+        lng: course.xMap,
+        iconCategory: course.category,
+      }));
+      setCourseMarkers(updatedMarkers);
+    }
+  }, [travelCourses]);
+  
+
   return (
     <div className="page-container">
       <PageHeader title={"여행따라"} />
@@ -95,6 +117,7 @@ const AlongCoursesForm = () => {
         </div>
         <div className="along-courses-form-container">
           <UserCard />
+          <DetailMap courseMarkers={courseMarkers}/>
           <div className="along-courses-form-info">
             <div className="along-courses-form-title">
               <input

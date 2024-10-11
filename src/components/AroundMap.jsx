@@ -90,7 +90,7 @@ function AroundMap({
     if (selectedBlue) {
       setTravelCourses([
         {
-          title: selectedBlue.name,
+          title: selectedBlue.title,
           address: selectedBlue.address,
           lat: selectedBlue.yMap,
           lng: selectedBlue.xMap,
@@ -330,8 +330,8 @@ function AroundMap({
     }
 
     // 오버레이 콘텐츠 설정
-    let content = `
-    <div class="placeinfo-container">
+    let content = 
+    `<div class="placeinfo-container">
         <div class="placeinfo-header">
           <a class="placeinfo-title" href="${place.place_url}" target="_blank" title="${place.place_name}">
             ${place.place_name}
@@ -441,7 +441,7 @@ function AroundMap({
     const course = {
       lat: selectedPlace.y,
       lng: selectedPlace.x,
-      name: selectedPlace.place_name,
+      title: selectedPlace.place_name,
       address: selectedPlace.road_address_name || selectedPlace.address_name,
       category: place_category,
       iconCategory: icon_category,

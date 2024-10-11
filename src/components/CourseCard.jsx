@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../styles/CourseCard.css";
 import { useNavigate } from "react-router-dom";
+import { getCategory, getKrCategory } from "../utils/data";
 
 function CourseCard({ course, index, setTravelCourses, writingMode }) {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ function CourseCard({ course, index, setTravelCourses, writingMode }) {
   const [imagePreview, setImagePreview] = useState(
     course.images ? course.images[0]?.url : ""
   );
+  const [comment, setComment] = useState("");
 
   const deleteCourse = (idx) => {
     setTravelCourses(
@@ -37,6 +39,19 @@ function CourseCard({ course, index, setTravelCourses, writingMode }) {
     }
   };
 
+  // 코멘트 업데이트 처리
+  const handleCommentChange = (e) => {
+    const updatedComment = e.target.value;
+    setComment(updatedComment);
+
+    // course의 comment 업데이트
+    setTravelCourses((prevCourses) =>
+      prevCourses.map((c, i) =>
+        i === index ? { ...c, comment: updatedComment } : c
+      )
+    );
+  };
+
   return (
     <div className="course-card-container">
       <div className="course-card-header">
@@ -44,7 +59,7 @@ function CourseCard({ course, index, setTravelCourses, writingMode }) {
           <img className="course-card-icon" src={url} alt="marker icon" />
           <div className="course-card-name-text">{course.title}</div>
         </div>
-        <div className="course-card-category">{course.category}</div>
+        <div className="course-card-category">{getKrCategory(course.category)}</div>
       </div>
 
       <div className="travel-course-info">
@@ -67,12 +82,17 @@ function CourseCard({ course, index, setTravelCourses, writingMode }) {
           </div>
         )}
       </div>
-
+          {/*<textarea
+            placeholder="내용을 입력하세요"
+            style={{ height: "3em", padding: "0" }}
+          />*/}
       <div className="course-card-introduction along-courses-form-content">
         {writingMode ? (
           <textarea
+            id="comment"
             placeholder="내용을 입력하세요"
-            style={{ height: "3em", padding: "0" }}
+            value={comment}
+            onChange={handleCommentChange}
           />
         ) : (
           <span>{course.introduction}</span>
