@@ -104,3 +104,19 @@ export const getImgByWeatherCondition= (weatherCondition) => {
   };
   return weatherMapping[weatherCondition] ?? null;
 }
+
+export const getRecommendBlues = async () => {
+  try {
+    // const API_BASE_URL = "https://alongtheblue.site/api";
+    const API_BASE_URL = "http://localhost:8080/api";
+    const url = `${API_BASE_URL}/blue/recommend`
+    const response = await axios.get(url);
+    console.log(url)
+
+    return response.data.data;
+    
+  } catch (error) {
+    console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
+    return []; // 에러 발생 시 빈 배열 반환
+  }
+};

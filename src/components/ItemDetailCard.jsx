@@ -118,14 +118,14 @@ function ItemDetailCard({category, id}) {
           </div>
           <div className='item-detail-text'>{item.address}</div>
         </div>
-        {item.time && item.time.length > 0 &&
         <div className="item-detail-holiday">
           <div className='item-detail-img'>
             <img src='/images/icon/detail_holiday.svg'/>
           </div>
-            <div className='item-detail-text'>{item.time}</div>
+            <div className='item-detail-text'>
+              {item.time && item.time.length > 0 ? item.time : '없음'}
+            </div>
         </div>
-        } 
         <div className="item-detail-weather">
           <div className='item-detail-img'>
             <img src={weatherImg}/>

@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../styles/Blues.css";
 import { useNavigate } from "react-router-dom";
+import { getRecommendBlues } from "../utils/data";
 
-const popularBlues = [
-  { name: "함덕해수욕장", url: "/images/course/jeju.jpg" },
-  { name: "협재해수욕장", url: "/images/course/jeju2.jpg" },
-  { name: "용머리해안", url: "/images/course/jeju3.jpg" },
-  { name: "중문색달해수욕장", url: "/images/course/jeju4.jpg" },
-];
+// const recommendBlues = [
+//   { name: "함덕해수욕장", url: "/images/course/jeju.jpg" },
+//   { name: "협재해수욕장", url: "/images/course/jeju2.jpg" },
+//   { name: "용머리해안", url: "/images/course/jeju3.jpg" },
+//   { name: "중문색달해수욕장", url: "/images/course/jeju4.jpg" },
+// ];
 
 const Blues = ({ jejuBlues, seogwipoBlues, onSelect }) => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const Blues = ({ jejuBlues, seogwipoBlues, onSelect }) => {
   const selectedOverlayRef = useRef(null);
   const [selectedCity, setSelectedCity] = useState("jeju"); // 현재 선택된 도시
   const [selectedBlue, setSelectedBlue] = useState(null); // 선택된 해변을 저장하는 state 추가
+  const [recommendBlues, setRecommendBlues] = useState([]);
 
   useEffect(() => {
     const { kakao } = window;
@@ -141,6 +143,19 @@ const Blues = ({ jejuBlues, seogwipoBlues, onSelect }) => {
   const filteredBeaches = selectedCity === "jeju" ? jejuBlues : seogwipoBlues;
   const city = selectedCity;
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getRecommendBlues();
+        setRecommendBlues(data);
+      } catch (error) {
+        console.error("에러 발생:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+
   return (
     <div className="blues-container">
       <div className="blues-list-container">
@@ -187,14 +202,14 @@ const Blues = ({ jejuBlues, seogwipoBlues, onSelect }) => {
       <div className="popular-blues-container">
         <div className="popular-blues-text">추천 해변</div>
         <div className="popular-blues-list">
-          {popularBlues.map((popularBlue, index) => (
-            <div key={index} className="popular-blues">
+          {recommendBlues.map((recommendBlue, index) => (
+            <div key={index} className="popular-blues" onClick={() => handleBeachClick(recommendBlue, index, recommendBlue.city)}>
               <img
-                src={popularBlue.url}
-                alt={popularBlue.name}
+                src={recommendBlue.image}
+                alt={recommendBlue.title}
                 className="popular-blues-image"
               />
-              <div className="popular-blues-name">{popularBlue.name}</div>
+              <div className="popular-blues-name">{recommendBlue.title}</div>
             </div>
           ))}
         </div>
