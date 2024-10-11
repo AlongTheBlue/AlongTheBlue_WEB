@@ -6,8 +6,8 @@
 
 .circle-card {
     position: relative;
-    width: 8.5em;
-    height: 8.5em;
+    width: 9.5em;
+    height: 9.5em;
     margin: 0.8em;
     border-radius: 50%;
     overflow: hidden;
@@ -33,6 +33,12 @@
     font-weight: 700;
     text-align: center;
     white-space: nowrap;
+}
+
+.small-text {
+    font-size: 1em;
+    word-break: break-word;
+    white-space: normal; /* 줄바꿈을 허용하는 설정 */
 }
 
 @media screen and (max-width: 800px) {
