@@ -6,6 +6,10 @@ import { useEffect } from "react";
 function ItemCard({ item, selectMode, travelCourses }) {
   const navigate = useNavigate();
 
+  const handlePlaceDetail = () => {
+    navigate(`/${item.category}/detail/${item.contentid}`)
+  }
+
   const handleSelectPlace = () => {
     console.log("선택한 장소:", item);
     console.log("현재 여행 코스:", travelCourses);
@@ -39,13 +43,13 @@ function ItemCard({ item, selectMode, travelCourses }) {
       </div>
       <div className="item-info">
         <div className="item-header">
-          <div className="item-title">{item.title}</div>
+          <div className="item-title" onClick={handlePlaceDetail}>{item.title}</div>
           {selectMode ? (
             <div className="item-select" onClick={handleSelectPlace}>
               선택하기
             </div>
           ) : (
-            <img src="/images/icon/unliked.svg" alt="unliked icon" />
+            <img src="/images/icon/unliked.svg" alt="unliked icon" style={{visibility: "hidden"}}/>
           )}
         </div>
         <div className="item-address">

@@ -91,7 +91,7 @@ function App() {
           <Route path="/along/blues/plan/:id" element={<AlongBluesPlan />} />  {/* 바당따라 여행코스 */}
           <Route path="/courses/list" element={<Courses />} />            {/* 여행코스 */}
           <Route path="/courses/detail/:id" element={<CoursesDetail />} />{/* 여행코스 상세 */}
-          <Route path="/search" element={<SearchPage/>} />                {/* 검색페이지 */}
+          <Route path="/search" element={<SearchPage searchPlaceMode={false}/>} />                {/* 검색페이지 */}
           <Route path="/search/place" element={<SearchPage searchPlaceMode={true}/>} />          {/* 장소 검색페이지 */}
           <Route path="/my" element={<MyPage isAuthenticated={isAuthenticated} user={user} setUser={setUser} setIsAuthenticated={setIsAuthenticated}/>}/>
           <Route path="/auth" element={<Auth setUser={setUser} setIsAuthenticated={setIsAuthenticated}/>} />

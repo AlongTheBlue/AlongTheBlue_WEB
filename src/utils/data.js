@@ -59,6 +59,35 @@ export const getPlacesByCategory = async (category) => {
   }
 };
 
+export const getPlacesByKeywordAndCategory = async (keyword, category) => {
+  try {
+    // 카테고리 맵핑
+    const categoryMapping = {
+      전체: "all",
+      관광: "tourData",
+      숙박: "accommodation",
+      음식: "restaurant",
+      카페: "cafe",
+      바다: "blue",
+    };
+
+    const API_BASE_URL = import.meta.env.VITE_BE_ENDPOINT+"/api";
+
+    // categoryMapping에 없는 경우 기본값 "all"을 할당
+    const englishCategory = categoryMapping[category] ?? "all";
+
+    // URL 경로에 카테고리 삽입
+    const response = await axios.get(
+      `${API_BASE_URL}/search/${englishCategory}`, { params: { keyword: keyword } }
+    );
+
+    return response.data.data;
+  } catch (error) {
+    console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
+    return []; // 에러 발생 시 빈 배열 반환
+  }
+};
+
 export const getHomePlacesByCategory = async (category) => {
   try {
     const API_BASE_URL = import.meta.env.VITE_BE_ENDPOINT+"/api";
@@ -133,3 +162,4 @@ export const getRecommendBlues = async () => {
     return []; // 에러 발생 시 빈 배열 반환
   }
 };
+

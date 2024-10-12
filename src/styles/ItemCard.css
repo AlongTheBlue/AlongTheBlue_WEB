@@ -58,6 +58,10 @@
     padding: 0.5em 0.8em;
     font-size: 0.8em;  
   }
+  .hashtag.active {
+    background-color: #007bff; /* active 상태의 배경 색 */
+    color: #ffffff; /* active 상태의 텍스트 색 */
+  }
 
   .item-address {
     display: flex;

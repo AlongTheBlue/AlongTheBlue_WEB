@@ -7,7 +7,7 @@ import "../styles/SearchPage.css";
 import ItemCardList from "../components/ItemCardList";
 import { useLocation } from "react-router-dom"; // useLocation import
 import { useNavigate, useEffect } from "react";
-import { getPlacesByCategory } from "../utils/data.js";
+import { getPlacesByCategory, getPlacesByKeywordAndCategory } from "../utils/data.js";
 
 function SearchPage({ searchPlaceMode }) {
   const location = useLocation(); // location으로 전달받은 state 가져오기
@@ -18,6 +18,10 @@ function SearchPage({ searchPlaceMode }) {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const [keyword, setKeyword] = useState('');  // 검색어 상태 관리
+  const [searchTrigger, setSearchTrigger] = useState(0);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,14 +43,28 @@ function SearchPage({ searchPlaceMode }) {
     setSelectedCategory(category === "전체" ? "all" : category);
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const data = await getPlacesByKeywordAndCategory(keyword, selectedCategory);
+        setSearchResult(data);
+      } catch (error) {
+        console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+
+  }, [searchTrigger]);
+
   return (
     <div className="page-container">
-      <PageHeader title={"검색"} />
-      <Search />
-
-      {!searchPlaceMode ? (
-        <div>{/* 추천 장소 및 해변은 여전히 고정된 콘텐츠로 제공 */}</div>
-      ) : (
+      <PageHeader title={searchPlaceMode ? "장소추가" :"검색"} />
+      <Search onSearch={setKeyword} onTrigger={setSearchTrigger} />
+        {/*<div>추천 장소 및 해변은 여전히 고정된 콘텐츠로 제공</div>*/}
         <div className="search-result-container">
           {/* 해시태그 필터 */}
           <div className="hashtags">
@@ -77,13 +95,12 @@ function SearchPage({ searchPlaceMode }) {
               {/* 검색 결과 리스트 */}
               <ItemCardList
                 items={searchResult}
-                selectMode={true}
+                selectMode={searchPlaceMode ? true : false}
                 travelCourses={travelCourses}
               />
             </>
           )}
         </div>
-      )}
       <Footer />
     </div>
   );
