@@ -1,4 +1,5 @@
-@import url('https://webfontworld.github.io/NanumSquareRound/NanumSquareRound.css');
+/* @import url('https://webfontworld.github.io/NanumSquareRound/NanumSquareRound.css'); */
+@import url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
 
 .page-container {
   /* width: 50%; */
