@@ -90,7 +90,7 @@ function AroundMap({
     if (selectedBlue) {
       setTravelCourses([
         {
-          title: selectedBlue.title,
+          title: selectedBlue.name,
           address: selectedBlue.address,
           lat: selectedBlue.yMap,
           lng: selectedBlue.xMap,
@@ -441,7 +441,7 @@ function AroundMap({
     const course = {
       lat: selectedPlace.y,
       lng: selectedPlace.x,
-      title: selectedPlace.place_name,
+      name: selectedPlace.place_name,
       address: selectedPlace.road_address_name || selectedPlace.address_name,
       category: place_category,
       iconCategory: icon_category,
