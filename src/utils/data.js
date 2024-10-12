@@ -40,7 +40,8 @@ export const getPlacesByCategory = async (category) => {
       바다: "blue",
     };
 
-    const API_BASE_URL = "https://alongtheblue.site/api";
+    // const API_BASE_URL = "https://alongtheblue.site/api";
+    const API_BASE_URL = import.meta.env.VITE_BE_ENDPOINT;
 
     // categoryMapping에 없는 경우 기본값 "all"을 할당
     const englishCategory = categoryMapping[category] ?? "all";
@@ -62,7 +63,8 @@ export const getPlacesByCategory = async (category) => {
 export const getHomePlacesByCategory = async (category) => {
   try {
     // const API_BASE_URL = "https://alongtheblue.site/api";
-    const API_BASE_URL = "http://localhost:8080/api";
+    // const API_BASE_URL = "http://localhost:8080/api";
+    const API_BASE_URL = import.meta.env.VITE_BE_ENDPOINT;
 
     const response = await axios.get(
       `${API_BASE_URL}/${category}/home/list`
@@ -80,12 +82,31 @@ export const getHomePlacesByCategory = async (category) => {
 export const getPlaceDetailByCategoryAndId = async (category, id) => {
   try {
     // const API_BASE_URL = "https://alongtheblue.site/api";
-    const API_BASE_URL = "http://localhost:8080/api";
+    // const API_BASE_URL = "http://localhost:8080/api";
+    const API_BASE_URL = import.meta.env.VITE_BE_ENDPOINT;
+
     const url = `${API_BASE_URL}/${category}/detail/${id}`
     const response = await axios.get(url);
     console.log(url)
 
     console.log(`Requesting category: ${category}`); // 카테고리 로그
+
+    return response.data.data;
+  } catch (error) {
+    console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
+    return []; // 에러 발생 시 빈 배열 반환
+  }
+};
+
+export const getDetailHashtags = async (category, id) => {
+  try {
+    // const API_BASE_URL = "https://alongtheblue.site/api";
+    // const API_BASE_URL = "http://localhost:8080/api";
+    const API_BASE_URL = import.meta.env.VITE_BE_ENDPOINT;
+
+    const url = `${API_BASE_URL}/${category}/hashtags/${id}`
+    const response = await axios.get(url);
+    console.log(url)
 
     return response.data.data;
   } catch (error) {
@@ -108,13 +129,15 @@ export const getImgByWeatherCondition= (weatherCondition) => {
 export const getRecommendBlues = async () => {
   try {
     // const API_BASE_URL = "https://alongtheblue.site/api";
-    const API_BASE_URL = "http://localhost:8080/api";
+    // const API_BASE_URL = "http://localhost:8080/api";
+    const API_BASE_URL = import.meta.env.VITE_BE_ENDPOINT;
+
     const url = `${API_BASE_URL}/blue/recommend`
     const response = await axios.get(url);
     console.log(url)
 
     return response.data.data;
-    
+
   } catch (error) {
     console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
     return []; // 에러 발생 시 빈 배열 반환

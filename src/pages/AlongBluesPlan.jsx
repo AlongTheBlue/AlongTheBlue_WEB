@@ -26,7 +26,8 @@ const AlongBluesPlan = () => {
     iconCategory: "tourData",
   };
 
-  const API_BASE_URL = "https://alongtheblue.site/api";
+  const BASE_URL = import.meta.env.VITE_BE_ENDPOINT
+  const API_BASE_URL = BASE_URL+"/api"
 
   const saveTravelCourses = async () => {
     try {

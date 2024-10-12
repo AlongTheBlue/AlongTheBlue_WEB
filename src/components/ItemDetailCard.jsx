@@ -2,13 +2,15 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../styles/ItemDetailCard.css";
-import { getImgByWeatherCondition, getPlaceDetailByCategoryAndId } from '../utils/data';
+import { getDetailHashtags, getImgByWeatherCondition, getPlaceDetailByCategoryAndId } from '../utils/data';
 
 function ItemDetailCard({category, id}) {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [item, setItem] = useState([]);
+  const [hashtagLoading, setHashtagLoading] = useState([]);
+  const [hashtags, setHashtags] = useState([]);
   
   useEffect(() => {
     const fetchData = async () => {
@@ -17,10 +19,29 @@ function ItemDetailCard({category, id}) {
           console.log(category, id)
         const data = await getPlaceDetailByCategoryAndId(category, id);
         setItem(data);
+        console.log(item)
       } catch (error) {
         console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
       } finally {
         setLoading(false);
+      }
+    };
+    console.log(item)
+
+    fetchData();
+  }, [category, id]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setHashtagLoading(true);
+      try {
+          console.log(category, id)
+        const data = await getDetailHashtags(category, id);
+        setHashtags(data);
+      } catch (error) {
+        console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
+      } finally {
+        setHashtagLoading(false);
       }
     };
     console.log(item)
@@ -100,8 +121,8 @@ function ItemDetailCard({category, id}) {
     <div className="item-detail-card">
       <div className="item-detail-header">
         <div className='item-detail-btn'>
-          <img src="/images/icon/left_arrow_white.svg" onClick={handleBeforeClick}/>
-          <img src="/images/icon/home.svg" onClick={handleHomeClick}/>
+          <img src="/images/icon/left_arrow_white.svg" onClick={handleBeforeClick} />
+          <img src="/images/icon/home.svg" onClick={handleHomeClick} />
         </div>
         <div>
           <img src={item.img} alt={item.title} className="item-detail-image" />
@@ -110,45 +131,48 @@ function ItemDetailCard({category, id}) {
       <div className="item-detail-info">
         <div className="detail-info-header">
           <div className='item-detail-name'>{item.title}</div>
-          <img src='/images/icon/liked.svg'/>
+          <img src='/images/icon/liked.svg' />
         </div>
         <div className="item-detail-address">
           <div className='item-detail-img'>
-            <img src='/images/icon/detail_address.svg'/>
+            <img src='/images/icon/detail_address.svg' />
           </div>
           <div className='item-detail-text'>{item.address}</div>
         </div>
         <div className="item-detail-holiday">
           <div className='item-detail-img'>
-            <img src='/images/icon/detail_holiday.svg'/>
+            <img src='/images/icon/detail_holiday.svg' />
           </div>
-            <div className='item-detail-text'>
-              {item.time && item.time.length > 0 ? item.time : '없음'}
-            </div>
+          <div className='item-detail-text'>
+            {item.time && item.time.length > 0 ? item.time : '없음'}
+          </div>
         </div>
         <div className="item-detail-weather">
           <div className='item-detail-img'>
-            <img src={weatherImg}/>
+            <img src={weatherImg} />
           </div>
           <div className='item-detail-text'>{item.temperature}°C</div>
         </div>
         <div className="hashtags">
-          {/* {item.hashtags.map((tag, index) => ( */}
-            {/* <span key={index} className="hashtag">{tag}</span> */}
-          {/* ))} */}
+          {hashtagLoading ?  
+          <div>해시태그 로딩중..</div>
+          :
+          hashtags.map((tag, index) => (
+            <span key={index} className="hashtag">{tag}</span>
+          ))}
         </div>
       </div>
       <div className="item-detail-introduction">
         <div className='introduction-header'>소개</div>
         <div className='introduction-text'>{item.introduction}</div>
       </div>
-
       <div className='item-detail-introduction'>
         <div className='introduction-header'>위치</div>
         <div id="map" className="item-detail-map"></div>
       </div>
     </div>
   );
+  
 }
 
 export default ItemDetailCard;
