@@ -89,8 +89,8 @@ function App() {
           <Route path="/along/courses/form/:id" element={<AlongCoursesForm/>} />{/*여행따라 작성 */}
           <Route path="/along/blues" element={<AlongBlues user={user}/>} />          {/* 바당따라 */}
           <Route path="/along/blues/plan/:id" element={<AlongBluesPlan user={user}/>} />  {/* 바당따라 여행코스 */}
-          <Route path="/courses/list" element={<Courses />} />            {/* 여행코스 */}
-          <Route path="/courses/detail/:id" element={<CoursesDetail />} />{/* 여행코스 상세 */}
+          <Route path="/course/list" element={<Courses />} />            {/* 여행코스 */}
+          <Route path="/course/detail/:id" element={<CoursesDetail />} />{/* 여행코스 상세 */}
           <Route path="/search" element={<SearchPage searchPlaceMode={false}/>} />                {/* 검색페이지 */}
           <Route path="/search/place" element={<SearchPage searchPlaceMode={true}/>} />          {/* 장소 검색페이지 */}
           <Route path="/my" element={<MyPage isAuthenticated={isAuthenticated} user={user} setUser={setUser} setIsAuthenticated={setIsAuthenticated}/>}/>

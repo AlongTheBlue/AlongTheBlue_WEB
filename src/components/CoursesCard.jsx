@@ -5,7 +5,7 @@ const CoursesCard = ({ course }) => {
   const navigate = useNavigate();
 
   const handleCourseDetail = (id) => {
-    navigate(`/courses/detail/${id}`);
+    navigate(`/course/detail/${id}`);
   };
 
   console.log(course)

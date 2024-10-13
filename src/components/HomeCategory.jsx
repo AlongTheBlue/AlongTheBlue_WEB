@@ -4,7 +4,7 @@ import "../styles/HomeCategory.css" ;
 const categories = [
   { icon: '/images/icon/category_1.svg', label: '바당따라', route: '/along/blues'},
   { icon: '/images/icon/category_2.svg', label: '내주변', route: '/around'},
-  { icon: '/images/icon/category_3.svg', label: '여행코스', route: '/courses/list'},
+  { icon: '/images/icon/category_3.svg', label: '여행코스', route: '/course/list'},
   { icon: '/images/icon/category_4.svg', label: '여행따라', route:'/along/courses' },
   { icon: '/images/icon/category_5.svg', label: '찜' , route: '/my/likes'},
   { icon: '/images/icon/category_6.svg', label: '관광' , route: '/tour/list'},
