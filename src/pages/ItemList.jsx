@@ -15,6 +15,7 @@ function ItemList() {
   const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
+  const [itemCategory, setItemCategory] = useState("");
 
   // 데이터 로드 함수
   const getItemList = async (page) => {
@@ -22,8 +23,9 @@ function ItemList() {
     try {
       const data = await getItemListByCategory(category, page);
       setItems(data.content);
+      setItemCategory(data.category);
       setTotalPages(data.totalPages);
-      console.log(data)
+
     } catch (error) {
       console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
     } finally {
@@ -47,7 +49,7 @@ function ItemList() {
     <div className="page-container">
       <PageHeader title={getTitle(category)} />
       <Search/>
-      <ItemCardList items={items} category={category} />
+      <ItemCardList items={items} itemCategory={itemCategory} />
       <Pagenation 
         totalPages = {totalPages} 
         currentPage={currentPage} 
