@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../styles/ItemDetailCard.css";
@@ -155,7 +154,7 @@ function ItemDetailCard({category, id}) {
         </div>
         <div className="hashtags">
           {hashtagLoading ?  
-          <div>해시태그 로딩중..</div>
+          <div className='loading'>해시태그 로딩중..</div>
           :
           hashtags.map((tag, index) => (
             <span key={index} className="hashtag">{tag}</span>

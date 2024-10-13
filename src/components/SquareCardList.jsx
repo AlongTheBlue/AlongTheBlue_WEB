@@ -1,4 +1,3 @@
-import React from 'react';
 import "../styles/SquareCardList.css";
 import SquareCard from './SquareCard';
 import CardHeader from './CardHeader';

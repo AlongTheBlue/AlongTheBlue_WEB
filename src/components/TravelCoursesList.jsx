@@ -1,4 +1,3 @@
-import React from 'react';
 import "../styles/TravelCoursesList.css";
 import TravelCourseCard from './TravelCourseCard';
 

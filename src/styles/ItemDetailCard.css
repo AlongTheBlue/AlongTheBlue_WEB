@@ -101,6 +101,10 @@
     border-radius: 8px;
 }
 
+.loading {
+    font-size: 0.8em;
+}
+
 @media screen and (max-width: 800px) {
     .header-text {
       font-size: 1.8em;

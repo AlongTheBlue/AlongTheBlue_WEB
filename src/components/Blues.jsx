@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../styles/Blues.css";
 import { useNavigate } from "react-router-dom";
 import { getRecommendBlues } from "../utils/data";

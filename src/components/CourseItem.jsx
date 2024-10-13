@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '../styles/CourseItem.css'; // 스타일을 위한 CSS 파일
 import { useNavigate } from 'react-router-dom';
 

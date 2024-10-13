@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../styles/CourseCard.css";
 import { useNavigate } from "react-router-dom";
 import { getCategory, getKrCategory } from "../utils/data";

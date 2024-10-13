@@ -1,4 +1,3 @@
-import React from 'react';
 import CoursesCard from './CoursesCard';
 
 const CoursesCardList = ({courses}) => {
