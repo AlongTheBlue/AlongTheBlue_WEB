@@ -44,7 +44,7 @@ function Home() {
       <SquareCardList category="accommodation" title="숙소" items={accommodations}/>
       <SquareCardList category="restaurant" title="음식" items={foods}/>
       <SquareCardList category="cafe" title="카페" items={cafes}/>
-      <SquareCardList category="courses" title="여행코스" items={tourCourses}/>
+      <SquareCardList category="course" title="여행코스" items={tourCourses}/>
       <Footer/>
     </div>
   );

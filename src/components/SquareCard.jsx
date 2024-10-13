@@ -30,7 +30,7 @@ function SquareCard({item, category}) {
         <div>
           {item.address ? 
             <div className="square-card-address">{item.address}</div> : 
-            <div className="square-card-hashtag">{item.hashtag}</div>
+            <div className="square-card-hashtag">#{item.hashTag}</div>
           } 
         </div>
       </div>

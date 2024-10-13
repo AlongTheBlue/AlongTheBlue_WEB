@@ -8,10 +8,12 @@ const CoursesCard = ({ course }) => {
     navigate(`/courses/detail/${id}`);
   };
 
+  console.log(course)
+
   return (
     <div
       className="courses-card-container"
-      onClick={() => handleCourseDetail(course.id)}
+      onClick={() => handleCourseDetail(course.contentid)}
     >
       <div
         className="courses-card-img"
@@ -19,7 +21,7 @@ const CoursesCard = ({ course }) => {
           backgroundImage: `linear-gradient(
                     rgba(0, 0, 0, 0), 
                     rgba(0, 0, 0, 0.8)
-                  ),url(${course.url})`,
+                  ),url(${course.img})`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           width: "90%",
@@ -28,10 +30,10 @@ const CoursesCard = ({ course }) => {
         }}
       >
         <div className="courses-card-info">
-          <div className="courses-card-header">{course.subTitle}</div>
+          <div className="courses-card-header">{course.subtitle}</div>
           <div className="courses-card-main">
             <div className="courses-card-title">{course.title}</div>
-            <div className="courses-card-hashtag">{course.hashtag}</div>
+            <div className="courses-card-hashtag">#{course.hashTag}</div>
           </div>
         </div>
       </div>
