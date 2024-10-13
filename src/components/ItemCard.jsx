@@ -3,11 +3,11 @@ import "../styles/ItemCard.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-function ItemCard({ item, selectMode, travelCourses }) {
+function ItemCard({ item, selectMode, travelCourses, itemCategory }) {
   const navigate = useNavigate();
 
   const handlePlaceDetail = () => {
-    navigate(`/${item.category}/detail/${item.contentId}`)
+    navigate(`/${itemCategory}/detail/${item.contentId}`)
   }
 
   const handleSelectPlace = () => {
@@ -36,11 +36,11 @@ function ItemCard({ item, selectMode, travelCourses }) {
         {/* 이미지가 있으면 렌더링 */}
         {item.images && item.images.length > 0 ? (
           <>
-            <img src={item.images[0].originimgurl} alt={item.title} className="item-image" />
+            <img src={item.images[0].originimgurl} alt={item.title} className="item-image" onClick={handlePlaceDetail}/>
             {item.images[1] ? (
-              <img src={item.images[1].originimgurl} alt={item.title} className="item-image" />
+              <img src={item.images[1].originimgurl} alt={item.title} className="item-image" onClick={handlePlaceDetail}/>
             ) : (
-              <img src={item.images[0].originimgurl} alt={item.title} className="item-image" />
+              <img src={item.images[0].originimgurl} alt={item.title} className="item-image" onClick={handlePlaceDetail}/>
             )}
           </>
         ) : null}

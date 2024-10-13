@@ -2,7 +2,9 @@ import "../styles/ItemCardList.css";
 import ItemCard from "./ItemCard";
 
 
-function ItemCardList({ items, selectMode, travelCourses }) {
+function ItemCardList({ items, selectMode, travelCourses, itemCategory }) {
+
+  console.log(itemCategory)
 
   return (
     <div className="item-card-list-container">
@@ -11,6 +13,7 @@ function ItemCardList({ items, selectMode, travelCourses }) {
           <ItemCard
             key={index}
             item={item}
+            itemCategory = {itemCategory}
             selectMode={selectMode}
             travelCourses={travelCourses}
           />

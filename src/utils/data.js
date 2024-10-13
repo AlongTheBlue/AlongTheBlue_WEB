@@ -59,12 +59,12 @@ export const getPlacesByKeywordAndCategory = async (keyword, category) => {
   try {
     // 카테고리 맵핑
     const categoryMapping = {
-      전체: "all",
+      // 전체: "all",
       관광: "tourData",
       숙박: "accommodation",
       음식: "restaurant",
-      카페: "cafe",
-      바다: "blue",
+      카페: "cafe"
+      // 바다: "blue",
     };
 
     const API_BASE_URL = import.meta.env.VITE_BE_ENDPOINT+"/api";
