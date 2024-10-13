@@ -172,3 +172,34 @@ export const getItemListByCategory = async (category, page) => {
     return []; // 에러 발생 시 빈 배열 반환
   }
 };
+
+export const getHomeTourCourses = async () => {
+  try {
+    const API_BASE_URL = import.meta.env.VITE_BE_ENDPOINT+"/api";
+
+    const url = `${API_BASE_URL}/course/home/list`
+    const response = await axios.get(url);
+
+    return response.data.data;
+
+  } catch (error) {
+    console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
+    return []; // 에러 발생 시 빈 배열 반환
+  }
+};
+
+export const getDetailTourCourse = async (id) => {
+  try {
+    const API_BASE_URL = import.meta.env.VITE_BE_ENDPOINT+"/api";
+
+    const url = `${API_BASE_URL}/course/detail/${id}`
+    console.log(url)
+    const response = await axios.get(url);
+
+    return response.data.data;
+
+  } catch (error) {
+    console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
+    return []; // 에러 발생 시 빈 배열 반환
+  }
+};

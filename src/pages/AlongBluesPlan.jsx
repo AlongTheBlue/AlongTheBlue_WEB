@@ -8,7 +8,7 @@ import TravelCoursesList from "../components/TravelCoursesList";
 import axios from "axios";
 import Search from "../components/Search"
 
-const AlongBluesPlan = () => {
+const AlongBluesPlan = ({user}) => {
   const { id } = useParams();
   const location = useLocation(); // useLocation을 사용해 전달된 상태를 가져옴
   const { selectedBlue } = location.state || {}; // 전달된 selectedBlue 상태
@@ -34,6 +34,7 @@ const AlongBluesPlan = () => {
     try {
       const postData = {
         id,
+        userId: user.id,
         title: selectedBlue.title,
         blueItems: travelCourses.map((course, index) => ({
           id: index,

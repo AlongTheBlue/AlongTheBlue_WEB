@@ -2,9 +2,33 @@ import "../styles/Page.css";
 import CourseCard from "./CourseCard";
 import DetailMap from "./DetailMap";
 import "../styles/CoursesDetailCard.css"
+import { useEffect, useState } from "react";
+import { getDetailTourCourse } from "../utils/data";
 
-function CoursesDetailCard() {
-    const course = {
+function CoursesDetailCard({id}) {
+  const [course, setCourse] = useState([]);
+  const [courseMarkers, setCourseMarkers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const data = await getDetailTourCourse(id);
+        setCourse(data);
+        console.log(data)
+
+      } catch (error) {
+        console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+    const course1 = {
       id:1, 
       subtitle:"무조건 가야하는", 
       title: "제주 맛집 리스트",
@@ -51,13 +75,19 @@ function CoursesDetailCard() {
         }
       ]
     };
-
-    const courseMarkers = course.travelCourses.map(course => ({
-      name: course.name,
-      lat: course.lat,
-      lng: course.lng,
-      iconCategory: course.iconCategory
-    }));
+    
+    useEffect(() => {
+      if(!course || !course.travelCourses)
+        return;
+      const markers = course.travelCourses.map(courseItem => ({
+        name: courseItem.title,
+        lat: courseItem.yMap,
+        lng: courseItem.xMap,
+        iconCategory: courseItem.category
+      }));
+      setCourseMarkers(markers);
+      
+    }, [course])
 
     return (
         <div className="courses-detail-card-container">
@@ -70,7 +100,7 @@ function CoursesDetailCard() {
               <div className="courses-detail-title">{course.title}</div>
             </div>
             <div className="courses-detail-introduction">
-              {course.introduction.split("\n").map((line, index) => (
+              {course.introduction && course.introduction.split("\n").map((line, index) => (
                 <span key={index}>
                   {line}
                   <br />
@@ -78,13 +108,13 @@ function CoursesDetailCard() {
               ))}
             </div> 
             <div className="hashtags">
-              {course.hashtags.map((hashtag, index) => (
-                <span key={index} className="hashtag">{hashtag}</span>
+              {course.hashtags && course.hashtags.map((hashtag, index) => (
+                <span key={index} className="hashtag">#{hashtag.title}</span>
               ))}
             </div>
           </div>
           <div className="course-detail-card-list">
-              {course.travelCourses.map((course, index) => (
+              {course.travelCourses && course.travelCourses.map((course, index) => (
                 <CourseCard key={index} course={course} index={index}/>
               ))}
           </div>
