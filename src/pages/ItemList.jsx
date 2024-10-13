@@ -25,6 +25,7 @@ function ItemList() {
       setItems(data.content);
       setItemCategory(data.category);
       setTotalPages(data.totalPages);
+      console.log(data)
 
     } catch (error) {
       console.error("데이터를 불러오는데 문제가 발생했습니다.", error);

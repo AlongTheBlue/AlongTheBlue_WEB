@@ -1,7 +1,12 @@
 import "../styles/ItemCard.css";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getDetailHashtags } from "../utils/data";
 
 function ItemCard({ item, selectMode, travelCourses, itemCategory }) {
+  const [hashtagLoading, setHashtagLoading] = useState([]);
+  const [hashtags, setHashtags] = useState([]);
+
   const navigate = useNavigate();
 
   const handlePlaceDetail = () => {
@@ -27,6 +32,23 @@ function ItemCard({ item, selectMode, travelCourses, itemCategory }) {
       });
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setHashtagLoading(true);
+      try {
+        const data = await getDetailHashtags(itemCategory, item.contentId);
+        setHashtags(data);
+      } catch (error) {
+        console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
+      } finally {
+        setHashtagLoading(false);
+      }
+    };
+    console.log(item)
+
+    fetchData();
+  }, [itemCategory, item.contentId]);
 
   return (
     <div className="item-card">
@@ -59,11 +81,11 @@ function ItemCard({ item, selectMode, travelCourses, itemCategory }) {
           <div>{item.address}</div>
         </div>
         <div className="hashtags">
-          {item.hashtags &&
-            item.hashtags.map((tag, index) => (
-              <span key={index} className="hashtag">
-                {tag}
-              </span>
+          {hashtagLoading ?  
+            <div className="loading">해시태그 로딩중..</div>
+            :
+            hashtags.map((tag, index) => (
+              <span key={index} className="hashtag">{tag}</span>
             ))}
         </div>
       </div>
