@@ -1,4 +1,3 @@
-import React from 'react';
 // import TravelCoursesForm from './TravelCoursesForm';
 
 function TravelCoursesFormList({ travelCourses, setTravelCourses }) {

@@ -1,4 +1,3 @@
-import React from "react";
 import "../styles/Page.css";
 import CourseItemList from "../components/CourseItemList";
 import Footer from "../components/Footer";

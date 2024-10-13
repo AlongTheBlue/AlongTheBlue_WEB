@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Footer from "../components/Footer";
 import PageHeader from "../components/PageHeader";
 import { useLocation, useParams, useNavigate } from "react-router-dom"; // useLocation 추가

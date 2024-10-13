@@ -1,4 +1,3 @@
-import React from 'react';
 import "../styles/CircleCardList.css";
 import CardHeader from './CardHeader';
 import CircleCard from './CircleCard';

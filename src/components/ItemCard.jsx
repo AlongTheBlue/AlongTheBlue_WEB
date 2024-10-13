@@ -1,7 +1,5 @@
-import React from "react";
 import "../styles/ItemCard.css";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 function ItemCard({ item, selectMode, travelCourses, itemCategory }) {
   const navigate = useNavigate();

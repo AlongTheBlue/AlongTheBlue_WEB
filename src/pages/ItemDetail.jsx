@@ -1,4 +1,3 @@
-import React from 'react';
 import "../styles/Page.css";
 import { useParams } from 'react-router-dom';
 import Footer from '../components/Footer';

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import "../styles/AroundMap.css"; // 스타일은 여기에 추가합니다.
 
 function AroundMap({
