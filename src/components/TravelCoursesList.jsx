@@ -4,6 +4,8 @@ import TravelCourseCard from './TravelCourseCard';
 
 function TravelCoursesList({travelCourses, setTravelCourses}) {
 
+    console.log("코스: ",travelCourses)
+
     return (
         <div className="travel-courses-list-container">
             <div className='travel-courses-header'>여행코스</div>
