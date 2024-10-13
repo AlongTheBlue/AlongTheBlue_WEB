@@ -4,13 +4,22 @@ import Blues from "../components/Blues";
 import PageHeader from "../components/PageHeader";
 import { getPlacesByCategory } from "../utils/data.js";
 import { useNavigate } from "react-router-dom";
-const AlongBlues = () => {
+
+const AlongBlues = ({user}) => {
   const [blueList, setBlueList] = useState([]);
   const [jejuBlues, setJejuBlues] = useState([]);
   const [seogwipoBlues, setSeogwipoBlues] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
   useEffect(() => {
+    console.log(user)
+    if (!user) {
+      alert("로그인을 먼저 해주세요")
+      navigate("/my");
+      return;  // 이후의 코드를 실행하지 않도록 return
+    }
+
     const fetchData = async () => {
       try {
         // getPlacesByCategory 함수에 "바다" 카테고리를 전달하여 blue 데이터를 가져옴
@@ -38,14 +47,13 @@ const AlongBlues = () => {
     };
 
     fetchData();
-  }, []);
+  }, [user]);
 
   if (error) {
     return <div>{error}</div>;
   }
   // 바다 선택 후 이동
   const handleBlueSelect = (selectedBlue) => {
-    console.log(selectedBlue)
     navigate(`/along/blues/plan/${selectedBlue.id}`, { state: { selectedBlue: selectedBlue } });
   };
 
@@ -55,7 +63,6 @@ const AlongBlues = () => {
   return (
     <div className="page-container">
       <PageHeader title={"바당따라"} />
-      {/* 필터링된 jeju와 seogwipo 데이터를 각각 넘겨줌 */}
       <Blues
         jejuBlues={jejuBlues}
         seogwipoBlues={seogwipoBlues}

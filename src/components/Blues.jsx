@@ -105,7 +105,6 @@ const Blues = ({ jejuBlues, seogwipoBlues, onSelect }) => {
     const { kakao } = window;
     const moveLatLon = new kakao.maps.LatLng(beach.yMap, beach.xMap); // 클릭한 해변의 좌표로 설정
     setSelectedBlue(beach); // 해변 선택
-
     mapRef.current.setLevel(5); // 지도의 확대 수준을 더 크게 설정 (5레벨)
     mapRef.current.setCenter(moveLatLon); // 지도의 중심을 해당 좌표로 이동
 
@@ -131,9 +130,9 @@ const Blues = ({ jejuBlues, seogwipoBlues, onSelect }) => {
 
       // 선택된 해변 정보 전달 및 페이지 이동
       onSelect(updatedBlue);
-      navigate(`/along/blues/plan/${updatedBlue.id}`, {
-        state: { selectedBlue: updatedBlue },
-      });
+      // navigate(`/along/blues/plan/${updatedBlue.id}`, {
+        // state: { selectedBlue: updatedBlue },
+      // });
     } else {
       alert("해변을 선택해주세요.");
     }

@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const getCategory = (category) => {
-  console.log(category)
 
   const categoryMapping = {
     전체: "all",
@@ -15,7 +14,6 @@ export const getCategory = (category) => {
 }
 
 export const getKrCategory = (category) => {
-  console.log(category)
 
   const categoryMapping = {
     all: "전체",
@@ -49,8 +47,6 @@ export const getPlacesByCategory = async (category) => {
     const response = await axios.get(
       `${API_BASE_URL}/search/${englishCategory}/list`
     );
-
-    console.log(`Requesting category: ${englishCategory}`); // 카테고리 로그
 
     return response.data.data;
   } catch (error) {
@@ -94,8 +90,7 @@ export const getHomePlacesByCategory = async (category) => {
     const response = await axios.get(
       `${API_BASE_URL}/${category}/home/list`
     );
-
-    console.log(`Requesting category: ${category}`); // 카테고리 로그
+    console.log(category)
 
     return response.data.data;
   } catch (error) {
@@ -110,9 +105,6 @@ export const getPlaceDetailByCategoryAndId = async (category, id) => {
 
     const url = `${API_BASE_URL}/${category}/detail/${id}`
     const response = await axios.get(url);
-    console.log(url)
-
-    console.log(`Requesting category: ${category}`); // 카테고리 로그
 
     return response.data.data;
   } catch (error) {
@@ -127,7 +119,6 @@ export const getDetailHashtags = async (category, id) => {
 
     const url = `${API_BASE_URL}/${category}/hashtags/${id}`
     const response = await axios.get(url);
-    console.log(url)
 
     return response.data.data;
   } catch (error) {
@@ -153,7 +144,6 @@ export const getRecommendBlues = async () => {
 
     const url = `${API_BASE_URL}/blue/recommend`
     const response = await axios.get(url);
-    console.log(url)
 
     return response.data.data;
 
@@ -163,3 +153,22 @@ export const getRecommendBlues = async () => {
   }
 };
 
+export const getItemListByCategory = async (category, page) => {
+  try {
+    const API_BASE_URL = import.meta.env.VITE_BE_ENDPOINT+"/api";
+
+    const url = `${API_BASE_URL}/${category}/detail/all`
+    const response = await axios.get(
+      url, 
+      { params: {
+          page: page,
+          size: 10
+      }});
+
+    return response.data.data;
+
+  } catch (error) {
+    console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
+    return []; // 에러 발생 시 빈 배열 반환
+  }
+};

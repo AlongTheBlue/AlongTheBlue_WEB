@@ -7,7 +7,7 @@ function ItemCard({ item, selectMode, travelCourses }) {
   const navigate = useNavigate();
 
   const handlePlaceDetail = () => {
-    navigate(`/${item.category}/detail/${item.contentid}`)
+    navigate(`/${item.category}/detail/${item.contentId}`)
   }
 
   const handleSelectPlace = () => {
@@ -34,12 +34,16 @@ function ItemCard({ item, selectMode, travelCourses }) {
     <div className="item-card">
       <div className="item-images-container">
         {/* 이미지가 있으면 렌더링 */}
-        {item.image1 && (
-          <img src={item.image1} alt={item.title} className="item-image" />
-        )}
-        {item.image2 && (
-          <img src={item.image2} alt={item.title} className="item-image" />
-        )}
+        {item.images && item.images.length > 0 ? (
+          <>
+            <img src={item.images[0].originimgurl} alt={item.title} className="item-image" />
+            {item.images[1] ? (
+              <img src={item.images[1].originimgurl} alt={item.title} className="item-image" />
+            ) : (
+              <img src={item.images[0].originimgurl} alt={item.title} className="item-image" />
+            )}
+          </>
+        ) : null}
       </div>
       <div className="item-info">
         <div className="item-header">

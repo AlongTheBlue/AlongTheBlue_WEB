@@ -6,6 +6,7 @@ import "../styles/Page.css";
 import AroundMap from "../components/AroundMap";
 import TravelCoursesList from "../components/TravelCoursesList";
 import axios from "axios";
+import Search from "../components/Search"
 
 const AlongBluesPlan = () => {
   const { id } = useParams();
@@ -66,6 +67,7 @@ const AlongBluesPlan = () => {
   return (
     <div className="page-container">
       <PageHeader title={`바당따라 - ${blue.title}`} />
+      <Search onSearch={setKeyword} onTrigger={setSearchTrigger} />
       <AroundMap
         keyword={keyword}
         searchTrigger={searchTrigger}
