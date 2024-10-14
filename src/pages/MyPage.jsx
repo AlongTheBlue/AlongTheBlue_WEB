@@ -35,12 +35,12 @@ function MyPage({isAuthenticated, user, setUser, setIsAuthenticated}) {
                 <UserCard user={user}/>
                 <div className="my-along-container">
                     <div className="my-along-header">마이페이지</div>
-                    <div className="my-along-blues">
-                        <div onClick={handleMyAlongBlues}>내 바당따라</div>
+                    <div className="my-along-blues" onClick={handleMyAlongBlues}>
+                        <div>내 바당따라</div>
                         <img src="/images/icon/arrow_right.svg"/>
                     </div>
-                    <div className="my-along-courses">
-                        <div onClick={handleMyAlongCourses}>내 여행따라</div>
+                    <div className="my-along-courses" onClick={handleMyAlongCourses}>
+                        <div>내 여행따라</div>
                         <img src="/images/icon/arrow_right.svg"/>
                     </div>
                 </div>
