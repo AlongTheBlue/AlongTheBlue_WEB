@@ -40,8 +40,8 @@ const AlongBluesPlan = ({user}) => {
           id: index,
           title: index === 0 ? selectedBlue.title : course.title,
           address: course.address,
-          xMap: course.x,
-          yMap: course.y,
+          xMap: course.lng,
+          yMap: course.lat,
           category: course.category,
         })),
       };
@@ -52,7 +52,6 @@ const AlongBluesPlan = ({user}) => {
       const response = await axios.post(
         `${API_BASE_URL}/blueCourse/create`,postData,{
           headers: {
-            "Content-Type": "multipart/form-data",
             "Authorization": uid
           },
         }
