@@ -44,6 +44,7 @@ const AlongCoursesForm = () => {
       alert("장소가 추가되지 않았습니다.");
       return;
     }
+    
 
     try {
       const formData = new FormData();
@@ -56,7 +57,7 @@ const AlongCoursesForm = () => {
             JSON.stringify({
               title: title,
               content: content,
-              hashtags: hashtags,
+              // hashtags: hashtags,
               tourPostItems: travelCourses.map((course) => ({
                 title: course.title,
                 category: course.category || "",
@@ -70,10 +71,11 @@ const AlongCoursesForm = () => {
           { type: "application/json" }
         )
       );
-
+      const uid = localStorage.getItem("id")
       const response = await axios.post(`${API_BASE_URL}/tourpost`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          "Authorization": uid
         },
       });
 

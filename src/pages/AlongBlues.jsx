@@ -5,7 +5,7 @@ import PageHeader from "../components/PageHeader";
 import { getPlacesByCategory } from "../utils/data.js";
 import { useNavigate } from "react-router-dom";
 
-const AlongBlues = ({user}) => {
+const AlongBlues = () => {
   const [blueList, setBlueList] = useState([]);
   const [jejuBlues, setJejuBlues] = useState([]);
   const [seogwipoBlues, setSeogwipoBlues] = useState([]);
@@ -13,11 +13,11 @@ const AlongBlues = ({user}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(user)
-    if (!user) {
-      alert("로그인을 먼저 해주세요")
-      navigate("/my");
-      return;  // 이후의 코드를 실행하지 않도록 return
+    const storedData = localStorage.getItem("id");
+    if(!storedData){
+        alert("로그인을 먼저 해주세요.")
+        navigate(`/my`);
+        return;
     }
 
     const fetchData = async () => {
@@ -47,7 +47,7 @@ const AlongBlues = ({user}) => {
     };
 
     fetchData();
-  }, [user]);
+  }, []);
 
   if (error) {
     return <div>{error}</div>;
