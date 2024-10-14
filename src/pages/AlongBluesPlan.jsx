@@ -7,6 +7,7 @@ import AroundMap from "../components/AroundMap";
 import TravelCoursesList from "../components/TravelCoursesList";
 import axios from "axios";
 import Search from "../components/Search"
+import { getCategory, getKrCategory } from "../utils/data";
 
 const AlongBluesPlan = ({user}) => {
   const { id } = useParams();
@@ -32,17 +33,16 @@ const AlongBluesPlan = ({user}) => {
 
   const saveTravelCourses = async () => {
     console.log("save: ", travelCourses)
+    const category = getCategory(course.category)
     try {
       const postData = {
-        id,
         title: selectedBlue.title,
         blueItems: travelCourses.map((course, index) => ({
-          id: index,
           title: index === 0 ? selectedBlue.title : course.title,
           address: course.address,
           xMap: course.lng,
           yMap: course.lat,
-          category: course.category,
+          category: category,
         })),
       };
 
