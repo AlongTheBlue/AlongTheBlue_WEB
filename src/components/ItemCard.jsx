@@ -1,7 +1,7 @@
 import "../styles/ItemCard.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getDetailHashtags } from "../utils/data";
+import { getDetailHashtags, getPlaceByCategoryAndId } from "../utils/data";
 
 function ItemCard({ item, selectMode, travelCourses, itemCategory }) {
   const [hashtagLoading, setHashtagLoading] = useState([]);
@@ -13,25 +13,32 @@ function ItemCard({ item, selectMode, travelCourses, itemCategory }) {
     navigate(`/${itemCategory}/detail/${item.contentId}`)
   }
 
-  const handleSelectPlace = () => {
-    console.log("선택한 장소:", item);
-    console.log("현재 여행 코스:", travelCourses);
-
-    // 중복 방지: 현재 선택된 장소가 travelCourses에 이미 있는지 확인
+  const handleSelectPlace = async () => {
+    // 중복 여부 확인
     const isDuplicate = travelCourses.some(
       (course) => course.title === item.title
     );
-
+  
     if (!isDuplicate) {
-      // 중복되지 않을 때만 navigate
-      navigate("/along/courses/form/1", {
-        state: {
-          selectedPlace: item,
-          travelCourses: [...travelCourses, item], // 기존 코스에 새로 추가
-        },
-      });
+      try {
+        // 코스 정보를 비동기적으로 가져옴
+        const course = await getPlaceByCategoryAndId(itemCategory, item.contentId);
+        console.log(course)
+        // 중복되지 않을 때만 navigate
+        navigate("/along/courses/form/1", {
+          state: {
+            selectedPlace: item,
+            travelCourses: [...travelCourses, course], // 기존 코스에 새로 추가
+          },
+        });
+      } catch (error) {
+        console.error("코스 정보를 가져오는 중 오류 발생:", error);
+      }
+    } else {
+      alert("이미 선택된 장소입니다.");
     }
   };
+  
 
   useEffect(() => {
     const fetchData = async () => {

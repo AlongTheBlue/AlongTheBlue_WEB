@@ -5,7 +5,7 @@ function Header() {
   const navigate = useNavigate();
 
   const handleHomeClick = () => {
-    navigate(-1);
+    navigate("/");
   };
 
   const clickMyPage = () => {

@@ -7,7 +7,7 @@ import "../styles/SearchPage.css";
 import ItemCardList from "../components/ItemCardList";
 import { useLocation } from "react-router-dom"; // useLocation import
 import { useNavigate, useEffect } from "react";
-import { getItemListByCategory, getPlacesByCategory, getPlacesByKeywordAndCategory } from "../utils/data.js";
+import { getItemListByCategory, getItemListByKeywordAndCategory, getPlacesByCategory, getPlacesByKeywordAndCategory } from "../utils/data.js";
 import Pagenation from "../components/Pagenation.jsx";
 
 function SearchPage({ searchPlaceMode }) {
@@ -16,7 +16,7 @@ function SearchPage({ searchPlaceMode }) {
   const [travelCourses, setTravelCourses] = useState(() => {
     return location.state?.travelCourses || [];
   });
-  const [selectedCategory, setSelectedCategory] = useState("음식");
+  const [selectedCategory, setSelectedCategory] = useState("관광");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -80,15 +80,26 @@ function SearchPage({ searchPlaceMode }) {
   };
 
   useEffect(() => {
-    if(searchTrigger == 0 ) 
+    if(searchTrigger == 0) 
       return
 
     const fetchData = async () => {
       setLoading(true);
       try {
-        const data = await getPlacesByKeywordAndCategory(keyword, selectedCategory);
-        setSearchResult(data);
-        setTotalPages(data.totalPages);
+        const categoryMapping = {
+          관광: "tourData",
+          숙박: "accommodation",
+          음식: "restaurant",
+          카페: "cafe",
+        };
+      let category = categoryMapping[selectedCategory] ?? null;
+      
+      console.log("카테고리",category)
+
+      const data = await getItemListByKeywordAndCategory(category, keyword, currentPage);
+      setSearchResult(data.content);
+      setTotalPages(data.totalPages);
+      console.log(data)
 
       } catch (error) {
         console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
@@ -98,7 +109,6 @@ function SearchPage({ searchPlaceMode }) {
     };
 
     fetchData();
-
   }, [searchTrigger]);
 
   return (

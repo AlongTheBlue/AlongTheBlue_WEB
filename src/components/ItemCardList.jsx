@@ -5,6 +5,7 @@ import ItemCard from "./ItemCard";
 function ItemCardList({ items, selectMode, travelCourses, itemCategory }) {
 
   // console.log(itemCategory)
+  console.log(items)
 
   return (
     <div className="item-card-list-container">

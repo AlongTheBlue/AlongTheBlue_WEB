@@ -84,7 +84,7 @@ function App() {
           <Route path="/:category/list" element={<ItemList />} />         {/* 전체보기 */}
           <Route path="/:category/detail/:id" element={<ItemDetail />} />    {/* 상세보기 */}
           <Route path="/around" element={<Around />}/>                    {/* 내주변 */}
-          <Route path="/along/courses" element={<AlongCourses />} />      {/* 여행따라 */}
+          <Route path="/along/courses" element={<AlongCourses user={user}/>} />      {/* 여행따라 */}
           <Route path="/along/courses/detail/:id" element={<CoursesDetail alongCoursesMode={true}/>} /> {/* 여행따라 상세 */}
           <Route path="/along/courses/form/:id" element={<AlongCoursesForm/>} />{/*여행따라 작성 */}
           <Route path="/along/blues" element={<AlongBlues user={user}/>} />          {/* 바당따라 */}

@@ -55,6 +55,23 @@ export const getPlacesByCategory = async (category) => {
   }
 };
 
+export const getPlaceByCategoryAndId = async (category, id) => {
+  try {
+    const API_BASE_URL = import.meta.env.VITE_BE_ENDPOINT+"/api";
+
+    // URL 경로에 카테고리 삽입
+    const response = await axios.get(
+      `${API_BASE_URL}/search/${category}/${id}`
+    );
+
+    return response.data.data;
+  } catch (error) {
+    console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
+    return []; // 에러 발생 시 빈 배열 반환
+  }
+};
+
+
 export const getPlacesByKeywordAndCategory = async (keyword, category) => {
   try {
     // 카테고리 맵핑
@@ -195,6 +212,27 @@ export const getDetailTourCourse = async (id) => {
     const url = `${API_BASE_URL}/course/detail/${id}`
     console.log(url)
     const response = await axios.get(url);
+
+    return response.data.data;
+
+  } catch (error) {
+    console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
+    return []; // 에러 발생 시 빈 배열 반환
+  }
+};
+
+export const getItemListByKeywordAndCategory = async (category, keyword, page) => {
+  try {
+    const API_BASE_URL = import.meta.env.VITE_BE_ENDPOINT+"/api";
+    console.log(category, keyword)
+    const response = await axios.get(
+      `${API_BASE_URL}/search/${category}`, 
+        { params: { 
+            keyword: keyword, 
+            page: page,
+            size: 10 } 
+        }
+    );
 
     return response.data.data;
 

@@ -34,7 +34,6 @@ const AlongBluesPlan = ({user}) => {
     try {
       const postData = {
         id,
-        userId: user.id,
         title: selectedBlue.title,
         blueItems: travelCourses.map((course, index) => ({
           id: index,
