@@ -33,19 +33,22 @@ const AlongBluesPlan = ({user}) => {
 
   const saveTravelCourses = async () => {
     console.log("save: ", travelCourses)
-    const category = getCategory(course.category)
+    
     try {
       const postData = {
         title: selectedBlue.title,
-        blueItems: travelCourses.map((course, index) => ({
-          title: index === 0 ? selectedBlue.title : course.title,
-          address: course.address,
-          xMap: course.lng,
-          yMap: course.lat,
-          category: category,
-        })),
+        blueItems: travelCourses.map((course, index) => {
+          const category = getCategory(course.category);
+          return {
+            title: index === 0 ? selectedBlue.title : course.title,
+            address: course.address,
+            xMap: course.lng,
+            yMap: course.lat,
+            category: category,
+          };
+        }),
       };
-
+    
       console.log("전송할 데이터:", postData);
       console.log("blueItems:", postData.blueItems);
       const uid = localStorage.getItem("id")
