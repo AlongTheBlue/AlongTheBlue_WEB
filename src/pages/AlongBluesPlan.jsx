@@ -48,9 +48,14 @@ const AlongBluesPlan = ({user}) => {
 
       console.log("전송할 데이터:", postData);
       console.log("blueItems:", postData.blueItems);
+      const uid = localStorage.getItem("id")
       const response = await axios.post(
-        `${API_BASE_URL}/blueCourse/create`,
-        postData
+        `${API_BASE_URL}/blueCourse/create`,postData,{
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "Authorization": uid
+          },
+        }
       );
 
       if (response.status === 200) {
