@@ -31,6 +31,7 @@ const AlongBluesPlan = ({user}) => {
   const API_BASE_URL = BASE_URL+"/api"
 
   const saveTravelCourses = async () => {
+    console.log("save: ", travelCourses)
     try {
       const postData = {
         id,
@@ -39,8 +40,8 @@ const AlongBluesPlan = ({user}) => {
           id: index,
           title: index === 0 ? selectedBlue.title : course.title,
           address: course.address,
-          x: course.lat,
-          y: course.lng,
+          xMap: course.x,
+          yMap: course.y,
           category: course.category,
         })),
       };
