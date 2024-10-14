@@ -62,7 +62,8 @@ const AlongBluesPlan = ({user}) => {
 
       if (response.status === 200) {
         alert("여행 코스가 성공적으로 저장되었습니다.");
-        nav("/my");
+        // nav("/my");
+        nav("/")
       } else {
         alert("저장에 실패했습니다.");
       }
