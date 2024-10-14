@@ -16,7 +16,7 @@ function CourseItemList({alongCourses}) {
         navigate(`/along/courses/form/${storedData}`);
     }
 
-
+    console.log(alongCourses)
 
     return (
         <div className='courses-item-list-container'>

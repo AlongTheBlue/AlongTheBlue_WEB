@@ -15,6 +15,7 @@ import SearchPage from './pages/SearchPage.jsx';
 import MyPage from './pages/MyPage.jsx';
 import axios from 'axios';
 import Auth from './components/Auth.jsx';
+import MyAlongCourses from './pages/MyAlongCourses.jsx';
 
 function App() {
 
@@ -87,6 +88,7 @@ function App() {
           <Route path="/along/courses" element={<AlongCourses user={user}/>} />      {/* 여행따라 */}
           <Route path="/along/courses/detail/:id" element={<CoursesDetail alongCoursesMode={true}/>} /> {/* 여행따라 상세 */}
           <Route path="/along/courses/form/:id" element={<AlongCoursesForm user={user}/>} />{/*여행따라 작성 */}
+          <Route path="/along/courses/my" element={<MyAlongCourses/>}/>     {/*내 여행따라 */}
           <Route path="/along/blues" element={<AlongBlues />} />          {/* 바당따라 */}
           <Route path="/along/blues/plan/:id" element={<AlongBluesPlan user={user}/>} />  {/* 바당따라 여행코스 */}
           <Route path="/course/list" element={<Courses />} />            {/* 여행코스 */}
