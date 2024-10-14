@@ -3,7 +3,7 @@ import "../styles/CourseItemList.css";
 import CourseItem from './CourseItem';
 import UserCard from "./UserCard";
 
-function CourseItemList({courseData }) {
+function CourseItemList({alongCourses}) {
     const navigate = useNavigate();
     
     const handleAlongCoursesForm = () => {
@@ -16,20 +16,18 @@ function CourseItemList({courseData }) {
         navigate(`/along/courses/form/${storedData}`);
     }
 
+
+
     return (
         <div className='courses-item-list-container'>
             <div className='courses-item-add' onClick={handleAlongCoursesForm}>작성</div>
             <div className='courses-item-list'>
-                {courseData.map((course, index) => (
+                {alongCourses && alongCourses.map((alongCourse, index) => (
                     <div className='courses-item-card' key={index}>
                         <UserCard 
-                            userId={course.userId} />
+                            user={alongCourse.user} />
                         <CourseItem
-                            id = {course.id}
-                            courseTitle={course.courseTitle}
-                            description={course.description}
-                            images={course.images}
-                            tags={course.tags}
+                            alongCourse = {alongCourse}
                         />
                     </div>
                 ))}

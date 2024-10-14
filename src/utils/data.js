@@ -241,3 +241,18 @@ export const getItemListByKeywordAndCategory = async (category, keyword, page) =
     return []; // 에러 발생 시 빈 배열 반환
   }
 };
+
+export const getAlongCourses = async () => {
+  try {
+    const API_BASE_URL = import.meta.env.VITE_BE_ENDPOINT+"/api";
+
+    const response = await axios.get(
+      `${API_BASE_URL}/tourpost/list`);
+
+    return response.data.data;
+
+  } catch (error) {
+    console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
+    return []; // 에러 발생 시 빈 배열 반환
+  }
+};

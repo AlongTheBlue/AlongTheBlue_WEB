@@ -17,6 +17,14 @@ function MyPage({isAuthenticated, user, setUser, setIsAuthenticated}) {
         navigate('/')
     }
 
+    const handleMyAlongBlues = () => {
+        navigate("/along/blues/my")
+    }
+
+    const handleMyAlongCourses = () => {
+        navigate("/along/courses/my")
+    }
+
     return(
         <div className="page-container">
             {!isAuthenticated ?
@@ -28,11 +36,11 @@ function MyPage({isAuthenticated, user, setUser, setIsAuthenticated}) {
                 <div className="my-along-container">
                     <div className="my-along-header">마이페이지</div>
                     <div className="my-along-blues">
-                        <div>내 바당따라</div>
+                        <div onClick={handleMyAlongBlues}>내 바당따라</div>
                         <img src="/images/icon/arrow_right.svg"/>
                     </div>
                     <div className="my-along-courses">
-                        <div>내 여행따라</div>
+                        <div onClick={handleMyAlongCourses}>내 여행따라</div>
                         <img src="/images/icon/arrow_right.svg"/>
                     </div>
                 </div>
