@@ -12,7 +12,7 @@ function DetailMap({ courseMarkers }) {
     const mapContainer = document.getElementById('map'); // 지도를 표시할 div
     const mapOption = {
       center: new kakao.maps.LatLng(33.386666, 126.55667),
-      level: 8, // 지도 확대 레벨
+      level: 10, // 지도 확대 레벨
     };
     
     // 지도 생성 (한 번만 실행)
@@ -33,7 +33,7 @@ function DetailMap({ courseMarkers }) {
     if (courseMarkers.length === 0) {
         map.setLevel(10); // 마커가 없으면 레벨 10
       } else {
-        map.setLevel(8); // 마커가 있으면 레벨 8
+        map.setLevel(4); // 마커가 있으면 레벨 8
       }
     
     // 기존 마커 제거
@@ -41,6 +41,7 @@ function DetailMap({ courseMarkers }) {
 
     let newMarkers = [];
     let paths = [];
+    const bounds = new kakao.maps.LatLngBounds(); // Bounds 객체 생성
 
     // 새 마커 생성
     courseMarkers.forEach((courseMarker, index) => {
@@ -57,6 +58,8 @@ function DetailMap({ courseMarkers }) {
 
       newMarkers.push(marker);
       paths.push(new kakao.maps.LatLng(courseMarker.lat, courseMarker.lng));
+
+      bounds.extend(markerPosition); // 각 마커의 위치를 bounds에 추가
     });
 
     // 새 마커들 상태 업데이트
@@ -80,20 +83,25 @@ function DetailMap({ courseMarkers }) {
     newPolyline.setMap(map);
     setPolyline(newPolyline);
 
-    // 지도 중심을 마커들의 중앙으로 설정
-    if (paths.length > 0) {
-      let totalLat = 0, totalLng = 0;
-      paths.forEach((path) => {
-        totalLat += path.getLat();
-        totalLng += path.getLng();
-      });
-
-      const centerLat = totalLat / paths.length;
-      const centerLng = totalLng / paths.length;
-
-      const coords = new kakao.maps.LatLng(centerLat, centerLng);
-      map.setCenter(coords);
+    // 모든 마커를 포함하도록 지도의 범위 설정
+    if (courseMarkers.length > 0) {
+      map.setBounds(bounds); // 지도 범위를 마커들의 위치에 맞게 설정
     }
+
+    // 지도 중심을 마커들의 중앙으로 설정
+    // if (paths.length > 0) {
+    //   let totalLat = 0, totalLng = 0;
+    //   paths.forEach((path) => {
+    //     totalLat += path.getLat();
+    //     totalLng += path.getLng();
+    //   });
+
+    //   const centerLat = totalLat / paths.length;
+    //   const centerLng = totalLng / paths.length;
+
+    //   const coords = new kakao.maps.LatLng(centerLat, centerLng);
+    //   map.setCenter(coords);
+    // }
   }, [courseMarkers, map]); // courseMarkers나 map이 변경될 때만 실행
 
   return (
