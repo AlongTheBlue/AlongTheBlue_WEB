@@ -44,11 +44,11 @@ const courseData = [
   },
 ];
 
-const AlongCourses = () => {
+const AlongCourses = ({user}) => {
   return (
     <div className="page-container">
       <PageHeader title={"여행따라"} />
-      <CourseItemList courseData={courseData} />
+      <CourseItemList user={user} courseData={courseData} />
       <Footer />
     </div>
   );

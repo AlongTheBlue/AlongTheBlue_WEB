@@ -7,7 +7,7 @@ const categories = [
   { icon: '/images/icon/category_3.svg', label: '여행코스', route: '/course/list'},
   { icon: '/images/icon/category_4.svg', label: '여행따라', route:'/along/courses' },
   { icon: '/images/icon/category_5.svg', label: '찜' , route: '/my/likes'},
-  { icon: '/images/icon/category_6.svg', label: '관광' , route: '/tour/list'},
+  { icon: '/images/icon/category_6.svg', label: '관광' , route: '/tourData/list'},
   { icon: '/images/icon/category_7.svg', label: '숙소', route: '/accommodation/list' },
   { icon: '/images/icon/category_8.svg', label: '음식', route: '/restaurant/list' },
   { icon: '/images/icon/category_9.svg', label: '카페', route: '/cafe/list' },

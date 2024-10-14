@@ -107,7 +107,6 @@ const AlongCoursesForm = () => {
     }
   }, [travelCourses]);
   
-
   return (
     <div className="page-container">
       <PageHeader title={"여행따라"} />
@@ -136,14 +135,14 @@ const AlongCoursesForm = () => {
                 onChange={(e) => setContent(e.target.value)}
               />
             </div>
-            <div className="hashtags">
+            {/* <div className="hashtags">
               {hashtags.map((hashtag, index) => (
                 <span key={index} className="hashtag">
                   {hashtag}
                 </span>
               ))}
               <span className="hashtag">+</span>
-            </div>
+            </div> */}
           </div>
           <div className="along-courses-list">
             <div className="along-travel-courses-header">여행코스</div>
