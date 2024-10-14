@@ -3,18 +3,17 @@ import "../styles/CourseItemList.css";
 import CourseItem from './CourseItem';
 import UserCard from "./UserCard";
 
-function CourseItemList({ user, courseData }) {
+function CourseItemList({courseData }) {
     const navigate = useNavigate();
     
-    const userId = 1; // 추후 변경
-
     const handleAlongCoursesForm = () => {
-        if(!user){
+        const storedData = localStorage.getItem("id");
+        if(!storedData){
             alert("로그인을 먼저 해주세요.")
             navigate(`/my`);
             return;
         }
-        navigate(`/along/courses/form/${userId}`);
+        navigate(`/along/courses/form/${storedData}`);
     }
 
     return (

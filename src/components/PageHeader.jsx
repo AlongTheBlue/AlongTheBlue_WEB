@@ -4,7 +4,9 @@ import "../styles/PageHeader.css"
 function PageHeader({title}) {
   const navigate = useNavigate();
 
-  const handleBeforeClick = () => {  
+  const handleBeforeClick = () => {
+    if(title == "로그인") 
+      navigate('/')
     const referrer = document.referrer; // 이전 페이지의 URL
 
     // 이전 페이지가 우리 사이트 내부 URL인지 확인
