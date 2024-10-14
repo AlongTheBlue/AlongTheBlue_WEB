@@ -19,23 +19,40 @@ function CourseCard({ course, index, setTravelCourses, writingMode }) {
   };
 
   // 이미지 업로드 처리
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result); // 미리보기 이미지 설정
-        const updatedCourses = [...(course.images || [])];
-        updatedCourses.push({ url: reader.result });
+  // const handleImageUpload = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setImagePreview(reader.result); // 미리보기 이미지 설정
+  //       const updatedCourses = [...(course.images || [])];
+  //       updatedCourses.push({ url: reader.result });
 
-        // course 상태 업데이트
-        setTravelCourses((prevCourses) =>
-          prevCourses.map((c, i) =>
-            i === index ? { ...c, images: updatedCourses } : c
-          )
-        );
-      };
-      reader.readAsDataURL(file);
+  //       // course 상태 업데이트
+  //       setTravelCourses((prevCourses) =>
+  //         prevCourses.map((c, i) =>
+  //           i === index ? { ...c, images: updatedCourses } : c
+  //         )
+  //       );
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0]; // 파일 선택
+    if (file) {
+      setImagePreview(URL.createObjectURL(file)); // 미리보기 이미지 설정
+  
+      const updatedCourses = [...(course.images || [])];
+      updatedCourses.push({ file });
+  
+      // course 상태 업데이트 (base64가 아니라 파일 자체를 저장)
+      setTravelCourses((prevCourses) =>
+        prevCourses.map((c, i) =>
+          i === index ? { ...c, images: updatedCourses } : c
+        )
+      );
     }
   };
 

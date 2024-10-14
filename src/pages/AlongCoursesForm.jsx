@@ -9,7 +9,7 @@ import "../styles/AlongCoursesForm.css";
 import axios from "axios";
 import DetailMap from "../components/DetailMap";
 
-const AlongCoursesForm = () => {
+const AlongCoursesForm = ({user}) => {
   //변수
   const { userId } = useParams();
   const navigate = useNavigate();
@@ -66,11 +66,24 @@ const AlongCoursesForm = () => {
                 xMap: course.xMap,
                 yMap: course.yMap,
               })),
+              // 이미지 인덱스 배열 추가
+              imgIndexArr: travelCourses.map((course, index) => {
+                return course.images ? [...Array(course.images.length).keys()] : [];
+              }),
             }),
           ],
           { type: "application/json" }
         )
       );
+
+      travelCourses.forEach((course, index) => {
+        if (course.images) {
+          course.images.forEach((imageFile) => {
+            formData.append(`file`, imageFile.file); // file 필드로 이미지 파일 추가
+          });
+        }
+      });
+
       const uid = localStorage.getItem("id")
       const response = await axios.post(`${API_BASE_URL}/tourpost`, formData, {
         headers: {
@@ -117,7 +130,7 @@ const AlongCoursesForm = () => {
           저장
         </div>
         <div className="along-courses-form-container">
-          <UserCard />
+          <UserCard user={user}/>
           <DetailMap courseMarkers={courseMarkers}/>
           <div className="along-courses-form-info">
             <div className="along-courses-form-title">
