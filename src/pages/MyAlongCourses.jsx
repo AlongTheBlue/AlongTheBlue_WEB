@@ -7,14 +7,14 @@ import { getMyAlongCourses } from "../utils/data";
 
 const MyAlongCourses = () => {
   const [loading, setLoading] = useState(false);
-  const [alongCourses, setAlongCourses] = useState([]);
+  const [courses, setCourses] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
         const data = await getMyAlongCourses();
-        setAlongCourses(data);
+        setCourses(data);
 
       } catch (error) {
         console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
@@ -29,7 +29,7 @@ const MyAlongCourses = () => {
   return (
     <div className="page-container">
       <PageHeader title={"내 여행따라"} />
-      <CourseItemList alongCourses={alongCourses} />
+      <CourseItemList myPageMode={true} courses={courses} alongCourse={true}/>
       <Footer />
     </div>
   );

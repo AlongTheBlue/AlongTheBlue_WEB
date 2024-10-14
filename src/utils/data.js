@@ -293,3 +293,38 @@ export const getDetailAlongCourse = async (id) => {
   }
 };
 
+export const getMyAlongBlues = async () => {
+  try {
+    const API_BASE_URL = import.meta.env.VITE_BE_ENDPOINT+"/api";
+    const uid = localStorage.getItem("id");
+
+    const response = await axios.get(
+      `${API_BASE_URL}/blueCourse/my`, {
+        headers: {
+          "Authorization": uid
+        },
+      });
+
+    return response.data.data;
+
+  } catch (error) {
+    console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
+    return []; // 에러 발생 시 빈 배열 반환
+  }
+};
+
+export const getDetailAlongBlue = async (id) => {
+  try {
+    const API_BASE_URL = import.meta.env.VITE_BE_ENDPOINT+"/api";
+
+    const response = await axios.get(
+      `${API_BASE_URL}/blueCourse/${id}`
+    );
+
+    return response.data.data;
+
+  } catch (error) {
+    console.error("데이터를 불러오는데 문제가 발생했습니다.", error);
+    return []; // 에러 발생 시 빈 배열 반환
+  }
+};

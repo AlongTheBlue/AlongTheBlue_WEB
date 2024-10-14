@@ -2,12 +2,15 @@ import { useState } from 'react';
 import '../styles/CourseItem.css'; // 스타일을 위한 CSS 파일
 import { useNavigate } from 'react-router-dom';
 
-const CourseItem = ({ alongCourse }) => {
+const CourseItem = ({ course, alongCourse }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const navigate = useNavigate();
 
-  const handleCourseDetail = () => {
-    navigate(`/along/courses/detail/${alongCourse.id}`)
+  const handleAlongCourseDetail = () => {
+    if(alongCourse)
+      navigate(`/along/courses/detail/${course.id}`)
+    else
+      navigate(`/along/blues/detail/${course.id}`)
   }
 
   // const handleNextImage = () => {
@@ -26,22 +29,22 @@ const CourseItem = ({ alongCourse }) => {
   return (
     <div className="course-item">
       {/* 이미지 슬라이더 */}
-      <div onClick={handleCourseDetail} style={{cursor:"pointer"}}>
-        {alongCourse.imgUrl &&
+      <div onClick={handleAlongCourseDetail} style={{cursor:"pointer"}}>
+        {course.imgUrl &&
         <div className="image-slider">
           {/* <div className="image-count"> */}
             {/* {currentImageIndex + 1} / {images.length} */}
           {/* </div> */}
           {/* <button className="prev-btn" >{"<"}</button> */}
-          <img src={alongCourse.imgUrl} alt={alongCourse.title} className="main-img" />
+          <img src={course.imgUrl} alt={course.title} className="main-img" />
           {/* <button className="next-btn" >{">"}</button> */}
         </div>
         }
         <div className="course-info">
-          <h3>{alongCourse.title}</h3>
-          <p className="description">{alongCourse.content}</p>
+          <h3>{course.title}</h3>
+          <p className="description">{course.content}</p>
           <div className="hashtags">
-            {alongCourse.hashtags && alongCourse.hashtags.map((tag, index) => (
+            {course.hashtags && course.hashtags.map((tag, index) => (
               <span className="hashtag" key={index}>#{tag}</span>
             ))}
           </div>

@@ -3,32 +3,29 @@ import "../styles/CourseItemList.css";
 import CourseItem from './CourseItem';
 import UserCard from "./UserCard";
 
-function CourseItemList({alongCourses}) {
+function CourseItemList({myPageMode, courses, alongCourse }) {
     const navigate = useNavigate();
     
     const handleAlongCoursesForm = () => {
-        const storedData = localStorage.getItem("id");
-        if(!storedData){
+        const uid = localStorage.getItem("id");
+        if(!uid){
             alert("로그인을 먼저 해주세요.")
             navigate(`/my`);
             return;
         }
-        navigate(`/along/courses/form/${storedData}`);
+        navigate(`/along/courses/form/${uid}`);
     }
-
-    console.log(alongCourses)
 
     return (
         <div className='courses-item-list-container'>
+            {!myPageMode &&
             <div className='courses-item-add' onClick={handleAlongCoursesForm}>작성</div>
+            }
             <div className='courses-item-list'>
-                {alongCourses && alongCourses.map((alongCourse, index) => (
+                {courses && courses.map((course, index) => (
                     <div className='courses-item-card' key={index}>
-                        <UserCard 
-                            user={alongCourse.user} />
-                        <CourseItem
-                            alongCourse = {alongCourse}
-                        />
+                        <UserCard user={course.user} />
+                        <CourseItem course = {course} alongCourse={alongCourse}/>
                     </div>
                 ))}
             </div>
