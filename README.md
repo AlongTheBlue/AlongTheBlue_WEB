@@ -47,4 +47,4 @@
 |[고도희](https://github.com/doteeth83)|[김예일](https://github.com/yeilkk)|[문인배](https://github.com/MoonInbae)|
 |:---:|:---:|:---:|
 |<img src="https://github.com/doteeth83.png" width="180" height="180" >|<img src="https://github.com/yeilkk.png" width="180" height="180" >|<img src="https://github.com/MoonInbae.png" width="180" height="180" >|
-| **Frontend Developer** | **Frontend Developer**| **Infrastructure Engineer** |
+| **Frontend Developer** | **Frontend Developer <br> Team Leader**| **Infrastructure Engineer** |
