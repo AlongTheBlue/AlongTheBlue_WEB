@@ -1,6 +1,7 @@
 import "../styles/UserCard.css";
 
 function  UserCard({ user }) {
+  
   const user1 = {
     id: 1,
     profileImg: '/images/user/user2.jpg',
