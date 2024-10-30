@@ -73,18 +73,20 @@ function ItemCard({ item, selectMode, travelCourses, itemCategory }) {
         ) : null}
       </div>
       <div className="item-info">
-        {selectMode && 
-            <div className="item-select" onClick={handleSelectPlace}>
-              선택
-            </div>
-        }
         <div className="item-header">
           <div className="item-title" onClick={handlePlaceDetail}>{item.title}</div>
           <img src='/images/icon/black_unliked.svg' alt="unliked icon"/>
         </div>
         <div className="item-address">
-          <img src="/images/icon/detail_address.svg" alt="location icon" />
-          <div>{item.address}</div>
+          <div className="item-address-text">
+            <img src="/images/icon/detail_address.svg" alt="location icon" />
+            <div>{item.address}</div>
+          </div>
+          {selectMode && 
+            <div className="item-select" onClick={handleSelectPlace}>
+              선택
+            </div>
+          }
         </div>
         <div className="hashtags">
           {hashtagLoading ?  
