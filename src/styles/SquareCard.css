@@ -5,6 +5,16 @@
     cursor: pointer;
 }
 
+/* .square-card-like {
+    position: absolute;
+    top: 0.4em;
+    right: 0.4em;
+}
+
+.like-img {
+    width: 1.1em;
+} */
+
 .square-card-info {
     position: absolute;
     bottom: 0;

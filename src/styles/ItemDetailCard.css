@@ -45,7 +45,7 @@
     padding: 0.3em 0;
 }
 
-.item-detail-address, .item-detail-holiday, .item-detail-weather {
+.item-detail-address, .item-detail-holiday, .item-detail-weather, .item-detail-infocenter {
     display: flex;
     font-size: 0.9em;
     align-items: center;
@@ -57,18 +57,23 @@
 }
 
 .item-detail-address img{
-    width: 1.6em;
+    width: 1.7em;
 }
 
 .item-detail-holiday img{
-    width: 1.3em;
+    width: 1.4em;
 }
 
 .item-detail-weather img{
     width: 1.6em;
 }
 
+.item-detail-infocenter img{
+    width: 1.2em;
+}
+
 .item-detail-text {
+    padding-left: 0.4em;
     width: 95%;
     margin-left: auto;
 }

@@ -146,6 +146,14 @@ function ItemDetailCard({category, id}) {
             {item.time && item.time.length > 0 ? item.time : '없음'}
           </div>
         </div>
+        <div className='item-detail-infocenter'>
+          <div className='item-detail-img'>
+            <img src='/images/icon/detail_infocenter.svg' />
+          </div>
+          <div className='item-detail-text'>
+            {item.infoCenter}
+          </div>
+        </div>
         <div className="item-detail-weather">
           <div className='item-detail-img'>
             <img src={weatherImg} />
