@@ -63,18 +63,25 @@
     color: #ffffff; /* active 상태의 텍스트 색 */
   }
 
-  .item-address {
+  .item-address-text {
     display: flex;
     align-items: center;
-    margin: 1.5% 0 0 0;
+    /* margin: 1.5% 0 0 0; */
   }
 
-  .item-address img {
+  .item-address {
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+    margin: 2% 0 3% 0;
+  }
+
+  .item-address-text img {
     width: 1.3em;
   }
-  .item-address div {
+
+  .item-address-text div {
     font-size: 0.8em;
-    /* color: #8F8F8F; */
     color: #007bff;
   }
   
@@ -84,7 +91,7 @@
     justify-content: end;
     font-weight: 700;
     cursor: pointer;
-    padding: 0 0.2em 1em;
+    /* padding: 0 0.2em 1em; */
     z-index: 1;
   }
 
