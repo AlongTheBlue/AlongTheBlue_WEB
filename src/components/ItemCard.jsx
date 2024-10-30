@@ -73,18 +73,17 @@ function ItemCard({ item, selectMode, travelCourses, itemCategory }) {
         ) : null}
       </div>
       <div className="item-info">
+        {selectMode && 
+            <div className="item-select" onClick={handleSelectPlace}>
+              선택
+            </div>
+        }
         <div className="item-header">
           <div className="item-title" onClick={handlePlaceDetail}>{item.title}</div>
-          {selectMode ? (
-            <div className="item-select" onClick={handleSelectPlace}>
-              선택하기
-            </div>
-          ) : (
-            <img src="/images/icon/unliked.svg" alt="unliked icon" style={{visibility: "hidden"}}/>
-          )}
+          <img src='/images/icon/black_unliked.svg' alt="unliked icon"/>
         </div>
         <div className="item-address">
-          <img src="/images/icon/location.svg" alt="location icon" />
+          <img src="/images/icon/detail_address.svg" alt="location icon" />
           <div>{item.address}</div>
         </div>
         <div className="hashtags">

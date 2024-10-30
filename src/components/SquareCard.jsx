@@ -23,6 +23,9 @@ function SquareCard({item, category}) {
           borderRadius: '5px'
         }}
       />
+      {/* <div className='square-card-like'>
+        <img className='like-img' src='/images/icon/unliked.svg'/>
+      </div> */}
       <div className="square-card-info">
         <div>
           <div className="square-card-name">{item.title}</div>
