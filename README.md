@@ -1,5 +1,5 @@
-# 제주도 바닷가를 따라, 바당따라
-🏆**한국관광공사 X 카카오 2024 관광데이터 활용 공모전 장려상 수상작**🏆
+# ![바당따라](https://github.com/user-attachments/assets/40b3a5c6-9a1d-4341-bc64-56022c682c84) 제주도 바닷가를 따라, 바당따라
+🏆 **한국관광공사 X 카카오 2024 관광데이터 활용 공모전 장려상 수상작** 🏆
 
 <a href="https://www.2024tourapi.com/">
   <img src="https://github.com/user-attachments/assets/982392c9-a788-4d83-80d5-286854e3abc3" width="100%" />
@@ -22,7 +22,7 @@
 </br>
 
 
-## Tech Stack
+## 📚 Tech Stack
 ### Frontend
 ![React](https://img.shields.io/badge/react-61DAFB.svg?style=for-the-badge&logo=react&logoColor=white)
 ![Javascript](https://img.shields.io/badge/javascript-F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=white)
@@ -48,7 +48,8 @@
 
 </br>
 
-## Develop Convention
+
+## 📌 Develop Convention
 #### Commit
 | **커밋 유형** | **의미** |
 | --- | --- |
@@ -62,8 +63,15 @@
 
 </br>
 
-## Member
+## 👤 Member
 |[고도희](https://github.com/doteeth83)|[김예일](https://github.com/yeilkk)|[문인배](https://github.com/MoonInbae)|
 |:---:|:---:|:---:|
 |<img src="https://github.com/doteeth83.png" width="180" height="180" >|<img src="https://github.com/yeilkk.png" width="180" height="180" >|<img src="https://github.com/MoonInbae.png" width="180" height="180" >|
 | **Frontend Developer** | **Frontend Developer <br> Team Leader**| **Infrastructure Engineer** |
+
+</br>
+
+## 🏆 Awards
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/dab95034-fa01-4b6b-af8f-d7d2fc7177ee" width="70%">
+</p>
